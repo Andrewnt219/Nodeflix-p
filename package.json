@@ -1,0 +1,14 @@
+{
+  "name": "nodeflix",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Andrewnt219/Nodeflix.git",
+  "author": "Tuan Phong Nguyen <phongnguyentuan20@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "joi": "^14.3.1",
+    "lodash": "^4.17.15"
+  }
+}
