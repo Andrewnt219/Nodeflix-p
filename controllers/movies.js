@@ -2,18 +2,26 @@ const express = require('express');
 const router = express.Router();
 const { sentenceCase } = require('change-case');
 
-const { movie, discoverGenre } = require('../public/js/tmdb');
+const { movies, discoverGenre, movie } = require('../public/js/tmdb');
 
-router.get('/:option', async (req, res) => {
-    res.render('home/home', {
-        movies: await movie(req.params.option),
-        title: sentenceCase(req.params.option),
+router.get('/', async (req, res) => {
+    res.render('movie/movies', {
+        movies: await movies(req.query.sortBy),
+        title: sentenceCase(req.query.sortBy),
+    })
+})
+
+router.get('/:movieId', async (req,res) => {
+    const mov = await movie(req.params.movieId);
+    res.render('movie/movie', {
+        movie: mov,
+        title: mov.original_title 
     })
 })
 
 router.get('/genres/:genreName', async (req, res) => {
     const genre = decodeURIComponent(req.params.genreName);
-    res.render('home/home', {
+    res.render('movie/movies', {
         movies: await discoverGenre(genre),
         title: genre,
     })

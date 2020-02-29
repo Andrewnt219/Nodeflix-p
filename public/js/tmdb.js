@@ -1,12 +1,12 @@
 const fetch = require('node-fetch');
 
 
-module.exports.getAllGenres = async function() {
+async function getAllGenres() {
     const respond = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}&language=en-US&page=1&region=CA`);
     return respond.json();
 }
 
-module.exports.getGenreId = async function (genreName) {
+async function getGenreId(genreName) {
     const { genres } = await getAllGenres();
     for (genre of genres) {
         if (genre.name.toLowerCase() === genreName.toLowerCase()) {
@@ -34,27 +34,33 @@ async function populateMovies(movies) {
     return movies;
 }
 
-module.exports.populateMovie = async function(mov) {
-    const { genres } = await getAllGenres();
-    mov.genres = [];
-    for (m_genre of mov.genre_ids) {
-        for (genre of genres) {
-            if (m_genre === genre.id)
-                mov.genres.push(genre.name);
-        }
+async function populateMovie(movie) {
+    movie.genre = [];
+    for (genre of movie.genres) {
+        movie.genre.push(genre.name);
     }
-    mov.genres = mov.genres.join(', ');
-    return mov;
+    movie.genre = movie.genre.join(', ');
+
+    movie.backdrop_path = 'http://image.tmdb.org/t/p/original' + movie.backdrop_path;
+    movie.poster_path = 'http://image.tmdb.org/t/p/original' + movie.poster_path;
+    return movie;
 }
 
-module.exports.movie = async function(api) {
+async function movies(api) {
     const respond = await fetch(`https://api.themoviedb.org/3/movie/${api}?api_key=${process.env.API_KEY}&language=en-US&page=1&region=CA`);
     const { results } = await respond.json();
 
     return populateMovies(results);
 }
 
-module.exports.discoverGenre = async function(genre) {
+async function movie(movieId) {
+    const respond = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.API_KEY}&language=en-US`);
+    const movie  = await respond.json();
+
+    return populateMovie(movie);
+}
+
+async function discoverGenre(genre) {
     const genreId = await getGenreId(genre);
     let respond = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=8c38f8d7ffa0be110074225859ed94c1&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genreId}`);
 
@@ -62,3 +68,7 @@ module.exports.discoverGenre = async function(genre) {
     return populateMovies(results);
 
 }
+
+module.exports.movies = movies;
+module.exports.movie = movie;
+module.exports.discoverGenre = discoverGenre;

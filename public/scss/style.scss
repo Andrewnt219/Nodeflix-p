@@ -179,6 +179,34 @@ body {
     }
 }
 
+.oneMovie {
+    display: grid;
+    width: 90%;
+    margin: 0 auto;
+    grid-template-rows: max-content;
+    grid-template-columns: min-content ;
+    grid-template-areas: 
+    "img genre"
+    "img score";
+
+    &__img {
+        grid-area: img;
+        width: 350px;
+        height: auto;
+    }
+
+    &__score {
+        grid-area: score;
+        background-color: yellow;
+    }
+
+    &__genres {
+        grid-area: genre;
+        background-color: beige;
+    }
+
+}
+
 .footer {
     grid-area: footer;
 }
