@@ -1,5 +1,9 @@
 <article class="oneMovie">
-    <p class="oneMovie__score">{{movie.vote_average}}</p>
     <img src="{{movie.poster_path}}" alt="{{movie.original_title}}" class="oneMovie__img">
-    <p class="oneMovie__genres">{{movie.genre}}</p>
+    <p class="oneMovie__score"><span class="oneMovie__field">Score</span> {{movie.vote_average}}</p>
+    <p class="oneMovie__genres"><span class="oneMovie__field">Genres</span> {{movie.genre}}</p>
+    <p class="oneMovie__release"><span class="oneMovie__field">Release date</span> {{movie.release_date}}</p>
+    <p class="oneMovie__price"><span class="oneMovie__field">Price</span> {{movie.price}} CAD</p>
+    <p class="oneMovie__rent"><span class="oneMovie__field">Rent</span> {{movie.rent}} CAD</p>
+    <p class="oneMovie__desc"><span class="oneMovie__field">Overview</span> {{movie.overview}}</p>
 </article>

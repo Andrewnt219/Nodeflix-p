@@ -43,6 +43,8 @@ async function populateMovie(movie) {
 
     movie.backdrop_path = 'http://image.tmdb.org/t/p/original' + movie.backdrop_path;
     movie.poster_path = 'http://image.tmdb.org/t/p/original' + movie.poster_path;
+    movie.price = (Math.round(Math.random() * (15 - 4 + 1) + 4) + 0.99).toFixed(2);
+    movie.rent = Math.ceil(movie.price * .2);
     return movie;
 }
 

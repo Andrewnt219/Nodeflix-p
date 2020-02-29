@@ -1,6 +1,6 @@
 :root {
   font-size: 1em;
-  font-family: 'Raleway', Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   color: white; }
 
 .movie__genres, .movie__release {
@@ -120,19 +120,29 @@ body {
   display: grid;
   width: 90%;
   margin: 0 auto;
-  grid-template-rows: max-content;
   grid-template-columns: min-content;
-  grid-template-areas: "img genre" "img score"; }
+  align-items: center;
+  column-gap: 2rem;
+  grid-template-areas: "img genre" "img score" "img desc" "img release" "img price" "img rent"; }
   .oneMovie__img {
     grid-area: img;
     width: 350px;
     height: auto; }
   .oneMovie__score {
-    grid-area: score;
-    background-color: yellow; }
+    grid-area: score; }
   .oneMovie__genres {
-    grid-area: genre;
-    background-color: beige; }
+    grid-area: genre; }
+  .oneMovie__desc {
+    grid-area: desc; }
+  .oneMovie__price {
+    grid-area: price; }
+  .oneMovie__rent {
+    grid-area: rent; }
+  .oneMovie__release {
+    grid-area: release; }
+  .oneMovie__field {
+    font-weight: bold;
+    background-color: #F24150; }
 
 .footer {
   grid-area: footer; }

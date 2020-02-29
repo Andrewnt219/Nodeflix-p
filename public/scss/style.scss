@@ -1,6 +1,6 @@
 :root {
     font-size: 1em;
-    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
     color:white;
 }
 
@@ -183,11 +183,16 @@ body {
     display: grid;
     width: 90%;
     margin: 0 auto;
-    grid-template-rows: max-content;
     grid-template-columns: min-content ;
+    align-items: center;
+    column-gap: 2rem;
     grid-template-areas: 
     "img genre"
-    "img score";
+    "img score"
+    "img desc"
+    "img release"
+    "img price"
+    "img rent";
 
     &__img {
         grid-area: img;
@@ -197,14 +202,32 @@ body {
 
     &__score {
         grid-area: score;
-        background-color: yellow;
     }
 
     &__genres {
         grid-area: genre;
-        background-color: beige;
     }
 
+    &__desc {
+        grid-area: desc;
+    }
+
+    &__price {
+        grid-area: price;
+    }
+
+    &__rent {
+        grid-area: rent;
+    }
+
+    &__release {
+        grid-area: release;
+    }
+
+    &__field {
+        font-weight: bold;
+        background-color: $red;
+    }
 }
 
 .footer {
