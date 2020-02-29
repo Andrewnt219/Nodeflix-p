@@ -1,12 +1,12 @@
 <article class="oneMovie">
     <h1 class="oneMovie__title">{{movie.original_title}}</h1>
     <img src="{{movie.poster_path}}" alt="{{movie.original_title}}" class="oneMovie__img">
-    <p class="oneMovie__score"><span class="oneMovie__field">Score</span> {{movie.vote_average}}</p>
-    <p class="oneMovie__genres"><span class="oneMovie__field">Genres</span> {{movie.genre}}</p>
-    <p class="oneMovie__release"><span class="oneMovie__field">Release date</span> {{movie.release_date}}</p>
-    <p class="oneMovie__price"><span class="oneMovie__field">Price</span> {{movie.price}}</p>
-    <p class="oneMovie__rent"><span class="oneMovie__field">Rent</span> {{movie.rent}}</p>
-    <p class="oneMovie__desc"><span class="oneMovie__field">Overview</span> {{movie.overview}}</p>
-    <button class="oneMovie__btn-price">Buy</button>
-    <button class="oneMovie__btn-rent">Rent</button>
+    <p class="oneMovie__score"><span class="oneMovie__field">Score&nbsp;</span> {{movie.vote_average}}</p>
+    <p class="oneMovie__genres"><span class="oneMovie__field">Genres&nbsp;</span> {{movie.genre}}</p>
+    <p class="oneMovie__release"><span class="oneMovie__field">Release date&nbsp;</span> {{movie.release_date}}</p>
+    <p class="oneMovie__price"><span class="oneMovie__field">Price&nbsp;</span> ${{movie.price}}</p>
+    <p class="oneMovie__rent"><span class="oneMovie__field">Rent&nbsp;</span> ${{movie.rent}}</p>
+    <p class="oneMovie__desc"><span class="oneMovie__field">Overview&nbsp;</span> {{movie.overview}}</p>
+    <a class="oneMovie__btn-price" href="">Buy</a>
+    <a class="oneMovie__btn-rent" href="">Rent</a>
 </article>

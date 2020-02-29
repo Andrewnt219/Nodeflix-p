@@ -31,8 +31,8 @@ async function populateMovies(movies) {
 
     movies.forEach(mov => mov.ref = `/movies/${mov.id}`);
 
-    movies.forEach(mov => mov.backdrop_path = 'http://image.tmdb.org/t/p/original' + mov.backdrop_path)
-    movies.forEach(mov => mov.poster_path = 'http://image.tmdb.org/t/p/original' + mov.poster_path)
+    movies.forEach(mov => mov.backdrop_path? mov.backdrop_path = 'http://image.tmdb.org/t/p/original' + mov.backdrop_path : mov.backdrop_path = '/img/404.png')
+    movies.forEach(mov => mov.poster_path? mov.poster_path = 'http://image.tmdb.org/t/p/original' + mov.poster_path : mov.poster_path = '/img/404.png')
     return movies;
 }
 
@@ -43,8 +43,8 @@ async function populateMovie(movie) {
     }
     movie.genre = movie.genre.join(', ');
 
-    movie.backdrop_path = 'http://image.tmdb.org/t/p/original' + movie.backdrop_path;
-    movie.poster_path = 'http://image.tmdb.org/t/p/original' + movie.poster_path;
+    movie.backdrop_path? movie.backdrop_path = 'http://image.tmdb.org/t/p/original' + movie.backdrop_path : movie.backdrop_path = '/img/404.png';
+    movie.poster_path? movie.poster_path = 'http://image.tmdb.org/t/p/original' + movie.poster_path : movie.poster_path = '/img/404.png';
 
     movie.price = (Math.round(Math.random() * (15 - 4 + 1) + 4) + 0.99).toFixed(2);
     movie.rent = Math.ceil(movie.price * .2);
@@ -67,13 +67,21 @@ async function movie(movieId) {
 
 async function discoverGenre(genre) {
     const genreId = await getGenreId(genre);
-    let respond = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=8c38f8d7ffa0be110074225859ed94c1&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genreId}`);
+    let respond = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genreId}`);
 
     const { results } = await respond.json();
     return populateMovies(results);
 
 }
 
+
+async function searchMovie(keyword) {
+    movieName = keyword.replace(' ','+');
+    const respond = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.API_KEY}&query=${movieName}`);
+    const {results} = await respond.json();
+    return populateMovies(results); 
+}
 module.exports.movies = movies;
 module.exports.movie = movie;
 module.exports.discoverGenre = discoverGenre;
+module.exports.searchMovie = searchMovie;

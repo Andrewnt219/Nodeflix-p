@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { sentenceCase } = require('change-case');
 
-const { movies, discoverGenre, movie } = require('../public/js/tmdb');
+const { movies, discoverGenre, movie, searchMovie } = require('../public/js/tmdb');
 
 router.get('/', async (req, res) => {
     res.render('movie/movies', {
@@ -14,6 +14,13 @@ router.get('/', async (req, res) => {
 router.get('/:movieId', async (req,res) => {
     res.render('movie/movie', {
         movie: await movie(req.params.movieId) 
+    })
+})
+
+router.post('/', async (req,res) => {
+    res.render('movie/movies', {
+        movies:await searchMovie(req.body.movie),
+        title: req.body.movie
     })
 })
 

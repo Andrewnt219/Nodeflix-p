@@ -15,9 +15,10 @@
             <img src="/img/logo.png" alt="logo" class="logo__icon">
             <h1 class="logo__site">Nodeflix</h1>
     </a>
-    <article class="search">
-        <input type="text" class="search__input" placeholder="Search movies">
-    </article>
+    <form class="search" action="/movies" method="POST">
+        <input type="text" name="movie" class="search__input" placeholder="Search movies">
+        <input type="submit" hidden>
+    </form>
 
     <nav class="nav">
         <a href="/movies?sortBy=now_playing" class="nav__genre {{#if isNew}}nav__genre--active{{/if}}">New Release</a>
@@ -44,5 +45,6 @@
         </article>
     </footer>
 </body>
+<script src='/js/utils.js'></script>
 
 </html>

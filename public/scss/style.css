@@ -9,16 +9,20 @@
   font-weight: bold; }
 
 .oneMovie__btn-price, .oneMovie__btn-rent {
+  display: block;
+  border: white 1px solid;
   justify-self: end;
   width: 100px;
   padding: 0.5rem;
-  background-color: #f45966;
+  background-color: #F24150;
   color: white;
   font-weight: bold;
-  font-size: inherit; }
+  font-size: inherit;
+  text-align: center; }
   .oneMovie__btn-price:active, .oneMovie__btn-rent:active {
-    transform: translate(2px, 2px);
-    background-color: #F24150; }
+    transform: translate(2px, 2px); }
+  .oneMovie__btn-price:hover, .oneMovie__btn-rent:hover {
+    background-color: #f0293a; }
 
 * {
   margin: 0;
@@ -32,9 +36,9 @@ html, body {
 
 body {
   display: grid;
-  grid-template-areas: "logo search" "nav main" "footer footer";
+  grid-template-areas: "logo search" "nav title" "nav main" "footer footer";
   grid-template-columns: 15% auto;
-  grid-template-rows: 10% auto 15%; }
+  grid-template-rows: minmax(10%, auto); }
 
 .logo {
   grid-area: logo;
@@ -84,7 +88,7 @@ body {
 .title {
   grid-area: title;
   background-color: #222B31;
-  margin: auto;
+  margin: 3rem auto 0 auto;
   width: max-content; }
 
 .subtitle {
@@ -118,6 +122,8 @@ body {
     position: relative;
     top: 7%;
     align-self: center; }
+    .movie__score--bad {
+      background-color: red; }
   .movie__img {
     width: 250px;
     height: 300px; }
@@ -133,7 +139,7 @@ body {
   grid-area: main;
   font-size: 1.3rem;
   width: 90%;
-  margin: 2rem auto 0 auto;
+  margin: 1rem auto 0 auto;
   grid-template-columns: min-content;
   align-items: center;
   column-gap: 2rem;

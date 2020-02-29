@@ -4,6 +4,7 @@ require('dotenv').config({ path: './config/.env' });
 
 module.exports = function (app) {
     app.use(express.json());
+    app.use(express.urlencoded({extended:true}));
     app.use(express.static('public'));
 
     app.listen(process.env.PORT, () => console.log('Ready for renting'));
