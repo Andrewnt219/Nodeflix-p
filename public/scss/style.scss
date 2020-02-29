@@ -15,10 +15,29 @@ $icon-height: 30px;
 $poster-w: 250px;
 $poster-h: 300px;
 
+$btn-w: 100px;
+$btn-h: 70px;
+
 %subinfo {
     color: $aqua;
     font-size: 0.8rem;
     font-weight: bold;
+}
+
+%btn {
+    justify-self: end;
+    width: $btn-w;
+    padding: 0.5rem;
+    background-color: lighten($red, 5%);
+    color: white;
+    font-weight: bold;
+    font-size: inherit;
+
+    &:active {
+        transform: translate(2px, 2px);
+        background-color: $red;
+    }
+
 }
 
 * {
@@ -37,8 +56,6 @@ body {
     display:grid;
     grid-template-areas: 
         "logo search"
-        "nav title"
-        "nav title"
         "nav main"
         "footer footer";
     grid-template-columns: 15% auto;
@@ -181,22 +198,32 @@ body {
 
 .oneMovie {
     display: grid;
+    grid-area: main;
+    font-size: 1.3rem;
     width: 90%;
-    margin: 0 auto;
+    margin: 2rem auto 0 auto;
     grid-template-columns: min-content ;
     align-items: center;
     column-gap: 2rem;
-    grid-template-areas: 
-    "img genre"
-    "img score"
-    "img desc"
-    "img release"
-    "img price"
-    "img rent";
+    grid-template-areas:
+    "title title title"
+    "img genre genre"
+    "img score score"
+    "img desc desc"
+    "img release release"
+    "img price btn-price"
+    "img rent btn-rent";
+
+    &__title {
+        grid-area: title;
+        justify-self: center;
+        font-size: 3rem;
+        font-weight: bolder;
+    }
 
     &__img {
         grid-area: img;
-        width: 350px;
+        width: 300px;
         height: auto;
     }
 
@@ -210,6 +237,7 @@ body {
 
     &__desc {
         grid-area: desc;
+        width: auto;
     }
 
     &__price {
@@ -222,6 +250,17 @@ body {
 
     &__release {
         grid-area: release;
+    }
+
+    &__btn-price {
+        grid-area: btn-price;
+        @extend %btn;
+    }
+
+    &__btn-rent {
+        grid-area: btn-rent;
+        @extend %btn
+
     }
 
     &__field {
@@ -246,6 +285,25 @@ body {
 
     .nav {
         display: none;
+    }
+
+    .oneMovie{
+        grid-template-areas: 
+        "title title title"
+        "desc desc desc"
+        "img genre genre"
+        "img score score"
+        "img release release"
+        "img price price"
+        "img rent rent"
+        "btn-price ... ..."
+        "btn-rent ... ...";
+
+        row-gap: 1.5rem;
+
+        &__btn-price, &__btn-rent {
+            width: 100%;
+        }
     }
 }
 

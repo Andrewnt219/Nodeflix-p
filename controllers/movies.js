@@ -12,10 +12,8 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:movieId', async (req,res) => {
-    const mov = await movie(req.params.movieId);
     res.render('movie/movie', {
-        movie: mov,
-        title: mov.original_title 
+        movie: await movie(req.params.movieId) 
     })
 })
 

@@ -8,6 +8,18 @@
   font-size: 0.8rem;
   font-weight: bold; }
 
+.oneMovie__btn-price, .oneMovie__btn-rent {
+  justify-self: end;
+  width: 100px;
+  padding: 0.5rem;
+  background-color: #f45966;
+  color: white;
+  font-weight: bold;
+  font-size: inherit; }
+  .oneMovie__btn-price:active, .oneMovie__btn-rent:active {
+    transform: translate(2px, 2px);
+    background-color: #F24150; }
+
 * {
   margin: 0;
   padding: 0;
@@ -20,7 +32,7 @@ html, body {
 
 body {
   display: grid;
-  grid-template-areas: "logo search" "nav title" "nav title" "nav main" "footer footer";
+  grid-template-areas: "logo search" "nav main" "footer footer";
   grid-template-columns: 15% auto;
   grid-template-rows: 10% auto 15%; }
 
@@ -118,28 +130,40 @@ body {
 
 .oneMovie {
   display: grid;
+  grid-area: main;
+  font-size: 1.3rem;
   width: 90%;
-  margin: 0 auto;
+  margin: 2rem auto 0 auto;
   grid-template-columns: min-content;
   align-items: center;
   column-gap: 2rem;
-  grid-template-areas: "img genre" "img score" "img desc" "img release" "img price" "img rent"; }
+  grid-template-areas: "title title title" "img genre genre" "img score score" "img desc desc" "img release release" "img price btn-price" "img rent btn-rent"; }
+  .oneMovie__title {
+    grid-area: title;
+    justify-self: center;
+    font-size: 3rem;
+    font-weight: bolder; }
   .oneMovie__img {
     grid-area: img;
-    width: 350px;
+    width: 300px;
     height: auto; }
   .oneMovie__score {
     grid-area: score; }
   .oneMovie__genres {
     grid-area: genre; }
   .oneMovie__desc {
-    grid-area: desc; }
+    grid-area: desc;
+    width: auto; }
   .oneMovie__price {
     grid-area: price; }
   .oneMovie__rent {
     grid-area: rent; }
   .oneMovie__release {
     grid-area: release; }
+  .oneMovie__btn-price {
+    grid-area: btn-price; }
+  .oneMovie__btn-rent {
+    grid-area: btn-rent; }
   .oneMovie__field {
     font-weight: bold;
     background-color: #F24150; }
@@ -155,4 +179,9 @@ body {
   .logo__site {
     display: none; }
   .nav {
-    display: none; } }
+    display: none; }
+  .oneMovie {
+    grid-template-areas: "title title title" "desc desc desc" "img genre genre" "img score score" "img release release" "img price price" "img rent rent" "btn-price ... ..." "btn-rent ... ...";
+    row-gap: 1.5rem; }
+    .oneMovie__btn-price, .oneMovie__btn-rent {
+      width: 100%; } }
