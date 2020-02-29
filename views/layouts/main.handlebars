@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ttile}}</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <script src="https://use.fontawesome.com/b81714e19c.js"></script>
+    <link rel="stylesheet" href="/scss/style.css">
+</head>
+
+<body>
+    <a href="" class="logo">
+            <img src="/img/logo.png" alt="logo" class="logo__icon">
+            <h1 class="logo__site">Nodeflix</h1>
+    </a>
+    <article class="search">
+        <input type="text" class="search__input" placeholder="Search movies">
+    </article>
+
+    <nav class="nav">
+        <a href="" class="nav__genre {{#if isNew}}nav__genre--active{{/if}}">New Release</a>
+        <a href="" class="nav__genre">Trending</a>
+        <a href="" class="nav__genre">Action</a>
+        <a href="" class="nav__genre">Adventure</a>
+        <a href="" class="nav__genre">Comedy</a>
+        <a href="" class="nav__genre">Romance</a>
+        <a href="" class="nav__genre">Sci-fi</a>
+    </nav>
+
+    <h1 class="title">{{title}}</h1>
+    <main class="main">
+        {{{body}}}
+    </main>
+
+    <footer class="footer">
+        <article class="footer__media"></article>
+        <article class="footer__terms-and-services"></article>
+        <article class="footer__thanks">
+            <p class="footer__author">
+                <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
+            </p>
+        </article>
+    </footer>
+</body>
+
+</html>

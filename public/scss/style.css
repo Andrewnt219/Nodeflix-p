@@ -1,0 +1,130 @@
+:root {
+  font-size: 1em;
+  font-family: 'Raleway', Arial, Helvetica, sans-serif;
+  color: white; }
+
+.movie__genres, .movie__release {
+  color: #05EBD4;
+  font-size: 0.8rem;
+  font-weight: bold; }
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #222B31; }
+
+body {
+  display: grid;
+  grid-template-areas: "logo search" "nav title" "nav title" "nav main" "footer footer";
+  grid-template-columns: 15% auto;
+  grid-template-rows: 10% auto 15%; }
+
+.logo {
+  grid-area: logo;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F24150; }
+  .logo__icon {
+    width: 30px;
+    height: 30px;
+    margin-right: .5rem; }
+  .logo__site {
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem; }
+  .logo:hover {
+    background-color: #f0293a; }
+
+.search {
+  grid-area: search;
+  background-color: #f45966;
+  display: flex; }
+  .search__input {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    font-size: 1.2rem;
+    color: white;
+    position: relative;
+    left: 2rem; }
+
+.nav {
+  grid-area: nav;
+  background-color: #0d1113;
+  padding-top: 2rem; }
+  .nav__genre {
+    font-weight: bolder;
+    list-style: none;
+    padding: 1rem 2rem;
+    text-align: left;
+    display: block;
+    color: white; }
+    .nav__genre:hover, .nav__genre--active {
+      background-color: #2c3840;
+      color: #F24150; }
+
+.title {
+  grid-area: title;
+  background-color: #222B31;
+  margin: auto;
+  width: max-content; }
+
+.subtitle {
+  grid-area: subtitle;
+  background-color: #222B31;
+  width: max-content;
+  margin: 0 auto; }
+
+.main {
+  grid-area: main;
+  width: 90%;
+  margin: auto;
+  background-color: inherit;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 270px)); }
+
+.movie {
+  display: flex;
+  flex-direction: column;
+  width: min-content; }
+  .movie * {
+    margin: 0.3rem; }
+  .movie__score {
+    background-color: #F2A20C;
+    width: 30%;
+    padding: 0.5rem 0;
+    border-radius: 50px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 1;
+    position: relative;
+    top: 7%;
+    align-self: center; }
+  .movie__img {
+    width: 250px;
+    height: 300px; }
+    .movie__img:hover {
+      filter: brightness(115%); }
+  .movie__title {
+    text-align: left;
+    height: max-content;
+    font-weight: bolder; }
+
+.footer {
+  grid-area: footer; }
+
+::placeholder {
+  color: white;
+  opacity: 0.8; }
+
+@media (max-width: 1200px) {
+  .logo__site {
+    display: none; }
+  .nav {
+    display: none; } }
