@@ -1,53 +1,23 @@
 const express = require('express');
 const router = express.Router();
+const { sentenceCase } = require('change-case');
 
-const { movie } = require('../public/js/tmdb');
+const { movie, discoverGenre } = require('../public/js/tmdb');
 
-router.get('/top-rated', async (req, res) => {
+router.get('/:option', async (req, res) => {
     res.render('home/home', {
-        movies: await movie('top_rated'),
-        title: 'Top Rated',
-        isTop: true
-    }
-    )
+        movies: await movie(req.params.option),
+        title: sentenceCase(req.params.option),
+    })
 })
 
-router.get('/upcoming', async (req, res) => {
+router.get('/genres/:genreName', async (req, res) => {
+    const genre = decodeURIComponent(req.params.genreName);
     res.render('home/home', {
-        movies: await movie('upcoming'),
-        title: 'Upcoming',
-        isComming: true
-    }
-    )
+        movies: await discoverGenre(genre),
+        title: genre,
+    })
 })
 
-router.get('/popular', async (req, res) => {
-    res.render('home/home', {
-        movies: await movie('popular'),
-        title: 'Popular',
-        isPopular: true
-    }
-    )
-})
-
-router.get('/Action', async (req, res) => {
-
-})
-
-router.get('/Adventure', async (req, res) => {
-
-})
-
-router.get('/Comedy', async (req, res) => {
-
-})
-
-router.get('/Romance', async (req, res) => {
-
-})
-
-router.get('/Sci-fi', async (req, res) => {
-
-})
 
 module.exports = router;
