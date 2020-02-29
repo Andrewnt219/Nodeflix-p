@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const utils = require('../public/js/utils')
+const utils = require('../public/js/tmdb')
 
 router.get('/', async (req,res) => {
     res.render('home/home', {
