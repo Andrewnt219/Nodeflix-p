@@ -26,6 +26,7 @@ $btn-h: 70px;
 
 %btn {
     display: block;
+    cursor: pointer;
     border: white 1px solid;
     justify-self: end;
     width: $btn-w;
@@ -35,11 +36,6 @@ $btn-h: 70px;
     font-weight: bold;
     font-size: inherit;
     text-align: center;
-
-    &:active {
-        transform: translate(2px, 2px);
-
-    }
 
     &:hover {
         background-color: darken($red, 5%);
@@ -62,12 +58,26 @@ html, body {
 body {
     display:grid;
     grid-template-areas: 
-        "logo search"
-        "nav title"
-        "nav main"
-        "footer footer";
+        "logo search btn-register btn-login"
+        "nav title title title"
+        "nav main main main"
+        "footer footer footer footer";
     grid-template-columns: 15% auto;
     grid-template-rows:  minmax(10%, auto);
+}
+
+#btn-register {
+    grid-area: btn-register;
+    @extend %btn;
+    width: 100%;
+    border: none;
+}
+
+#btn-login {
+    grid-area: btn-login;
+    @extend %btn;
+    width: 100%;
+    border: none;
 }
 
 .logo {
@@ -100,6 +110,7 @@ body {
     display: flex;
 
     &__input {
+        width: 100%;
         background-color: inherit;
         border: none;
         outline: none;

@@ -29,10 +29,12 @@ async function populateMovies(movies) {
         mov.genres = mov.genres.join(', ');
     })
 
-    movies.forEach(mov => mov.ref = `/movies/${mov.id}`);
-
-    movies.forEach(mov => mov.backdrop_path? mov.backdrop_path = 'http://image.tmdb.org/t/p/original' + mov.backdrop_path : mov.backdrop_path = '/img/404.png')
-    movies.forEach(mov => mov.poster_path? mov.poster_path = 'http://image.tmdb.org/t/p/original' + mov.poster_path : mov.poster_path = '/img/404.png')
+    movies.forEach(mov => {
+        mov.ref = `/movies/${mov.id}`;
+        mov.backdrop_path? mov.backdrop_path = 'http://image.tmdb.org/t/p/original' + mov.backdrop_path : mov.backdrop_path = '/img/404.png';
+        mov.poster_path? mov.poster_path = 'http://image.tmdb.org/t/p/original' + mov.poster_path : mov.poster_path = '/img/404.png';
+        mov.vote_average = mov.vote_average.toFixed(1);
+    });
     return movies;
 }
 
@@ -45,6 +47,8 @@ async function populateMovie(movie) {
 
     movie.backdrop_path? movie.backdrop_path = 'http://image.tmdb.org/t/p/original' + movie.backdrop_path : movie.backdrop_path = '/img/404.png';
     movie.poster_path? movie.poster_path = 'http://image.tmdb.org/t/p/original' + movie.poster_path : movie.poster_path = '/img/404.png';
+
+    movie.vote_average = movie.vote_average.toFixed(1);
 
     movie.price = (Math.round(Math.random() * (15 - 4 + 1) + 4) + 0.99).toFixed(2);
     movie.rent = Math.ceil(movie.price * .2);

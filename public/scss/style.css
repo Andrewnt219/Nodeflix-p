@@ -8,8 +8,9 @@
   font-size: 0.8rem;
   font-weight: bold; }
 
-.oneMovie__btn-price, .oneMovie__btn-rent {
+#btn-register, #btn-login, .oneMovie__btn-price, .oneMovie__btn-rent {
   display: block;
+  cursor: pointer;
   border: white 1px solid;
   justify-self: end;
   width: 100px;
@@ -19,9 +20,7 @@
   font-weight: bold;
   font-size: inherit;
   text-align: center; }
-  .oneMovie__btn-price:active, .oneMovie__btn-rent:active {
-    transform: translate(2px, 2px); }
-  .oneMovie__btn-price:hover, .oneMovie__btn-rent:hover {
+  #btn-register:hover, #btn-login:hover, .oneMovie__btn-price:hover, .oneMovie__btn-rent:hover {
     background-color: #f0293a; }
 
 * {
@@ -36,9 +35,19 @@ html, body {
 
 body {
   display: grid;
-  grid-template-areas: "logo search" "nav title" "nav main" "footer footer";
+  grid-template-areas: "logo search btn-register btn-login" "nav title title title" "nav main main main" "footer footer footer footer";
   grid-template-columns: 15% auto;
   grid-template-rows: minmax(10%, auto); }
+
+#btn-register {
+  grid-area: btn-register;
+  width: 100%;
+  border: none; }
+
+#btn-login {
+  grid-area: btn-login;
+  width: 100%;
+  border: none; }
 
 .logo {
   grid-area: logo;
@@ -62,6 +71,7 @@ body {
   background-color: #f45966;
   display: flex; }
   .search__input {
+    width: 100%;
     background-color: inherit;
     border: none;
     outline: none;
