@@ -8,7 +8,7 @@
   font-size: 0.8rem;
   font-weight: bold; }
 
-#btn-register, #btn-login, .oneMovie__btn-price, .oneMovie__btn-rent {
+.btn-register, .btn-login, .oneMovie__btn-price, .oneMovie__btn-rent {
   display: block;
   cursor: pointer;
   border: white 1px solid;
@@ -20,7 +20,7 @@
   font-weight: bold;
   font-size: inherit;
   text-align: center; }
-  #btn-register:hover, #btn-login:hover, .oneMovie__btn-price:hover, .oneMovie__btn-rent:hover {
+  .btn-register:hover, .btn-login:hover, .oneMovie__btn-price:hover, .oneMovie__btn-rent:hover {
     background-color: #f0293a; }
 
 * {
@@ -37,17 +37,21 @@ body {
   display: grid;
   grid-template-areas: "logo search btn-register btn-login" "nav title title title" "nav main main main" "footer footer footer footer";
   grid-template-columns: 15% auto;
-  grid-template-rows: minmax(10%, auto); }
+  grid-template-rows: minmax(10%, max-content); }
 
-#btn-register {
+.btn-register {
   grid-area: btn-register;
   width: 100%;
   border: none; }
+  .btn-register__icon {
+    display: none; }
 
-#btn-login {
+.btn-login {
   grid-area: btn-login;
   width: 100%;
   border: none; }
+  .btn-login__icon {
+    display: none; }
 
 .logo {
   grid-area: logo;
@@ -84,6 +88,8 @@ body {
   grid-area: nav;
   background-color: #0d1113;
   padding-top: 2rem; }
+  .nav__icon {
+    display: none; }
   .nav__genre {
     font-weight: bolder;
     list-style: none;
@@ -120,7 +126,8 @@ body {
   flex-direction: column;
   width: min-content; }
   .movie * {
-    margin: 0.3rem; }
+    margin: 0.3rem;
+    word-wrap: break-word; }
   .movie__score {
     background-color: #F2A20C;
     width: 30%;
@@ -191,11 +198,43 @@ body {
   color: white;
   opacity: 0.8; }
 
+::-webkit-scrollbar {
+  width: 0.5rem; }
+  ::-webkit-scrollbar-thumb {
+    background-color: #F2A20C; }
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #c1810a; }
+  ::-webkit-scrollbar-track {
+    background-color: #222B31; }
+
 @media (max-width: 1200px) {
+  body {
+    grid-template-areas: "logo search btn-register btn-login" "titletitle title title" "main main main main" "footer footer footer footer"; }
   .logo__site {
     display: none; }
   .nav {
-    display: none; }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 100;
+    width: 100vw;
+    position: fixed;
+    bottom: 0; }
+    .nav__text {
+      display: none; }
+    .nav__icon {
+      transform: scale(1.5);
+      display: block; }
+  .btn-register, .btn-login {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .btn-register__text, .btn-login__text {
+      display: none; }
+    .btn-register__icon, .btn-login__icon {
+      transform: scale(1.5);
+      display: block; }
   .oneMovie {
     grid-template-areas: "title title title" "desc desc desc" "img genre genre" "img score score" "img release release" "img price price" "img rent rent" "btn-price ... ..." "btn-rent ... ...";
     row-gap: 1.5rem; }

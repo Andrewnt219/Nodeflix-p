@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="/fontawesome/css/all.css" rel="stylesheet">
     <script src="https://use.fontawesome.com/b81714e19c.js"></script>
     <link rel="stylesheet" href="/scss/style.css">
 </head>
@@ -13,8 +14,8 @@
 <body>
 
     <a href="/" class="logo">
-            <img src="/img/logo.png" alt="logo" class="logo__icon">
-            <h1 class="logo__site">Nodeflix</h1>
+        <img src="/img/logo.png" alt="logo" class="logo__icon">
+        <h1 class="logo__site">Nodeflix</h1>
     </a>
 
     <form class="search" action="/movies" method="POST">
@@ -22,22 +23,64 @@
         <input type="submit" hidden>
     </form>
 
-    <button id="btn-register">Register</button>
-    <button id="btn-login">Login</button>
+    <button class="btn-register">
+        <i class="fas fa-user-plus btn-register__icon"></i>
+        <span class="btn-register__text">Register</span>
+    </button>
+    <button class="btn-login">
+        <i class="fas fa-sign-in-alt btn-login__icon"></i>
+        <span class="btn-login__text">Login</span>
+    </button>
 
     <nav class="nav">
-        <a href="/movies?sortBy=now_playing" class="nav__genre {{#if isNew}}nav__genre--active{{/if}}">New Release</a>
-        <a href="/movies?sortBy=popular" class="nav__genre">Popular</a>
-        <a href="/movies?sortBy=top_rated" class="nav__genre">Top Rated</a>
-        <a href="/movies?sortBy=upcoming" class="nav__genre">Upcoming</a>
-        <a href="/movies/genres/Action" class="nav__genre">Action</a>
-        <a href="/movies/genres/Adventure" class="nav__genre">Adventure</a>
-        <a href="/movies/genres/Comedy" class="nav__genre">Comedy</a>
-        <a href="/movies/genres/Romance" class="nav__genre">Romance</a>
-        <a href="/movies/genres/Science Fiction" class="nav__genre">Sci-fi</a>
+        <a href="/movies?sortBy=now_playing" class="nav__genre {{#if isNew}}nav__genre--active{{/if}}">
+            <i class="fas fa-rss-square nav__icon"></i>
+            <span class="nav__text">New Release</span>
+        </a>
+
+        <a href="/movies?sortBy=popular" class="nav__genre">
+            <i class="fas fa-fire-alt nav__icon"></i>
+            <span class="nav__text">Popular</span>
+        </a>
+
+        <a href="/movies?sortBy=top_rated" class="nav__genre">
+            <i class="far fa-thumbs-up nav__icon"></i>
+            <span class="nav__text">Top Rated</span>
+        </a>
+
+        <a href="/movies?sortBy=upcoming" class="nav__genre">
+            <i class="fas fa-forward nav__icon"></i>
+            <span class="nav__text">Upcoming</span>
+        </a>
+
+
+        <a href="/movies/genres/Action" class="nav__genre">
+            <i class="fas fa-fist-raised nav__icon"></i>
+            <span class="nav__text">Action</span>
+        </a>
+
+        <a href="/movies/genres/Adventure" class="nav__genre">
+            <i class="fas fa-map nav__icon"></i>
+            <span class="nav__text">Adventure</span>
+        </a>
+
+        <a href="/movies/genres/Comedy" class="nav__genre">
+            <i class="fas fa-theater-masks nav__icon"></i>
+            <span class="nav__text">Comedy</span>
+        </a>
+
+        <a href="/movies/genres/Romance" class="nav__genre">
+            <i class="fas fa-heart nav__icon"></i>
+            <span class="nav__text">Romance</span>
+        </a>
+        
+        <a href="/movies/genres/Science Fiction" class="nav__genre">
+            <i class="fas fa-laptop nav__icon"></i>
+            <span class="nav__text">Sci-fi</span>
+        </a>
     </nav>
 
-    
+
     {{{body}}}
 
     <footer class="footer">

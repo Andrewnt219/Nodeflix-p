@@ -63,21 +63,29 @@ body {
         "nav main main main"
         "footer footer footer footer";
     grid-template-columns: 15% auto;
-    grid-template-rows:  minmax(10%, auto);
+    grid-template-rows:  minmax(10%, max-content);
 }
 
-#btn-register {
+.btn-register {
     grid-area: btn-register;
     @extend %btn;
     width: 100%;
     border: none;
+
+    &__icon {
+        display: none;
+    }
 }
 
-#btn-login {
+.btn-login {
     grid-area: btn-login;
     @extend %btn;
     width: 100%;
     border: none;
+
+    &__icon {
+        display: none;
+    }
 }
 
 .logo {
@@ -126,8 +134,11 @@ body {
 .nav {
     grid-area: nav;
     background-color: darken($black, 10%);
-
     padding-top: 2rem;
+
+    &__icon {
+        display: none;
+    }
 
     &__genre {
         font-weight: bolder;
@@ -175,6 +186,7 @@ body {
     width: min-content;
     * {
         margin: 0.3rem;
+        word-wrap: break-word;
     }
 
     &__score {
@@ -301,13 +313,69 @@ body {
     opacity: 0.8;
 }
 
+::-webkit-scrollbar {
+    width: 0.5rem;
+
+    &-thumb {
+        background-color: $yellow;
+
+        &:hover {
+            background-color: darken($yellow, 10%);
+        }
+    }
+
+    &-track {
+        background-color: $black;
+    }
+}
+
+
+
 @media (max-width: 1200px) {
+    body {
+        grid-template-areas: 
+        "logo search btn-register btn-login"
+        "titletitle title title"
+        "main main main main"
+        "footer footer footer footer";
+    }
+
     .logo__site {
         display: none;
     }
 
     .nav {
-        display: none;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+        justify-content: space-evenly;
+        align-items: center;
+        z-index: 100;
+        width: 100vw;
+        position: fixed;
+        bottom: 0;
+
+        &__text {
+            display: none;
+        }
+
+        &__icon {
+            transform: scale(1.5);
+            display: block;
+        }
+    }
+
+    .btn-register, .btn-login {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &__text {
+            display: none;
+        }
+
+        &__icon {
+            transform: scale(1.5);
+            display: block;
+        }
     }
 
     .oneMovie{
