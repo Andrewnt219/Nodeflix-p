@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 router.get('/:movieId', async (req,res) => {
     const mov = await movie(req.params.movieId);
     
-    if(!mov) return res.status(404).render('movie/movie', {title:'Movie not found'});
+    if(mov === 1) return res.status(404).render('movie/movie', {title:'404: Movie not found'});
 
     res.render('movie/movie', {
         movie: mov,

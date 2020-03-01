@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
 
-
 async function getAllGenres() {
     const respond = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}&language=en-US&page=1&region=CA`);
     return respond.json();
@@ -8,6 +7,7 @@ async function getAllGenres() {
 
 async function getGenreId(genreName) {
     const { genres } = await getAllGenres();
+    if(genres.length === 0) return 1;
     for (genre of genres) {
         if (genre.name.toLowerCase() === genreName.toLowerCase()) {
             return genre.id;
@@ -18,6 +18,7 @@ async function getGenreId(genreName) {
 
 async function populateMovies(movies) {
     const { genres } = await getAllGenres();
+    if (!movies || genres.length === 0 ) return 1;
     movies.forEach(mov => {
         mov.genres = [];
         for (m_genre of mov.genre_ids) {
@@ -39,6 +40,7 @@ async function populateMovies(movies) {
 }
 
 async function populateMovie(movie) {
+    if(!movie.genres) return 1;
     movie.genre = [];
     for (genre of movie.genres) {
         movie.genre.push(genre.name);

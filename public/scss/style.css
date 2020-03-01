@@ -19,7 +19,8 @@
   color: white;
   font-weight: bold;
   font-size: inherit;
-  text-align: center; }
+  text-align: center;
+  outline: none; }
   .btn-register:hover, .btn-login:hover, .oneMovie__btn-price:hover, .oneMovie__btn-rent:hover {
     background-color: #f0293a; }
 
@@ -37,7 +38,7 @@ body {
   display: grid;
   grid-template-areas: "logo search btn-register btn-login" "nav title title title" "nav main main main" "footer footer footer footer";
   grid-template-columns: 15% auto;
-  grid-template-rows: minmax(10%, max-content); }
+  grid-template-rows: minmax(min-content, 1fr); }
 
 .btn-register {
   grid-area: btn-register;
@@ -160,12 +161,7 @@ body {
   grid-template-columns: min-content;
   align-items: center;
   column-gap: 2rem;
-  grid-template-areas: "title title title" "img genre genre" "img score score" "img desc desc" "img release release" "img price btn-price" "img rent btn-rent"; }
-  .oneMovie__title {
-    grid-area: title;
-    justify-self: center;
-    font-size: 3rem;
-    font-weight: bolder; }
+  grid-template-areas: "img genre genre" "img score score" "img desc desc" "img release release" "img price btn-price" "img rent btn-rent"; }
   .oneMovie__img {
     grid-area: img;
     width: 300px;
@@ -209,22 +205,22 @@ body {
 
 @media (max-width: 1200px) {
   body {
-    grid-template-areas: "logo search btn-register btn-login" "titletitle title title" "main main main main" "footer footer footer footer"; }
+    grid-template-areas: "logo search btn-register btn-login" "title title title title" "main main main main" "footer footer footer footer"; }
   .logo__site {
     display: none; }
   .nav {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    padding: 0;
     justify-content: space-evenly;
     align-items: center;
     z-index: 100;
-    width: 100vw;
+    width: 100%;
     position: fixed;
     bottom: 0; }
     .nav__text {
       display: none; }
     .nav__icon {
-      transform: scale(1.5);
       display: block; }
   .btn-register, .btn-login {
     display: flex;

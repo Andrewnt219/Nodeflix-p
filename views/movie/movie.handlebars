@@ -1,5 +1,5 @@
+{{#if movie}}
 <article class="oneMovie">
-    <h1 class="oneMovie__title">{{movie.original_title}}</h1>
     <img src="{{movie.poster_path}}" alt="{{movie.original_title}}" class="oneMovie__img">
     <p class="oneMovie__score"><span class="oneMovie__field">Score&nbsp;</span> {{movie.vote_average}}</p>
     <p class="oneMovie__genres"><span class="oneMovie__field">Genres&nbsp;</span> {{movie.genre}}</p>
@@ -10,3 +10,4 @@
     <a class="oneMovie__btn-price" href="">Buy</a>
     <a class="oneMovie__btn-rent" href="">Rent</a>
 </article>
+{{/if}}

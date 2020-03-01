@@ -36,6 +36,7 @@ $btn-h: 70px;
     font-weight: bold;
     font-size: inherit;
     text-align: center;
+    outline: none;
 
     &:hover {
         background-color: darken($red, 5%);
@@ -63,7 +64,7 @@ body {
         "nav main main main"
         "footer footer footer footer";
     grid-template-columns: 15% auto;
-    grid-template-rows:  minmax(10%, max-content);
+    grid-template-rows:  minmax(min-content, 1fr);
 }
 
 .btn-register {
@@ -241,20 +242,12 @@ body {
     align-items: center;
     column-gap: 2rem;
     grid-template-areas:
-    "title title title"
     "img genre genre"
     "img score score"
     "img desc desc"
     "img release release"
     "img price btn-price"
     "img rent btn-rent";
-
-    &__title {
-        grid-area: title;
-        justify-self: center;
-        font-size: 3rem;
-        font-weight: bolder;
-    }
 
     &__img {
         grid-area: img;
@@ -335,7 +328,7 @@ body {
     body {
         grid-template-areas: 
         "logo search btn-register btn-login"
-        "titletitle title title"
+        "title title title title"
         "main main main main"
         "footer footer footer footer";
     }
@@ -346,20 +339,22 @@ body {
 
     .nav {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        padding: 0;
         justify-content: space-evenly;
         align-items: center;
         z-index: 100;
-        width: 100vw;
+        width: 100%;
         position: fixed;
         bottom: 0;
 
+
+        
         &__text {
             display: none;
         }
 
         &__icon {
-            transform: scale(1.5);
             display: block;
         }
     }
