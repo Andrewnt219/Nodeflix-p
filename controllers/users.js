@@ -50,12 +50,14 @@ router.post('/register', async (req,res) => {
 
 router.post('/login', async (req,res) => {
     const user = await User.findOne({email: req.body.email});
-    if(!user) return res.status(400).send('invalid email or password');
+    if(!user) return res.status(400).render('user/login', {error:'invalid email or password'});
 
     const valid = await bcrypt.compare(req.body.password, user.password);
-    if(!valid) return res.status(400).send('Invalid email or password');
+    if(!valid) return res.status(400).render('user/login', {error:'Invalid email or password'});
 
-    res.header('x-auth-token', user.jwt).send('Logged in');
+    console.log('Logged in');
+    res.cookie('token', user.jwt, {maxAge: process.env.jwtExpirySeconds * 1000})
+        .redirect('/');
 
 })
 

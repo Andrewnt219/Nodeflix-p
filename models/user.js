@@ -28,7 +28,10 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.methods.generateToken = function () {
-    return jwt.sign({email: this.email,name: this.name}, process.env.jwtPrivateKey);
+    return jwt.sign({email: this.email,name: this.name}, process.env.jwtPrivateKey, {
+        algorithm: 'RS256',
+        expiresIn: process.env.jwtExpirySeconds
+    });
 }
 
 module.exports.userValidate = function(user) {
@@ -45,7 +48,8 @@ module.exports.userValidate = function(user) {
             .alphanum()
             .min(8)
             .max(64),
-        confirm_password: Joi.ref('password')
+        confirm_password: Joi.ref('password'),
+        phone: Joi.string()
     });
 
    return schema.validate(user);

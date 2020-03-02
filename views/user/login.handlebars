@@ -1,7 +1,11 @@
-<form action="" class="login">
+<form action="/users/login" class="login" method="POST">
     <label for="login__email">Email</label>
     <input type="text" name="email" id="login__email" class="input login__email">
 
     <label for="login__password">Password</label>
     <input type="password" name="password" id="login__password" class="input login__password">
+
+    <button class="login__button" type="submit">Login</button>
+
+    <p class="login__eror">{{error}}</p>
 </form>

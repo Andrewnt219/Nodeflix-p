@@ -472,9 +472,9 @@ body {
             .register {
             grid-template-areas: 
             "form"
+            "intro"
             "author"
-            "perk"
-            "intro";
+            "perk";
 
             & .form {
                 grid-template-columns: repeat(6, 1fr);
