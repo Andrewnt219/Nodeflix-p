@@ -370,6 +370,22 @@ body {
     }
 }
 
+.profile {
+    grid-area: main;
+    width: 90%;
+    margin: 2rem auto;
+
+    &>* {
+        margin-bottom: 1rem;
+    }
+
+    &__field {
+        font-weight: bold;
+        background-color: $red;
+        margin-right: 1rem;
+    }
+}
+
 .footer {
     grid-area: footer;
 }

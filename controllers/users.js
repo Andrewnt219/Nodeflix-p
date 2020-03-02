@@ -56,14 +56,24 @@ router.post('/login', async (req,res) => {
     if(!valid) return res.status(400).render('user/login', {error:'Invalid email or password'});
 
     console.log('Logged in');
+    user.lastLogin = Date.now();
+    await user.save();
+
+    console.log(user);
+
     res.cookie('token', user.jwt, {maxAge: process.env.jwtExpirySeconds * 1000})
-        .redirect('/');
+        .redirect('/users/me');
 
 })
 
 router.get('/me', author, async (req,res) => {
-    const user = await User.findOne({email: req.user.email}).select('-password');
-    res.send(user.email);
+    const {name, email, phone, lastLogin} = await User.findOne({email: req.user.email}).select('-password');
+    res.render('user/user', {
+        title: `Welcome back, ${name}`,
+        email: email,
+        phone:phone,
+        lastLogin: lastLogin
+    });
 })
 
 router.get('/login', (req,res) => {

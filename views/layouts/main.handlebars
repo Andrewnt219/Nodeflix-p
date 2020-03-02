@@ -36,6 +36,11 @@
     <h1 class="title">{{title}}</h1>
 
     <nav class="nav">
+        <a href="/users/me" class="nav__genre {{#if isNew}}nav__genre--active{{/if}}">
+            <i class="fas fa-user nav__icon"></i>
+            <span class="nav__text">My profile</span>
+        </a>
+
         <a href="/movies?sortBy=now_playing" class="nav__genre {{#if isNew}}nav__genre--active{{/if}}">
             <i class="fas fa-rss-square nav__icon"></i>
             <span class="nav__text">New Release</span>

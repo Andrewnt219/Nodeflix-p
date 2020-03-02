@@ -1,4 +1,7 @@
-<p>{{name}}</p>
-<p>{{email}}</p>
-<p>{{phone}}</p>
-<p>{{password}}</p>
+{{#if email}}
+<article class="profile">
+    <p class="profile__email"> <span class="profile__field">Email &nbsp;</span>{{email}}</p>
+    <p class="profile__phone"><span class="profile__field">Phone &nbsp;</span>{{phone}}</p>
+    <p class="profile__lastLogin"><span class="profile__field">Last login &nbsp;</span>{{lastLogin}}</p>
+</article>
+{{/if}}

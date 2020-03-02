@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
     jwt: {
         type: String,
         default: ''
+    },
+    lastLogin: {
+        type: Date,
+        default: Date.now()
     }
 })
 
@@ -49,7 +53,7 @@ module.exports.userValidate = function(user) {
             .min(8)
             .max(64),
         confirm_password: Joi.ref('password'),
-        phone: Joi.string()
+        phone: Joi.number()
     });
 
    return schema.validate(user);
