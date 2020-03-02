@@ -5,6 +5,7 @@ const { sentenceCase } = require('change-case');
 const { movies, discoverGenre, movie, searchMovie } = require('../public/js/tmdb');
 
 router.get('/', async (req, res) => {
+    if(!req.query.sortBy) req.query.sortBy = 'now_playing';
     res.render('movie/movies', {
         movies: await movies(req.query.sortBy),
         title: sentenceCase(req.query.sortBy),
