@@ -6,6 +6,7 @@
   "author": "Tuan Phong Nguyen <phongnguyentuan20@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^6.5.3",
     "bcrypt": "^4.0.0",
     "change-case": "^4.1.1",
     "dotenv": "^8.2.0",

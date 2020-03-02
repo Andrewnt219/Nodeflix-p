@@ -527,3 +527,24 @@
 {"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
 {"error":{},"level":"error","message":"uncaughtException: data and hash arguments required\nError: data and hash arguments required\n    at Object.compare (D:\\Temporary Work\\Nodeflix\\node_modules\\bcrypt\\bcrypt.js:208:17)\n    at D:\\Temporary Work\\Nodeflix\\node_modules\\bcrypt\\promises.js:29:12\n    at new Promise (<anonymous>)\n    at Object.module.exports.promise (D:\\Temporary Work\\Nodeflix\\node_modules\\bcrypt\\promises.js:20:12)\n    at Object.compare (D:\\Temporary Work\\Nodeflix\\node_modules\\bcrypt\\bcrypt.js:204:25)\n    at D:\\Temporary Work\\Nodeflix\\controllers\\users.js:33:32\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)","stack":"Error: data and hash arguments required\n    at Object.compare (D:\\Temporary Work\\Nodeflix\\node_modules\\bcrypt\\bcrypt.js:208:17)\n    at D:\\Temporary Work\\Nodeflix\\node_modules\\bcrypt\\promises.js:29:12\n    at new Promise (<anonymous>)\n    at Object.module.exports.promise (D:\\Temporary Work\\Nodeflix\\node_modules\\bcrypt\\promises.js:20:12)\n    at Object.compare (D:\\Temporary Work\\Nodeflix\\node_modules\\bcrypt\\bcrypt.js:204:25)\n    at D:\\Temporary Work\\Nodeflix\\controllers\\users.js:33:32\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)","exception":true,"date":"Sun Mar 01 2020 22:04:45 GMT-0500 (Eastern Standard Time)","process":{"pid":13156,"uid":null,"gid":null,"cwd":"D:\\Temporary Work\\Nodeflix","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v12.16.1","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\Temporary Work\\Nodeflix\\app.js"],"memoryUsage":{"rss":62701568,"heapTotal":54460416,"heapUsed":26645664,"external":19978867}},"os":{"loadavg":[0,0,0],"uptime":358459},"trace":[{"column":17,"file":"D:\\Temporary Work\\Nodeflix\\node_modules\\bcrypt\\bcrypt.js","function":"Object.compare","line":208,"method":"compare","native":false},{"column":12,"file":"D:\\Temporary Work\\Nodeflix\\node_modules\\bcrypt\\promises.js","function":null,"line":29,"method":null,"native":false},{"column":null,"file":null,"function":"new Promise","line":null,"method":null,"native":false},{"column":12,"file":"D:\\Temporary Work\\Nodeflix\\node_modules\\bcrypt\\promises.js","function":"Object.module.exports.promise","line":20,"method":"promise","native":false},{"column":25,"file":"D:\\Temporary Work\\Nodeflix\\node_modules\\bcrypt\\bcrypt.js","function":"Object.compare","line":204,"method":"compare","native":false},{"column":32,"file":"D:\\Temporary Work\\Nodeflix\\controllers\\users.js","function":null,"line":33,"method":null,"native":false},{"column":5,"file":"internal/process/task_queues.js","function":"processTicksAndRejections","line":97,"method":null,"native":false}]}
 {"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}
+{"message":"Connecting to mongodb://localhost/nodeflix","level":"info"}

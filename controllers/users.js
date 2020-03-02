@@ -3,6 +3,7 @@ const author = require('../middleware/author');
 
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
+const sgMail = require('@sendgrid/mail');
 
 const express = require('express');
 const router = express.Router();
@@ -21,6 +22,20 @@ router.post('/register', async (req,res) => {
         user.jwt = await user.generateToken();
         await user.save();
     })
+
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const msg = {
+        to: `${user.email}`,
+        from: 'tpnguyen12@myseneca.ca',
+        subject: 'Welcome to Nodeflix!',
+        html: `
+            <strong>Username:</strong> ${user.name}
+            <br>
+            <p>Next step ... </p>   
+        `
+      };
+      
+    await sgMail.send(msg)
 
     res.render('user/user', _.pick(user, ['name', 'email', 'password', 'phone']));
 })
