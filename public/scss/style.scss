@@ -25,7 +25,9 @@ $btn-h: 70px;
 }
 
 %btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     border: white 1px solid;
     justify-self: end;
@@ -35,7 +37,6 @@ $btn-h: 70px;
     color: white;
     font-weight: bold;
     font-size: inherit;
-    text-align: center;
     outline: none;
 
     &:hover {
@@ -63,8 +64,8 @@ body {
         "nav title title title"
         "nav main main main"
         "footer footer footer footer";
-    grid-template-columns: 15% auto;
-    grid-template-rows:  minmax(min-content, 1fr);
+    grid-template-columns: 15rem 35rem auto;
+    grid-template-rows: 10% 10% auto 5%;
 }
 
 .btn-register {
@@ -73,8 +74,13 @@ body {
     width: 100%;
     border: none;
 
+
     &__icon {
         display: none;
+    }
+
+    &__text {
+        align-self: center;
     }
 }
 
@@ -160,7 +166,8 @@ body {
 .title {
     grid-area: title;
     background-color: $black;
-    margin: 3rem auto 0 auto;
+    margin: 0 auto;
+    padding: 2rem 0 0 0;
     width: max-content;
 }
 
@@ -251,7 +258,7 @@ body {
 
     &__img {
         grid-area: img;
-        width: 300px;
+        width: 350px;
         height: auto;
     }
 
@@ -294,6 +301,72 @@ body {
     &__field {
         font-weight: bold;
         background-color: $red;
+    }
+}
+
+.register {
+    grid-area: main;
+    display: grid;
+    width: 90%;
+    margin: 2rem auto 0 auto;
+    grid-template-areas: 
+    "form author"
+    "form intro"
+    "form perk";
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+    &>article {
+        display: flex;
+        flex-direction: column;
+        background-color: $yellow;
+    }
+    
+    & .intro {
+        grid-area: intro;
+
+        &__text {
+            background-color: $red;
+        }
+    }
+
+    & .perk {
+        grid-area: perk;
+    }
+
+    & .author {
+        grid-area: author;
+
+    }
+
+    & .form {
+        grid-area: form;
+        display: grid;
+        max-width: 25rem;
+        width: 80%; 
+        margin: 0 auto;
+        grid-template-columns: 5rem auto;
+        column-gap: 1rem;  
+
+        & input {
+            max-height: 1rem;
+            color:$yellow;
+            border: $yellow 1px solid;
+        }
+
+        & label {
+            font-weight: bolder;
+            color: $yellow;
+        }
+
+        & button {
+            grid-column: 1 / 3;
+            width: 100%;
+            color: $yellow;
+            font-weight: bold;
+            background-color: inherit;
+            border: $yellow 1px solid;
+        }
+
     }
 }
 
@@ -389,6 +462,32 @@ body {
 
         &__btn-price, &__btn-rent {
             width: 100%;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .nav {
+            overflow-x: scroll;
+        }
+            .register {
+            grid-template-areas: 
+            "form"
+            "author"
+            "perk"
+            "intro";
+
+            & .form {
+                grid-template-columns: repeat(6, 1fr);
+                row-gap: 1rem;
+                margin: 0 auto 1rem 0;
+                width: 100%;
+                align-self: center;
+                
+                & button {
+                    grid-column: 5/7;
+                    height: 100%;
+                }
+            }
         }
     }
 }

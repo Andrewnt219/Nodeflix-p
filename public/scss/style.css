@@ -9,7 +9,9 @@
   font-weight: bold; }
 
 .btn-register, .btn-login, .oneMovie__btn-price, .oneMovie__btn-rent {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   border: white 1px solid;
   justify-self: end;
@@ -19,7 +21,6 @@
   color: white;
   font-weight: bold;
   font-size: inherit;
-  text-align: center;
   outline: none; }
   .btn-register:hover, .btn-login:hover, .oneMovie__btn-price:hover, .oneMovie__btn-rent:hover {
     background-color: #f0293a; }
@@ -37,8 +38,8 @@ html, body {
 body {
   display: grid;
   grid-template-areas: "logo search btn-register btn-login" "nav title title title" "nav main main main" "footer footer footer footer";
-  grid-template-columns: 15% auto;
-  grid-template-rows: minmax(min-content, 1fr); }
+  grid-template-columns: 15rem 35rem auto;
+  grid-template-rows: 10% 10% auto 5%; }
 
 .btn-register {
   grid-area: btn-register;
@@ -46,6 +47,8 @@ body {
   border: none; }
   .btn-register__icon {
     display: none; }
+  .btn-register__text {
+    align-self: center; }
 
 .btn-login {
   grid-area: btn-login;
@@ -105,7 +108,8 @@ body {
 .title {
   grid-area: title;
   background-color: #222B31;
-  margin: 3rem auto 0 auto;
+  margin: 0 auto;
+  padding: 2rem 0 0 0;
   width: max-content; }
 
 .subtitle {
@@ -164,7 +168,7 @@ body {
   grid-template-areas: "img genre genre" "img score score" "img desc desc" "img release release" "img price btn-price" "img rent btn-rent"; }
   .oneMovie__img {
     grid-area: img;
-    width: 300px;
+    width: 350px;
     height: auto; }
   .oneMovie__score {
     grid-area: score; }
@@ -186,6 +190,48 @@ body {
   .oneMovie__field {
     font-weight: bold;
     background-color: #F24150; }
+
+.register {
+  grid-area: main;
+  display: grid;
+  width: 90%;
+  margin: 2rem auto 0 auto;
+  grid-template-areas: "form author" "form intro" "form perk";
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .register > article {
+    display: flex;
+    flex-direction: column;
+    background-color: #F2A20C; }
+  .register .intro {
+    grid-area: intro; }
+    .register .intro__text {
+      background-color: #F24150; }
+  .register .perk {
+    grid-area: perk; }
+  .register .author {
+    grid-area: author; }
+  .register .form {
+    grid-area: form;
+    display: grid;
+    max-width: 25rem;
+    width: 80%;
+    margin: 0 auto;
+    grid-template-columns: 5rem auto;
+    column-gap: 1rem; }
+    .register .form input {
+      max-height: 1rem;
+      color: #F2A20C;
+      border: #F2A20C 1px solid; }
+    .register .form label {
+      font-weight: bolder;
+      color: #F2A20C; }
+    .register .form button {
+      grid-column: 1 / 3;
+      width: 100%;
+      color: #F2A20C;
+      font-weight: bold;
+      background-color: inherit;
+      border: #F2A20C 1px solid; }
 
 .footer {
   grid-area: footer; }
@@ -236,3 +282,18 @@ body {
     row-gap: 1.5rem; }
     .oneMovie__btn-price, .oneMovie__btn-rent {
       width: 100%; } }
+
+@media (max-width: 1200px) and (max-width: 900px) {
+  .nav {
+    overflow-x: scroll; }
+  .register {
+    grid-template-areas: "form" "author" "perk" "intro"; }
+    .register .form {
+      grid-template-columns: repeat(6, 1fr);
+      row-gap: 1rem;
+      margin: 0 auto 1rem 0;
+      width: 100%;
+      align-self: center; }
+      .register .form button {
+        grid-column: 5/7;
+        height: 100%; } }

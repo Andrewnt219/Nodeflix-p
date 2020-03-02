@@ -42,6 +42,8 @@ module.exports.userValidate = function(user) {
             .max(255),
         password: Joi.string()
             .required()
+            .alphanum()
+            .min(8)
             .max(64),
         confirm_password: Joi.ref('password')
     });

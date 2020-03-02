@@ -1,0 +1,38 @@
+<main class="register">
+    <article class="intro">
+        <h2 class=" intro__title">Error</h2>
+        <p class="text intro__text">{{error}}</p>
+    </article>
+
+    <article class="perk">
+        <h2 class=" perk__title">Password requirements:</h2>
+        <p class="text perk__text">Password is 8-64 alphanumeric characters only</p>
+        <p class="text perk__text">Name is at least 3 characters long</p>
+        <p class="text perk__text">Email is necessary</p>
+    </article>
+
+    <article class="author">
+        <h2 class=" author__title">The Movie DB</h2>
+        <p class="text author__text">Shout out to TheMovieDB for giving out their amazing API free-of-charge</p>
+    </article>
+
+    <form class="form" action='/users/register' method='POST'>
+        <label for="form__name" value="{{name}}">Name</label>
+        <input type="text" class="input form__name" name="name" id="form__name" />
+
+        <label for="form__email">Email</label>
+        <input type="email" value="{{email}}" class="input form__email" name="email" id="form__email">
+
+        <label for="form__password">Password</label>
+        <input type="password" class="input form__password" name="password" id="form__password">
+
+        <label for="form__confirm_password">Confirm password</label>
+        <input type="password" class="input form__confirm_password" name="confirm_password"
+            id="form__confirm_password">
+
+        <label for="form__phone">Phone</label>
+        <input type="tel" value="{{phone}}" class="input form__phone" name="phone" id="form__phone">
+
+        <button type="submit">Sign up</button>
+    </form>
+</main>

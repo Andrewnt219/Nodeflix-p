@@ -10,8 +10,15 @@ const router = express.Router();
 
 router.post('/register', async (req,res) => {
     const {error} = userValidate(req.body);
-    if(error) 
-        return res.status(400).render('user/invalid', {errors: error.details});
+    if(error) {
+        const {name, email, phone} = req.body;
+        return res.status(400).render('user/register', {
+            error: error.details[0].message,
+            name: name,
+            email: email,
+            phone: phone
+        });
+    }
 
     const user = new User(_.pick(req.body, ['name', 'email', 'password', 'phone', 'jwt']));
 
@@ -20,6 +27,7 @@ router.post('/register', async (req,res) => {
         user.password = hash;
 
         user.jwt = await user.generateToken();
+        console.log('Save is about to run!');
         await user.save();
     })
 
@@ -37,7 +45,7 @@ router.post('/register', async (req,res) => {
       
     await sgMail.send(msg)
 
-    res.render('user/user', _.pick(user, ['name', 'email', 'password', 'phone']));
+    res.redirect('/');
 })
 
 router.post('/login', async (req,res) => {
@@ -54,6 +62,14 @@ router.post('/login', async (req,res) => {
 router.get('/me', author, async (req,res) => {
     const user = await User.findOne({email: req.user.email}).select('-password');
     res.send(user.email);
+})
+
+router.get('/login', (req,res) => {
+    res.render('user/login', {title: 'Login'});
+})
+
+router.get('/register', (req,res) => {
+    res.render('user/register', {title: 'Sign up'});
 })
 
 module.exports = router;
