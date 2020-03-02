@@ -19,7 +19,8 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        maxlength:12
+        maxlength:12,
+        minlength:10
     },
     jwt: {
         type: String,
@@ -32,13 +33,14 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.methods.generateToken = function () {
-    return jwt.sign({email: this.email,name: this.name}, process.env.jwtPrivateKey, {
-        algorithm: 'RS256',
+    return jwt.sign({email: this.email}, process.env.jwtPrivateKey, {
+        algorithm: 'HS256',
         expiresIn: process.env.jwtExpirySeconds
     });
 }
 
 module.exports.userValidate = function(user) {
+    const phone = /(\d{3}[-]*){2}\d{4}$/;
     const schema = Joi.object({
         name: Joi.string()
             .required()
@@ -52,8 +54,20 @@ module.exports.userValidate = function(user) {
             .alphanum()
             .min(8)
             .max(64),
-        confirm_password: Joi.ref('password'),
-        phone: Joi.number()
+        confirm_password: Joi.any()
+            .valid(Joi.ref('password'))
+            .error(() => {
+                return {
+                    message: 'Confirm password does not match.'
+                }
+            }),
+        phone: Joi.string()
+            .regex(/(\d{3}[-]*){2}\d{4}$/)
+            .error(() => {
+                return {
+                    message: 'Invalid phone entry! Suggested format: 123-456-7890'
+                }
+            })
     });
 
    return schema.validate(user);

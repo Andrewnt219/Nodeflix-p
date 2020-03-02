@@ -27,7 +27,6 @@ router.post('/register', async (req,res) => {
         user.password = hash;
 
         user.jwt = await user.generateToken();
-        console.log('Save is about to run!');
         await user.save();
     })
 
@@ -55,11 +54,8 @@ router.post('/login', async (req,res) => {
     const valid = await bcrypt.compare(req.body.password, user.password);
     if(!valid) return res.status(400).render('user/login', {error:'Invalid email or password'});
 
-    console.log('Logged in');
     user.lastLogin = Date.now();
     await user.save();
-
-    console.log(user);
 
     res.cookie('token', user.jwt, {maxAge: process.env.jwtExpirySeconds * 1000})
         .redirect('/users/me');
