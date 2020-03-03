@@ -216,11 +216,12 @@ body {
     width: 80%;
     margin: 0 auto;
     grid-template-columns: 5rem auto;
-    column-gap: 1rem; }
+    column-gap: 2rem; }
     .register .form input {
       max-height: 1rem;
       color: #F2A20C;
       border: #F2A20C 1px solid;
+      padding: 0.5rem;
       transition: 1s; }
       .register .form input:focus {
         transform: scaleX(1.2); }
@@ -246,12 +247,13 @@ body {
   color: #F2A20C;
   font-weight: bold;
   display: grid;
-  grid-template-rows: repeat(4, 1rem) 2rem;
-  row-gap: 2rem;
+  grid-template-rows: repeat(4, 1rem) 3rem;
+  row-gap: 3rem;
   width: 20%; }
   .login__input {
     outline: 1px solid #F2A20C;
     color: #F2A20C;
+    padding: 1rem;
     transition: 1s; }
     .login__input:focus {
       transform: scaleX(1.2); }
