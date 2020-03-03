@@ -221,7 +221,10 @@ body {
     .register .form input {
       max-height: 1rem;
       color: #F2A20C;
-      border: #F2A20C 1px solid; }
+      border: #F2A20C 1px solid;
+      transition: 1s; }
+      .register .form input:focus {
+        transform: scaleX(1.2); }
     .register .form label {
       font-weight: bolder;
       color: #F2A20C; }
@@ -231,7 +234,38 @@ body {
       color: #F2A20C;
       font-weight: bold;
       background-color: inherit;
-      border: #F2A20C 1px solid; }
+      border: #F2A20C 1px solid;
+      transition: 1s; }
+      .register .form button:hover, .register .form button:focus {
+        background-color: #F2A20C;
+        color: white;
+        border: 1px solid white; }
+
+.login {
+  grid-area: main;
+  margin: 2rem auto 0 auto;
+  color: #F2A20C;
+  font-weight: bold;
+  display: grid;
+  grid-template-rows: repeat(4, 1rem) 2rem;
+  row-gap: 2rem;
+  width: 20%; }
+  .login__input {
+    outline: 1px solid #F2A20C;
+    color: #F2A20C;
+    transition: 1s; }
+    .login__input:focus {
+      transform: scaleX(1.2); }
+  .login__button {
+    width: 100%;
+    background-color: inherit;
+    border: 1px solid #F2A20C;
+    color: #F2A20C;
+    transition: 1s; }
+    .login__button:hover, .login__button:focus {
+      background-color: #F2A20C;
+      color: white;
+      border: 1px solid white; }
 
 .profile {
   grid-area: main;
@@ -307,4 +341,8 @@ body {
       align-self: center; }
       .register .form button {
         grid-column: 5/7;
-        height: 100%; } }
+        height: 100%; }
+  .login {
+    margin: 2rem auto 0 1rem; }
+  .title {
+    margin: 0 0 0 1rem; } }

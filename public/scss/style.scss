@@ -351,6 +351,11 @@ body {
             max-height: 1rem;
             color:$yellow;
             border: $yellow 1px solid;
+            transition: 1s;
+
+            &:focus {
+                transform: scaleX(1.2);
+            }
         }
 
         & label {
@@ -365,8 +370,51 @@ body {
             font-weight: bold;
             background-color: inherit;
             border: $yellow 1px solid;
+            transition: 1s;
+
+            &:hover, &:focus {
+                background-color: $yellow;
+                color: white;
+                border: 1px solid white;
+            }
         }
 
+    }
+}
+
+.login {
+    grid-area: main;
+    margin: 2rem auto 0 auto;
+    color: $yellow;
+    font-weight: bold;
+    display: grid;
+    grid-template-rows: repeat(4, 1rem) 2rem;
+    row-gap: 2rem;
+    width: 20%;
+
+
+    &__input {
+        outline: 1px solid $yellow;
+        color: $yellow;
+        transition: 1s;
+
+        &:focus {
+            transform: scaleX(1.2);
+        }
+    }
+
+    &__button {
+        width: 100%;
+        background-color: inherit;
+        border: 1px solid $yellow;
+        color: $yellow;
+        transition: 1s;
+
+        &:hover, &:focus {
+            background-color: $yellow;
+            color: white;
+            border: 1px solid white;
+        }
     }
 }
 
@@ -485,7 +533,8 @@ body {
         .nav {
             overflow-x: scroll;
         }
-            .register {
+
+        .register {
             grid-template-areas: 
             "form"
             "intro"
@@ -504,6 +553,14 @@ body {
                     height: 100%;
                 }
             }
+        }
+
+        .login {
+            margin: 2rem auto 0 1rem;
+        }
+        
+        .title {
+            margin: 0 0 0 1rem;
         }
     }
 }
