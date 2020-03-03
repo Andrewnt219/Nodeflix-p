@@ -28,7 +28,9 @@ router.post('/register', async (req,res) => {
 
         user.jwt = await user.generateToken();
         console.log('sign up user:' + user);
-        await user.save();
+        user.save()
+            .then(() => console.log('Saved !' + user))
+            .catch(err => console.log(err));
     })
 
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
