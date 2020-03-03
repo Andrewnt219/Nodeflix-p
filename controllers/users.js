@@ -27,7 +27,10 @@ router.post('/register', async (req,res) => {
         user.password = hash;
 
         user.jwt = await user.generateToken();
-        await user.save();
+        console.log('sign up user:' + user);
+        user.save()
+            .then(() => console.log('Saved !' + user))
+            .catch(err => console.log('Saved ERRORROROOROROR!:' + err));
     })
 
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -65,6 +68,8 @@ router.post('/login', async (req,res) => {
 
 router.get('/me', author, async (req,res) => {
     const {name, email, phone, lastLogin} = await User.findOne({email: req.user.email}).select('-password');
+    console.log('Me:');
+    console.log(name, email, phone, lastLogin);
     res.render('user/user', {
         title: `Welcome back, ${name}`,
         email: email,
