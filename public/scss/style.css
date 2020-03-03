@@ -308,6 +308,18 @@ body {
 
 .footer {
   grid-area: footer; }
+  .footer__media {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    margin-top: 2rem;
+    min-height: 3rem;
+    background: black;
+    font-size: 1.6rem; }
+    .footer__media a:visited {
+      color: white; }
 
 ::placeholder {
   color: white;

@@ -474,6 +474,22 @@ body {
 
 .footer {
     grid-area: footer;
+
+    &__media {
+        flex:1;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        color: white;
+        margin-top: 2rem;
+        min-height: 3rem;
+        background: black;
+        font-size: 1.6rem;
+
+        a:visited {
+            color:white;
+        }
+    }
 }
 
 ::placeholder {
@@ -522,8 +538,6 @@ body {
         width: 100%;
         position: fixed;
         bottom: 0;
-
-
         
         &__text {
             display: none;
