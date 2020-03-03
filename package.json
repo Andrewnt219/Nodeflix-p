@@ -26,6 +26,7 @@
     "node-sass": "^4.13.1"
   },
   "scripts": {
-    "scss": "node-sass public/scss/style.scss public/scss/style.css -w"
+    "scss": "node-sass public/scss/style.scss public/scss/style.css -w",
+    "start" : "node app.js"
   }
 }
