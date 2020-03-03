@@ -75,6 +75,7 @@ router.get('/me', author, async (req,res) => {
 })
 
 router.get('/login', (req,res) => {
+    if(req.cookies.token) return res.redirect('me');
     res.render('user/login', {title: 'Login'});
 })
 
