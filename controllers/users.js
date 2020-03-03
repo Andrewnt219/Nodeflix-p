@@ -68,6 +68,7 @@ router.post('/login', async (req,res) => {
 
 router.get('/me', author, async (req,res) => {
     const {name, email, phone, lastLogin} = await User.findOne({email: req.user.email}).select('-password');
+    console.log('Me:');
     console.log(name, email, phone, lastLogin);
     res.render('user/user', {
         title: `Welcome back, ${name}`,
