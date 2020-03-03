@@ -4,7 +4,7 @@
   color: white; }
 
 .movie__genres, .movie__release {
-  color: #05EBD4;
+  color: rgba(5, 235, 212, 0.7);
   font-size: 0.8rem;
   font-weight: bold; }
 
@@ -33,13 +33,40 @@
 html, body {
   width: 100%;
   height: 100%;
-  background-color: #222B31; }
+  background-color: #222B31;
+  overflow: hidden; }
 
 body {
   display: grid;
   grid-template-areas: "logo search btn-register btn-login" "nav title title title" "nav main main main" "footer footer footer footer";
   grid-template-columns: 15rem 35rem auto;
   grid-template-rows: 10% 10% auto 5%; }
+
+.banner {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(34, 43, 49, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2; }
+  .banner__content {
+    background: no-repeat center/80% url(https://mediafiles.cineplex.com/Attachments/NewItems/007-NTTD-595x326_20200302184454_0.jpg);
+    width: 100%;
+    height: 100%; }
+  .banner__btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5rem;
+    height: 2rem;
+    border: white 1px solid;
+    color: #F2A20C;
+    background-color: white; }
+    .banner__btn-close:hover {
+      background-color: white;
+      color: #F2A20C;
+      border: #F2A20C 2px solid; }
 
 .btn-register {
   grid-area: btn-register;

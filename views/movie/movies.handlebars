@@ -1,6 +1,11 @@
-
+{{#if popup}}
+<article class="banner">
+    <button class="banner__btn-close">Close</button>
+    <div class="banner__content"></div>
+</article>
+{{/if}}
 <main class="main">
-{{#each movies}}
+    {{#each movies}}
     <article class="movie">
         <span class="movie__score">{{this.vote_average}}</span>
         <a href="{{this.ref}}"><img src="{{this.poster_path}}" alt="{{this.title}}" class="movie__img"></a>
@@ -8,5 +13,5 @@
         <p class="movie__genres">{{this.genres}}</p>
         <p class="movie__release">{{this.release_date}}</p>
     </article>
-{{/each}}
+    {{/each}}
 </main>

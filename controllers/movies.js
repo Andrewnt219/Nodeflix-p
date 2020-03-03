@@ -4,12 +4,19 @@ const { sentenceCase } = require('change-case');
 
 const { movies, discoverGenre, movie, searchMovie } = require('../public/js/tmdb');
 
+
 router.get('/', async (req, res) => {
-    if(!req.query.sortBy) req.query.sortBy = 'now_playing';
+    if(!req.query.sortBy) 
+        req.query.sortBy = 'now_playing';
+    if(!req.cookies.popup)
+        res.cookie('popup', '1');
+    const show = req.cookies.popup != '1'
+
     res.render('movie/movies', {
         movies: await movies(req.query.sortBy),
         title: sentenceCase(req.query.sortBy),
-    })
+        popup: show
+    });
 })
 
 router.get('/:movieId', async (req,res) => {
