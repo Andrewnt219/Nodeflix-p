@@ -27,9 +27,10 @@ router.post('/register', async (req,res) => {
         user.password = hash;
 
         user.jwt = await user.generateToken();
-        await user.save()
+        await user.save();
     })
 
+    
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const msg = {
         to: `${user.email}`,
@@ -44,7 +45,7 @@ router.post('/register', async (req,res) => {
       
     await sgMail.send(msg)
 
-    res.cookie('token', user.jwt, {maxAge: process.env.jwtExpirySeconds * 1000})
+    res.cookie('token', user.jwt)
         .redirect('/users/me');
 })
 
@@ -58,7 +59,7 @@ router.post('/login', async (req,res) => {
     user.lastLogin = Date.now();
     await user.save();
 
-    res.cookie('token', user.jwt, {maxAge: process.env.jwtExpirySeconds * 1000})
+    res.cookie('token', user.jwt)
         .redirect('/users/me');
 
 })

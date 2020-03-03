@@ -34,8 +34,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.generateToken = function () {
     return jwt.sign({email: this.email}, process.env.jwtPrivateKey, {
-        algorithm: 'HS256',
-        expiresIn: process.env.jwtExpirySeconds
+        algorithm: 'HS256'
     });
 }
 
