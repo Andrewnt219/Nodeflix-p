@@ -44,7 +44,8 @@ router.post('/register', async (req,res) => {
       
     await sgMail.send(msg)
 
-    res.redirect('/');
+    res.cookie('token', user.jwt, {maxAge: process.env.jwtExpirySeconds * 1000})
+        .redirect('/users/me');
 })
 
 router.post('/login', async (req,res) => {
