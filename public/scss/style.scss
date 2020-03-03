@@ -125,7 +125,6 @@ body {
     display: flex;
 
     &__input {
-        width: 100%;
         background-color: inherit;
         border: none;
         outline: none;
@@ -530,6 +529,14 @@ body {
     }
 
     @media (max-width: 900px) {
+        body {
+            grid-template-areas: 
+            "logo search"
+            "btn-register btn-login"
+            "main main"
+            "footer footer";
+            grid-template-columns: 1fr 1fr;
+        }
         .nav {
             overflow-x: scroll;
         }
