@@ -30,7 +30,7 @@ router.post('/register', async (req,res) => {
         console.log('sign up user:' + user);
         user.save()
             .then(() => console.log('Saved !' + user))
-            .catch(err => console.log(err));
+            .catch(err => console.log('Saved ERRORROROOROROR!:' + err));
     })
 
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
