@@ -227,7 +227,8 @@ body {
   .register > article {
     display: flex;
     flex-direction: column;
-    background-color: #F2A20C; }
+    background-color: #F2A20C;
+    padding: 1rem; }
   .register .intro {
     grid-area: intro; }
     .register .intro__text {
