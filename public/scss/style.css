@@ -263,6 +263,7 @@ body {
       font-weight: bold;
       background-color: inherit;
       border: #F2A20C 1px solid;
+      cursor: pointer;
       transition: 1s; }
       .register .form button:hover, .register .form button:focus {
         background-color: #F2A20C;
@@ -290,7 +291,8 @@ body {
     background-color: inherit;
     border: 1px solid #F2A20C;
     color: #F2A20C;
-    transition: 1s; }
+    transition: 1s;
+    cursor: pointer; }
     .login__button:hover, .login__button:focus {
       background-color: #F2A20C;
       color: white;
