@@ -8,7 +8,7 @@
         <h2 class=" perk__title">Password requirements:</h2>
         <p class="text perk__text">Password is 8-64 alphanumeric characters only</p>
         <p class="text perk__text">Name is at least 3 characters long</p>
-        <p class="text perk__text">Email is necessary</p>
+        <p class="text perk__text">Name, Email and Password are necessary</p>
     </article>
 
     <article class="author">
@@ -17,16 +17,16 @@
     </article>
 
     <form class="form" action='/users/register' method='POST'>
-        <label for="form__name">Name</label>
+        <label for="form__name">Name*</label>
         <input type="tel" value="{{name}}" class="input form__name" name="name" id="form__name" />
 
-        <label for="form__email">Email</label>
+        <label for="form__email">Email*</label>
         <input type="text" value="{{email}}" class="input form__email" name="email" id="form__email">
 
-        <label for="form__password">Password</label>
+        <label for="form__password">Password*</label>
         <input type="password" class="input form__password" name="password" id="form__password">
 
-        <label for="form__confirm_password">Confirm password</label>
+        <label for="form__confirm_password">Confirm password*</label>
         <input type="password" class="input form__confirm_password" name="confirm_password"
             id="form__confirm_password">
 
