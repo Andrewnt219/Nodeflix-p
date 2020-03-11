@@ -12,81 +12,25 @@
 </head>
 
 <body>
-    <a href="/" class="logo">
-        <img src="/img/logo.png" alt="logo" class="logo__icon">
-        <h1 class="logo__site">Nodeflix</h1>
-    </a>
-
-    <form class="search" action="/movies" method="POST">
-        <input type="text" name="movie" class="search__input" placeholder="Search movies">
-        <input type="submit" hidden>
-    </form>
-
-    <a class="btn-register" href="/users/register">
-        <i class="fas fa-user-plus btn-register__icon"></i>
-        <span class="btn-register__text">Register</span>
-    </a>
-
-    <a class="btn-login" href="/users/login">
-        <i class="fas fa-sign-in-alt btn-login__icon"></i>
-        <span class="btn-login__text">Login</span>
-    </a>
-
-    <h1 class="title">{{title}}</h1>
-
-    <nav class="nav">
-        <a href="/users/me" class="nav__genre {{#if isNew}}nav__genre--active{{/if}}">
-            <i class="fas fa-user nav__icon"></i>
-            <span class="nav__text">My profile</span>
+        <a href="/" class="logo">
+            <img src="/img/logo.png" alt="logo" class="logo__icon">
+            <h1 class="logo__text">Nodeflix</h1>
         </a>
 
-        <a href="/movies?sortBy=now_playing" class="nav__genre {{#if isNew}}nav__genre--active{{/if}}">
-            <i class="fas fa-rss-square nav__icon"></i>
-            <span class="nav__text">Now playing</span>
+        <form class="search" action="/movies" method="POST">
+            <input type="text" name="movie" class="search__input" placeholder="Search movies">
+            <input type="submit" hidden>
+        </form>
+
+        <a class="btn-register" href="/users/register">
+            <i class="fas fa-user-plus btn-register__icon"></i>
+            <h1 class="btn-register__text">Register</h1>
         </a>
 
-        <a href="/movies?sortBy=popular" class="nav__genre">
-            <i class="fas fa-fire-alt nav__icon"></i>
-            <span class="nav__text">Popular</span>
+        <a class="btn-login" href="/users/login">
+            <i class="fas fa-sign-in-alt btn-login__icon"></i>
+            <h1 class="btn-login__text">Login</h1>
         </a>
-
-        <a href="/movies?sortBy=top_rated" class="nav__genre">
-            <i class="far fa-thumbs-up nav__icon"></i>
-            <span class="nav__text">Top rated</span>
-        </a>
-
-        <a href="/movies?sortBy=upcoming" class="nav__genre">
-            <i class="fas fa-forward nav__icon"></i>
-            <span class="nav__text">Upcoming</span>
-        </a>
-
-
-        <a href="/movies/genres/Action" class="nav__genre">
-            <i class="fas fa-fist-raised nav__icon"></i>
-            <span class="nav__text">Action</span>
-        </a>
-
-        <a href="/movies/genres/Adventure" class="nav__genre">
-            <i class="fas fa-map nav__icon"></i>
-            <span class="nav__text">Adventure</span>
-        </a>
-
-        <a href="/movies/genres/Comedy" class="nav__genre">
-            <i class="fas fa-theater-masks nav__icon"></i>
-            <span class="nav__text">Comedy</span>
-        </a>
-
-        <a href="/movies/genres/Romance" class="nav__genre">
-            <i class="fas fa-heart nav__icon"></i>
-            <span class="nav__text">Romance</span>
-        </a>
-
-        <a href="/movies/genres/Science Fiction" class="nav__genre">
-            <i class="fas fa-laptop nav__icon"></i>
-            <span class="nav__text">Sci-fi</span>
-        </a>
-    </nav>
-
 
     {{{body}}}
 
@@ -98,6 +42,7 @@
         </article>
     </footer>
 </body>
+
 <script src='/js/utils.js'></script>
 
 </html>

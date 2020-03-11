@@ -1,394 +1,113 @@
 :root {
-  font-size: 1em;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
-  color: white; }
-
-.movie__genres, .movie__release {
-  color: rgba(5, 235, 212, 0.7);
-  font-size: 0.8rem;
-  font-weight: bold; }
-
-.btn-register, .btn-login, .oneMovie__btn-price, .oneMovie__btn-rent {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: white 1px solid;
-  justify-self: end;
-  width: 100px;
-  padding: 0.5rem;
-  background-color: #F24150;
-  color: white;
-  font-weight: bold;
-  font-size: inherit;
-  outline: none; }
-  .btn-register:hover, .btn-login:hover, .oneMovie__btn-price:hover, .oneMovie__btn-rent:hover {
-    background-color: #f0293a; }
+  font-size: 10px;
+  font-family: 'Roboto', sans-serif; }
 
 * {
-  margin: 0;
   padding: 0;
-  text-decoration: none; }
+  margin: 0;
+  text-decoration: none;
+  color: #f7fff7; }
+  *:visited {
+    color: inherit; }
 
 html, body {
   width: 100%;
-  height: 100%;
-  background-color: #222B31;
-  overflow: hidden; }
+  background-color: #222B31; }
 
 body {
   display: grid;
-  grid-template-areas: "logo search btn-register btn-login" "nav title title title" "nav main main main" "footer footer footer footer";
-  grid-template-columns: 15rem 35rem auto;
-  grid-template-rows: 10% 10% auto 5%; }
+  grid-template-columns: 1fr 3fr 1fr 1fr;
+  grid-template-areas: "logo   search  register    login" "nav    title   title       title" "nav    main    main        main" "footer footer  footer      footer"; }
 
-.banner {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(34, 43, 49, 0.7);
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2; }
-  .banner__content {
-    background: no-repeat center/80% url(https://mediafiles.cineplex.com/Attachments/NewItems/007-NTTD-595x326_20200302184454_0.jpg);
-    width: 100%;
-    height: 100%; }
-  .banner__btn-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 5rem;
-    height: 2rem;
-    border: white 1px solid;
-    color: #F2A20C;
-    background-color: white; }
-    .banner__btn-close:hover {
-      background-color: white;
-      color: #F2A20C;
-      border: #F2A20C 2px solid; }
-
-.btn-register {
-  grid-area: btn-register;
-  width: 100%;
-  border: none; }
-  .btn-register__icon {
+.logo, .btn-login, .btn-register {
+  grid-area: logo;
+  padding: 1.5rem 0;
+  background-color: #f0293a;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .logo:hover, .btn-login:hover, .btn-register:hover {
+    background-color: #ee1124; }
+  .logo__icon, .btn-login__icon, .btn-register__icon {
     display: none; }
-  .btn-register__text {
-    align-self: center; }
+  .logo__text, .btn-login__text, .btn-register__text {
+    font-size: 3rem; }
 
 .btn-login {
-  grid-area: btn-login;
-  width: 100%;
-  border: none; }
-  .btn-login__icon {
-    display: none; }
+  grid-area: login; }
 
-.logo {
-  grid-area: logo;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #F24150; }
-  .logo__icon {
-    width: 30px;
-    height: 30px;
-    margin-right: .5rem; }
-  .logo__site {
-    color: white;
-    font-weight: bold;
-    font-size: 1.5rem; }
-  .logo:hover {
-    background-color: #f0293a; }
+.btn-register {
+  grid-area: register; }
 
 .search {
   grid-area: search;
-  background-color: #f45966;
-  display: flex; }
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: #f35966;
+  box-sizing: border-box;
+  padding: 1rem; }
   .search__input {
+    align-self: center;
     background-color: inherit;
+    font-size: 2.1rem;
+    width: 100%;
     border: none;
-    outline: none;
-    font-size: 1.2rem;
-    color: white;
-    position: relative;
-    left: 2rem; }
-
-.nav {
-  grid-area: nav;
-  background-color: #0d1113;
-  padding-top: 2rem; }
-  .nav__icon {
-    display: none; }
-  .nav__genre {
-    font-weight: bolder;
-    list-style: none;
-    padding: 1rem 2rem;
-    text-align: left;
-    display: block;
     color: white; }
-    .nav__genre:hover, .nav__genre--active {
-      background-color: #2c3840;
-      color: #F24150; }
 
 .title {
   grid-area: title;
-  background-color: #222B31;
+  font-size: 3rem;
   margin: 0 auto;
-  padding: 2rem 0 0 0;
-  width: max-content; }
+  text-align: center; }
 
-.subtitle {
-  grid-area: subtitle;
-  background-color: #222B31;
-  width: max-content;
-  margin: 0 auto; }
-
-.main {
-  grid-area: main;
-  width: 90%;
-  margin: auto;
-  background-color: inherit;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 270px)); }
-
-.movie {
-  display: flex;
-  flex-direction: column;
-  width: min-content; }
-  .movie * {
-    margin: 0.3rem;
-    word-wrap: break-word; }
-  .movie__score {
-    background-color: #F2A20C;
-    width: 30%;
-    padding: 0.5rem 0;
-    border-radius: 50px;
-    font-weight: bold;
-    text-align: center;
-    z-index: 1;
-    position: relative;
-    top: 7%;
-    align-self: center; }
-    .movie__score--bad {
-      background-color: red; }
-  .movie__img {
-    width: 250px;
-    height: 300px; }
-    .movie__img:hover {
-      filter: brightness(115%); }
-  .movie__title {
-    text-align: left;
-    height: max-content;
-    font-weight: bolder; }
-
-.oneMovie {
-  display: grid;
-  grid-area: main;
-  font-size: 1.3rem;
-  width: 90%;
-  margin: 1rem auto 0 auto;
-  grid-template-columns: min-content;
-  align-items: center;
-  column-gap: 2rem;
-  grid-template-areas: "img genre genre" "img score score" "img desc desc" "img release release" "img price btn-price" "img rent btn-rent"; }
-  .oneMovie__img {
-    grid-area: img;
-    width: 350px;
-    height: auto; }
-  .oneMovie__score {
-    grid-area: score; }
-  .oneMovie__genres {
-    grid-area: genre; }
-  .oneMovie__desc {
-    grid-area: desc;
-    width: auto; }
-  .oneMovie__price {
-    grid-area: price; }
-  .oneMovie__rent {
-    grid-area: rent; }
-  .oneMovie__release {
-    grid-area: release; }
-  .oneMovie__btn-price {
-    grid-area: btn-price; }
-  .oneMovie__btn-rent {
-    grid-area: btn-rent; }
-  .oneMovie__field {
-    font-weight: bold;
-    background-color: #F24150; }
-
-.register {
-  grid-area: main;
-  display: grid;
-  width: 90%;
-  margin: 2rem auto 0 auto;
-  grid-template-areas: "form author" "form intro" "form perk";
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-  .register > article {
+.nav {
+  grid-area: nav;
+  height: 100%;
+  background-color: #0d1113; }
+  .nav__genre {
+    padding: 1.5rem 0 1.5rem 20%;
     display: flex;
-    flex-direction: column;
-    background-color: #F2A20C;
-    padding: 1rem; }
-  .register .intro {
-    grid-area: intro; }
-    .register .intro__text {
-      background-color: #F24150; }
-  .register .perk {
-    grid-area: perk; }
-  .register .author {
-    grid-area: author; }
-  .register .form {
-    grid-area: form;
-    display: grid;
-    max-width: 25rem;
-    width: 80%;
-    margin: 0 auto;
-    grid-template-columns: 5rem auto;
-    column-gap: 2rem; }
-    .register .form input {
-      max-height: 1rem;
-      color: #F2A20C;
-      border: #F2A20C 1px solid;
-      padding: 0.5rem;
-      transition: 1s; }
-      .register .form input:focus {
-        transform: scaleX(1.2); }
-    .register .form label {
-      font-weight: bolder;
-      color: #F2A20C; }
-    .register .form button {
-      grid-column: 1 / 3;
-      width: 100%;
-      color: #F2A20C;
-      font-weight: bold;
-      background-color: inherit;
-      border: #F2A20C 1px solid;
-      cursor: pointer;
-      transition: 1s; }
-      .register .form button:hover, .register .form button:focus {
-        background-color: #F2A20C;
-        color: white;
-        border: 1px solid white; }
-
-.login {
-  grid-area: main;
-  margin: 2rem auto 0 auto;
-  color: #F2A20C;
-  font-weight: bold;
-  display: grid;
-  grid-template-rows: repeat(4, 1rem) 3rem;
-  row-gap: 3rem;
-  width: 20%; }
-  .login__input {
-    outline: 1px solid #F2A20C;
-    color: #F2A20C;
-    padding: 1rem;
-    transition: 1s; }
-    .login__input:focus {
-      transform: scaleX(1.2); }
-  .login__button {
-    width: 100%;
-    background-color: inherit;
-    border: 1px solid #F2A20C;
-    color: #F2A20C;
-    transition: 1s;
-    cursor: pointer; }
-    .login__button:hover, .login__button:focus {
-      background-color: #F2A20C;
-      color: white;
-      border: 1px solid white; }
-
-.profile {
-  grid-area: main;
-  width: 90%;
-  margin: 2rem auto; }
-  .profile > * {
-    margin-bottom: 1rem; }
-  .profile__field {
-    font-weight: bold;
-    background-color: #F24150;
-    margin-right: 1rem; }
-
-.footer {
-  grid-area: footer; }
-  .footer__media {
-    flex: 1;
-    display: flex;
-    justify-content: space-around;
+    justify-content: left;
     align-items: center;
-    color: white;
-    margin-top: 2rem;
-    min-height: 3rem;
-    background: black;
-    font-size: 1.6rem; }
-    .footer__media a:visited {
-      color: white; }
-
-::placeholder {
-  color: white;
-  opacity: 0.8; }
-
-::-webkit-scrollbar {
-  width: 0.5rem; }
-  ::-webkit-scrollbar-thumb {
-    background-color: #F2A20C; }
-    ::-webkit-scrollbar-thumb:hover {
-      background-color: #c1810a; }
-  ::-webkit-scrollbar-track {
-    background-color: #222B31; }
-
-@media (max-width: 1200px) {
-  body {
-    grid-template-areas: "logo search btn-register btn-login" "title title title title" "main main main main" "footer footer footer footer"; }
-  .logo__site {
+    transition: all 200ms ease; }
+    .nav__genre:nth-child(1) {
+      margin-top: 3rem; }
+    .nav__genre:hover {
+      background-color: #37454f;
+      box-shadow: #222B31 0 0.5rem 0.5rem; }
+      .nav__genre:hover * {
+        color: #f0293a; }
+  .nav__icon {
     display: none; }
-  .nav {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    padding: 0;
-    justify-content: space-evenly;
-    align-items: center;
-    z-index: 100;
-    width: 100%;
-    position: fixed;
-    bottom: 0; }
-    .nav__text {
-      display: none; }
-    .nav__icon {
-      display: block; }
-  .btn-register, .btn-login {
-    display: flex;
-    justify-content: center;
-    align-items: center; }
-    .btn-register__text, .btn-login__text {
-      display: none; }
-    .btn-register__icon, .btn-login__icon {
-      transform: scale(1.5);
-      display: block; }
-  .oneMovie {
-    grid-template-areas: "title title title" "desc desc desc" "img genre genre" "img score score" "img release release" "img price price" "img rent rent" "btn-price ... ..." "btn-rent ... ...";
-    row-gap: 1.5rem; }
-    .oneMovie__btn-price, .oneMovie__btn-rent {
-      width: 100%; } }
 
-@media (max-width: 1200px) and (max-width: 900px) {
-  body {
-    grid-template-areas: "logo search" "btn-register btn-login" "main main" "footer footer";
-    grid-template-columns: 1fr 1fr; }
-  .nav {
-    overflow-x: scroll; }
-  .register {
-    grid-template-areas: "form" "intro" "author" "perk"; }
-    .register .form {
-      grid-template-columns: repeat(6, 1fr);
-      row-gap: 1rem;
-      margin: 0 auto 1rem 0;
-      width: 100%;
-      align-self: center; }
-      .register .form button {
-        grid-column: 5/7;
-        height: 100%; }
-  .login {
-    margin: 2rem auto 0 1rem; }
-  .title {
-    margin: 0 0 0 1rem; } }
+.movies {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  width: 90%;
+  margin: 0 auto; }
+  .movies .movie {
+    width: min-content;
+    display: flex;
+    flex-direction: column; }
+    .movies .movie__score {
+      align-self: center;
+      transform: translateY(1.5rem);
+      background-color: #F2A20C;
+      padding: 0.5rem 2rem;
+      border-radius: 1.5rem;
+      font-size: 1.5rem; }
+    .movies .movie__img {
+      width: 30rem;
+      height: 34.5rem; }
+    .movies .movie__title {
+      font-size: 2.25rem;
+      font-weight: bold;
+      margin: 1.5rem 0; }
+    .movies .movie__release, .movies .movie__genres {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: #4ecdc4; }
+    .movies .movie__release {
+      margin-top: 0.75rem; }

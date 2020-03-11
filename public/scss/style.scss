@@ -1,630 +1,202 @@
 :root {
-    font-size: 1em;
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
-    color:white;
+    font-size: 10px;
+    font-family: 'Roboto', sans-serif;
 }
 
-$red: #F24150;
-$blue: rgba(27, 73, 166, 0.7);
-$black: #222B31;
-$aqua: rgba(5, 235, 212, 0.7);
+$blue: rgba(26, 83, 92, 1);
+$aqua: rgba(78, 205, 196, 1);
+$white: rgba(247, 255, 247, 1);
+$red: #f0293a;
 $yellow: #F2A20C;
+$black: #222B31;
 
-$icon-width: 30px;
-$icon-height: 30px;
-$poster-w: 250px;
-$poster-h: 300px;
+$poster-w: 30rem;
+$poster-h: $poster-w*1.15;
+$icon-w: 3rem;
+$icon-h: $icon-w;
 
-$btn-w: 100px;
-$btn-h: 70px;
-
-%subinfo {
-    color: $aqua;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-
-%btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: white 1px solid;
-    justify-self: end;
-    width: $btn-w;
-    padding: 0.5rem;
-    background-color: $red;
-    color: white;
-    font-weight: bold;
-    font-size: inherit;
-    outline: none;
+@mixin btn($width, $color, $border-color ) {
+    box-sizing: border-box;
+    padding: 0.3rem;
+    background-color: $color;
+    border: 1px solid $border-color;
+    transition: background-color 300ms ease;
 
     &:hover {
-        background-color: darken($red, 5%);
+        background-color: darken($color, 10%);
     }
-
 }
 
 * {
-    margin: 0;
     padding: 0;
+    margin: 0;
     text-decoration: none;
+    color: $white;
+
+    &:visited {
+        color: inherit;
+    }
 }
 
 html, body {
     width: 100%;
-    height: 100%;
     background-color: $black;
-    overflow: hidden;
 }
 
 body {
-    display:grid;
-    grid-template-areas: 
-        "logo search btn-register btn-login"
-        "nav title title title"
-        "nav main main main"
-        "footer footer footer footer";
-    grid-template-columns: 15rem 35rem auto;
-    grid-template-rows: 10% 10% auto 5%;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr;
+    grid-template-areas:  
+    "logo   search  register    login"
+    "nav    title   title       title"
+    "nav    main    main        main"
+    "footer footer  footer      footer";
 }
 
+.logo {
+    grid-area: logo;
+    padding: 1.5rem 0;
+    background-color: $red;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 
-.banner {
-    width: 100%;
-    height: 100%;
-    background-color: rgba($black, 0.7);
-    position: absolute;
-    top:0;
-    left:0;
-    z-index: 2;
-
-    &__content {
-        
-        background: no-repeat center/80% url(https://mediafiles.cineplex.com/Attachments/NewItems/007-NTTD-595x326_20200302184454_0.jpg);
-        width: 100%;
-        height: 100%;
+    &:hover {
+        background-color: darken($red, 5%);
     }
-
-    &__btn-close {
-        position: absolute;
-        top:0;
-        right: 0;
-        width: 5rem;
-        height: 2rem;
-        border: white 1px solid;
-        color: $yellow;
-        background-color: white;
-
-        &:hover {
-            background-color: white;
-            color: $yellow;
-            border: $yellow 2px solid;
-        }
-    }
-}
-
-
-.btn-register {
-    grid-area: btn-register;
-    @extend %btn;
-    width: 100%;
-    border: none;
-
 
     &__icon {
         display: none;
     }
 
     &__text {
-        align-self: center;
+        font-size: $icon-h;
     }
 }
 
 .btn-login {
-    grid-area: btn-login;
-    @extend %btn;
-    width: 100%;
-    border: none;
+    @extend .logo;
+    grid-area: login;
 
     &__icon {
-        display: none;
+        @extend .logo__icon;
+    }
+
+    &__text {
+        @extend .logo__text;
     }
 }
 
-.logo {
-    grid-area: logo;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: $red;
+.btn-register {
+    @extend .logo;
+    grid-area: register;
 
     &__icon {
-        width: $icon-width;
-        height: $icon-height;
-        margin-right: .5rem;
+        @extend .logo__icon;
     }
 
-    &__site {
-        color: white;
-        font-weight: bold;
-        font-size: 1.5rem;
-    }
-
-    &:hover {
-        background-color: darken($red, 5%);
+    &__text {
+        @extend .logo__text;
     }
 }
 
 .search {
     grid-area: search;
-    background-color: lighten($red, 5%);
     display: flex;
-
+    width: 100%;
+    height: 100%;
+    background-color: lighten($red, 10%);
+    box-sizing: border-box;
+    padding: 1rem;
     &__input {
+        align-self: center;
         background-color: inherit;
+        font-size: $icon-h*0.7;
+        width: 100%;
         border: none;
-        outline: none;
-        font-size: 1.2rem;
-        color:white;
-
-        position: relative;
-        left: 2rem;
+        color: white;
     }
 }
 
+$title-font: 3rem;
+.title {
+    grid-area: title;
+    font-size: $title-font;
+    margin: 0 auto;
+    text-align: center;
+}
 
 .nav {
     grid-area: nav;
+    height: 100%;
     background-color: darken($black, 10%);
-    padding-top: 2rem;
+
+    &__genre {
+        padding: 1.5rem 0 1.5rem 20%;
+        display:flex;
+        justify-content: left;
+        align-items: center;
+        transition: all 200ms ease;
+
+        &:nth-child(1) {
+            margin-top: $title-font;
+        }
+
+        &:hover {
+            background-color: lighten($black, 10%);
+            box-shadow: $black 0 0.5rem 0.5rem;
+            * {
+                color: $red;
+            }
+        }
+    }
 
     &__icon {
         display: none;
     }
-
-    &__genre {
-        font-weight: bolder;
-        list-style: none;
-        padding: 1rem 2rem;
-        text-align: left;
-        display: block;
-        color:white;
-
-        &:hover, &--active {
-            background-color: lighten($black, 5%);
-            color: $red;
-        }
-
-    }
 }
 
-.title {
-    grid-area: title;
-    background-color: $black;
-    margin: 0 auto;
-    padding: 2rem 0 0 0;
-    width: max-content;
-}
-
-.subtitle {
-    grid-area: subtitle;
-    background-color: $black;
-    width: max-content;
+.movies {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax($poster-w, 1fr));
+    width: 90%;
     margin: 0 auto;
 
-}
-
-.main {
-    grid-area: main;
-    width: 90%;
-    margin:auto;
-    background-color: inherit;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax($poster-w, 270px));
-}
-
-.movie {
-    display: flex;
-    flex-direction: column;
-    width: min-content;
-    * {
-        margin: 0.3rem;
-        word-wrap: break-word;
-    }
-
-    &__score {
-        background-color: $yellow;
-        width: 30%;
-        padding: 0.5rem 0;
-        border-radius: 50px;
-        font-weight: bold;
-        text-align: center;
-        z-index: 1;
-
-        position: relative;
-        top: 7%;
-        align-self: center;
-
-        &--bad {
-            background-color: red;
-        }
-    }
-
-    &__img {
-        width: $poster-w;
-        height: $poster-h;
-
-        &:hover {
-            filter: brightness(115%);
-        }
-    }
-
-    &__title {
-        text-align: left;
-        height: max-content;
-        font-weight: bolder;
-    }
-    
-    &__genres {
-       @extend %subinfo;
-    }
-
-    &__release {
-        @extend %subinfo;
-    }
-}
-
-.oneMovie {
-    display: grid;
-    grid-area: main;
-    font-size: 1.3rem;
-    width: 90%;
-    margin: 1rem auto 0 auto;
-    grid-template-columns: min-content ;
-    align-items: center;
-    column-gap: 2rem;
-    grid-template-areas:
-    "img genre genre"
-    "img score score"
-    "img desc desc"
-    "img release release"
-    "img price btn-price"
-    "img rent btn-rent";
-
-    &__img {
-        grid-area: img;
-        width: 350px;
-        height: auto;
-    }
-
-    &__score {
-        grid-area: score;
-    }
-
-    &__genres {
-        grid-area: genre;
-    }
-
-    &__desc {
-        grid-area: desc;
-        width: auto;
-    }
-
-    &__price {
-        grid-area: price;
-    }
-
-    &__rent {
-        grid-area: rent;
-    }
-
-    &__release {
-        grid-area: release;
-    }
-
-    &__btn-price {
-        grid-area: btn-price;
-        @extend %btn;
-    }
-
-    &__btn-rent {
-        grid-area: btn-rent;
-        @extend %btn
-
-    }
-
-    &__field {
-        font-weight: bold;
-        background-color: $red;
-    }
-}
-
-.register {
-    grid-area: main;
-    display: grid;
-    width: 90%;
-    margin: 2rem auto 0 auto;
-    grid-template-areas: 
-    "form author"
-    "form intro"
-    "form perk";
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
-    &>article {
+    .movie {
+        width: min-content;
         display: flex;
         flex-direction: column;
-        background-color: $yellow;
-        padding: 1rem;
-    }
-    
-    & .intro {
-        grid-area: intro;
+        $movie-font: 1.5rem;
 
-        &__text {
-            background-color: $red;
-        }
-    }
-
-    & .perk {
-        grid-area: perk;
-    }
-
-    & .author {
-        grid-area: author;
-
-    }
-
-    & .form {
-        grid-area: form;
-        display: grid;
-        max-width: 25rem;
-        width: 80%; 
-        margin: 0 auto;
-        grid-template-columns: 5rem auto;
-        column-gap: 2rem;  
-
-        & input {
-            max-height: 1rem;
-            color:$yellow;
-            border: $yellow 1px solid;
-            padding: 0.5rem;
-            transition: 1s;
-
-            &:focus {
-                transform: scaleX(1.2);
-            }
-        }
-
-        & label {
-            font-weight: bolder;
-            color: $yellow;
-        }
-
-        & button {
-            grid-column: 1 / 3;
-            width: 100%;
-            color: $yellow;
-            font-weight: bold;
-            background-color: inherit;
-            border: $yellow 1px solid;
-            cursor: pointer;
-            transition: 1s;
-
-            &:hover, &:focus {
-                background-color: $yellow;
-                color: white;
-                border: 1px solid white;
-            }
-        }
-
-    }
-}
-
-.login {
-    grid-area: main;
-    margin: 2rem auto 0 auto;
-    color: $yellow;
-    font-weight: bold;
-    display: grid;
-    grid-template-rows: repeat(4, 1rem) 3rem;
-    row-gap: 3rem;
-    width: 20%;
-
-
-    &__input {
-        outline: 1px solid $yellow;
-        color: $yellow;
-        padding: 1rem;
-        transition: 1s;
-
-        &:focus {
-            transform: scaleX(1.2);
-        }
-    }
-
-    &__button {
-        width: 100%;
-        background-color: inherit;
-        border: 1px solid $yellow;
-        color: $yellow;
-        transition: 1s;
-        cursor: pointer;
-
-        &:hover, &:focus {
+        &__score {
+            align-self: center;
+            transform: translateY($movie-font);
             background-color: $yellow;
-            color: white;
-            border: 1px solid white;
+            padding: 0.5rem 2rem;
+            border-radius: $movie-font;
+            font-size: $movie-font;
+        }
+
+        &__img {
+            width: $poster-w;
+            height: $poster-h;
+        }
+
+        &__title {
+            font-size: 1.5*$movie-font;
+            font-weight: bold;
+            margin: $movie-font 0;
+        }
+
+        &__release, &__genres {
+            font-weight: bold;
+            font-size: $movie-font;
+            color: $aqua;   
+        }
+
+        &__release {
+            margin-top: 0.5*$movie-font;
         }
     }
 }
-
-.profile {
-    grid-area: main;
-    width: 90%;
-    margin: 2rem auto;
-
-    &>* {
-        margin-bottom: 1rem;
-    }
-
-    &__field {
-        font-weight: bold;
-        background-color: $red;
-        margin-right: 1rem;
-    }
-}
-
-.footer {
-    grid-area: footer;
-
-    &__media {
-        flex:1;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        color: white;
-        margin-top: 2rem;
-        min-height: 3rem;
-        background: black;
-        font-size: 1.6rem;
-
-        a:visited {
-            color:white;
-        }
-    }
-}
-
-::placeholder {
-    color: white;
-    opacity: 0.8;
-}
-
-::-webkit-scrollbar {
-    width: 0.5rem;
-
-    &-thumb {
-        background-color: $yellow;
-
-        &:hover {
-            background-color: darken($yellow, 10%);
-        }
-    }
-
-    &-track {
-        background-color: $black;
-    }
-}
-
-
-
-@media (max-width: 1200px) {
-    body {
-        grid-template-areas: 
-        "logo search btn-register btn-login"
-        "title title title title"
-        "main main main main"
-        "footer footer footer footer";
-    }
-
-    .logo__site {
-        display: none;
-    }
-
-    .nav {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        padding: 0;
-        justify-content: space-evenly;
-        align-items: center;
-        z-index: 100;
-        width: 100%;
-        position: fixed;
-        bottom: 0;
-        
-        &__text {
-            display: none;
-        }
-
-        &__icon {
-            display: block;
-        }
-    }
-
-    .btn-register, .btn-login {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        &__text {
-            display: none;
-        }
-
-        &__icon {
-            transform: scale(1.5);
-            display: block;
-        }
-    }
-
-    .oneMovie{
-        grid-template-areas: 
-        "title title title"
-        "desc desc desc"
-        "img genre genre"
-        "img score score"
-        "img release release"
-        "img price price"
-        "img rent rent"
-        "btn-price ... ..."
-        "btn-rent ... ...";
-
-        row-gap: 1.5rem;
-
-        &__btn-price, &__btn-rent {
-            width: 100%;
-        }
-    }
-
-    @media (max-width: 900px) {
-        body {
-            grid-template-areas: 
-            "logo search"
-            "btn-register btn-login"
-            "main main"
-            "footer footer";
-            grid-template-columns: 1fr 1fr;
-        }
-        .nav {
-            overflow-x: scroll;
-        }
-
-        .register {
-            grid-template-areas: 
-            "form"
-            "intro"
-            "author"
-            "perk";
-
-            & .form {
-                grid-template-columns: repeat(6, 1fr);
-                row-gap: 1rem;
-                margin: 0 auto 1rem 0;
-                width: 100%;
-                align-self: center;
-                
-                & button {
-                    grid-column: 5/7;
-                    height: 100%;
-                }
-            }
-        }
-
-        .login {
-            margin: 2rem auto 0 1rem;
-        }
-        
-        .title {
-            margin: 0 0 0 1rem;
-        }
-    }
-}
-
