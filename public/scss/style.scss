@@ -49,6 +49,7 @@ body {
 }
 
 body {
+    overflow: hidden;
     display: grid;
     grid-template-columns: 1fr 3fr 1fr 1fr;
     grid-template-rows: max(7rem) max(10rem) auto min(5rem);
@@ -449,10 +450,34 @@ $login-width: 40rem;
     width: 90%;
     margin: 0 auto;
 
-
     &__field {
         background-color: $red;
+    }
+}
 
+.banner {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+
+    &__content {
+        background:center no-repeat url(https://mediafiles.cineplex.com/Attachments/NewItems/CPXRotator_595x3261917_20200310213209_0.png);
+        z-index: 11;
+        width: 100%;
+        height: 50%;
+    }
+
+    &__btn-close {
+        @include btn();
+        width: 30%;
     }
 }
 
