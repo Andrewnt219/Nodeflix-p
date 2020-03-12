@@ -439,8 +439,21 @@ $login-width: 40rem;
             border-color: $white;
         }
     }
+}
+
+.profile {
+    grid-area: main;
+    font-size: 2rem;
+    display: grid;
+    row-gap: 3rem;
+    width: 90%;
+    margin: 0 auto;
 
 
+    &__field {
+        background-color: $red;
+
+    }
 }
 
 .footer {

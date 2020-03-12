@@ -285,6 +285,16 @@ body {
       color: #f7fff7;
       border-color: #f7fff7; }
 
+.profile {
+  grid-area: main;
+  font-size: 2rem;
+  display: grid;
+  row-gap: 3rem;
+  width: 90%;
+  margin: 0 auto; }
+  .profile__field {
+    background-color: #f0293a; }
+
 .footer {
   grid-area: footer;
   display: grid; }
