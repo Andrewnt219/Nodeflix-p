@@ -311,6 +311,7 @@ body {
         grid-area: form;
         display: grid;
         grid-template-columns: 1fr 3fr;
+        column-gap: 1rem;
         row-gap: 2rem;
         border: $yellow 0.01rem solid;
         border-radius: 1rem;
@@ -383,9 +384,10 @@ body {
     }
 }
 
+$login-width: 40rem;
 .login {
     grid-area: main;
-    width: 30%;
+    width:  $login-width;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
@@ -410,7 +412,7 @@ body {
         border-color: $white;
         border-radius: inherit;
         padding: 1rem;
-        width: 90%;
+        width: $login-width*0.9;
         box-sizing: border-box;
         transition: all 300ms ease;
 
@@ -423,7 +425,7 @@ body {
     button {
         @include btn($black, $yellow);
         background-color: inherit;
-        width: 90%;
+        width: $login-width*0.9;
         margin: 0 auto;
         color: $yellow;
         box-sizing: border-box;
@@ -442,4 +444,112 @@ body {
 
 .footer {
     grid-area: footer;
+}
+
+@media screen and (max-width: 850px) {
+    .logo {
+        &__icon {
+            display: block;
+            width: $icon-w;
+            height: $icon-h;
+            font-size: 3rem;
+        }
+
+        &__text {
+            display: none;
+        }
+    }
+
+    .oneMovie {
+        grid-template-areas: 
+        "img    img"
+        "score  release"
+        "desc   desc"
+        "genre  genre"
+        "price  rent"
+        "btn-buy btn-favorite";
+
+        &__img {
+            width: 100%;
+            max-height: auto;
+        }
+
+        &__btn-buy {
+            width: 100%;
+        }
+    }
+
+    .register {
+        grid-template-columns: auto;
+        grid-template-areas: 
+        "form"
+        "intro"
+        "perk"
+        "author";
+
+        form {
+            margin-bottom: 2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .nav {
+        &__genre {
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        &__icon {
+            display: block;
+            font-size: $icon-w/2;
+        }
+
+        &__text {
+            display: none;  
+        }
+    }
+
+    .login {
+        $login-width: 30rem;
+        width: $login-width;
+
+        input, button {
+            width: $login-width*0.9;
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .logo {
+        &__icon {
+            font-size: $icon-w*0.7;
+            width: $icon-w*0.7;
+            height: $icon-h*0.7;
+        }
+    }
+    .oneMovie {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        "desc"
+        "img"
+        "score"
+        "release"
+        "genre"
+        "price"
+        "rent"
+        "btn-buy"
+        "btn-favorite";
+
+    }
+
+    .login {
+        $login-width: 20rem;
+        width: $login-width;
+
+        input, button {
+            width: $login-width*0.9;
+        }
+    }
 }
