@@ -126,6 +126,7 @@ body {
         width: 100%;
         border: none;
         color: white;
+        outline: none;
     }
 }
 
@@ -444,6 +445,26 @@ $login-width: 40rem;
 
 .footer {
     grid-area: footer;
+}
+
+::placeholder {
+    color: inherit;
+}
+
+::-webkit-scrollbar {
+    width: 1rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $yellow;
+
+    &:hover {
+        filter: brightness(1.2);
+    }
+}
+
+::-webkit-scrollbar-track {
+    background-color: inherit;
 }
 
 @media screen and (max-width: 850px) {
