@@ -6,6 +6,14 @@ require('dotenv').config({ path: './config/.env' });
 require('express-async-errors');
 
 module.exports = function (app) {
+    const hbs = exphbs.create({
+      helpers: {
+        checked: function(obj, prop) {
+            
+            if(obj && obj[prop]) return 'checked';
+        }
+      }
+    });
     app.use(fileUpload({
         preserveExtension: true
       }));
@@ -15,6 +23,6 @@ module.exports = function (app) {
     app.use(cookieParser());
 
     app.listen(process.env.PORT, () => console.log('Ready for renting'));
-    app.engine('handlebars', exphbs());
+    app.engine('handlebars', hbs.engine);
     app.set('view engine', 'handlebars');
 }

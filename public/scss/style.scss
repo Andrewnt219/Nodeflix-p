@@ -481,6 +481,12 @@ $login-width: 40rem;
     }
 }
 
+.add {
+    input {
+        color: black;
+    }
+}
+
 .footer {
     grid-area: footer;
     display: grid;

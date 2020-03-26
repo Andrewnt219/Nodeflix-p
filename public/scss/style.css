@@ -326,6 +326,9 @@ body {
     .banner__btn-close:hover {
       background-color: #d70f20; }
 
+.add input {
+  color: black; }
+
 .footer {
   grid-area: footer;
   display: grid; }
