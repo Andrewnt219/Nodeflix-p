@@ -1,0 +1,6 @@
+{{#if message}}<p>{{message}}</p>{{/if}}
+<form action="/movies/delete" method="POST" class="delete">
+    <input type="hidden" name="_method" value="DELETE">
+    <label for="id">Enter the movieID to delete</label>
+    <input type="text" name="id" id="id">
+</form>

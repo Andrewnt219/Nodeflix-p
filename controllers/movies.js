@@ -15,6 +15,10 @@ router.get('/search', async (req, res) => {
     })
 });
 
+
+/**
+ * Add route
+ */
 router.get('/add', (req, res) => {
     const movie = {};
     movie['Action'] = true;
@@ -34,7 +38,7 @@ router.post('/add', async (req, res, next) => {
     } = req.body;
     let { poster_img, backdrop_img } = req.files ? req.files : {};
 
-    const movie = new Movie({
+    let movie = new Movie({
         id: Movie.idGenerator(),
         original_title: original_title,
         original_language: original_language || 'en',
@@ -52,22 +56,29 @@ router.post('/add', async (req, res, next) => {
     }
 
     try {
-        await movie.save();
-        await Movie.updateOne({ _id: movie._id }, {
+        movie = await movie.save();
+
+        if(poster_img) {
+            poster_img.name ='poster_' + movie._id + poster_img.name;
+            await poster_img.mv(`public/img/${poster_img.name}`);
+        }
+        if(backdrop_img) {
+            backdrop_img.name = 'backdrop_' + movie._id + backdrop_img.name;
+            await backdrop_img.mv(`public/img/${backdrop_img.name}`);
+        }
+
+       await Movie.findOneAndUpdate({ _id: movie._id }, {
             $set: {
-                poster_path: poster_img ? this.id + poster_img.name : '404.png',
-                backdrop_path: backdrop_img ? this.id + backdrop_img.name : '404.png',
+                poster_path: poster_img ? poster_img.name : '404.png',
+                backdrop_path: backdrop_img ? backdrop_img.name : '404.png',
             }
         })
+
     } catch (error) {
         let errmsg = error.message;
-        if (error.code === 11000)
-            errmsg = 'Duplicate ID';
 
         let input = {...movie._doc};
         input.release_date = moment(release_date).format(moment.HTML5_FMT.DATE);
-
-        console.log(input);
 
         for(genre of input.genre) {
             input[genre] = true;
@@ -82,11 +93,15 @@ router.post('/add', async (req, res, next) => {
     res.render('movie/add', { status: 'Movie is added' });
 });
 
-router.get('/edit/:movieId', (req,res) => {
-    const input = Movie.findOne({id: id}).lean();
+/**
+ * edit route
+ */
+router.get('/edit/:movieId', async (req,res) => {
+    const input = await Movie.findOne({id: req.params.movieId}).lean();
 
     if(!input) return res.render('utils/error');
-
+    
+    input.release_date = moment(input.release_date).format(moment.HTML5_FMT.DATE);
     for(genre of input.genre) {
         input[genre] = true;
     }
@@ -94,8 +109,9 @@ router.get('/edit/:movieId', (req,res) => {
     res.render('movie/edit', {movie: input});
 });
 
-router.put('/:movieId', async (req, res) => {
+router.put('/edit', async (req, res) => {
     const {
+        _id,
         original_title,
         original_language,
         title,
@@ -106,23 +122,73 @@ router.put('/:movieId', async (req, res) => {
         video
     } = req.body;
     let { poster_img, backdrop_img } = req.files ? req.files : {};
+    let genres = [];
 
-    const movie = await Movie.findOneAndUpdate({ id: req.params.movieId }, {
-        original_title: original_title,
-        original_language: original_language,
-        title: title,
-        overview: overview,
-        stock: stock,
-        release_date: release_date,
-        adult: adult,
-        video: video,
-        poster_path: poster_img ? this.id + poster_img.name : '404.png',
-        backdrop_path: backdrop_img ? this.id + backdrop_img.name : '404.png'
-    }, { new: true });
+    for(field in req.body) {
+        if(field.match(/genre.*/))
+            genres.push(req.body[field]);
+    }
+    
+    try {
+        if(poster_img) {
+            poster_img.name ='poster_' + _id + poster_img.name;
+            await poster_img.mv(`public/img/${poster_img.name}`);
+        }
+        if(backdrop_img) {
+            backdrop_img.name = 'backdrop_' + _id + backdrop_img.name;
+            await backdrop_img.mv(`public/img/${backdrop_img.name}`);
+        }
+    
+        await Movie.findOneAndUpdate({ _id: _id }, {
+            original_title: original_title,
+            original_language: original_language,
+            title: title,
+            overview: overview,
+            stock: stock || 15,
+            release_date: release_date || Date.now(),
+            adult: adult || false,
+            video: video || false,
+            genre: genres,
+            poster_path: poster_img ? poster_img.name : '404.png',
+            backdrop_path: backdrop_img ? backdrop_img.name : '404.png'
+        }, {runValidators: true });
+    } catch (error) {
+        let errmsg = error.message;
+
+        let input = {...req.body};
+        input.genre = [...genres];
+        input.release_date = moment(release_date).format(moment.HTML5_FMT.DATE);
+        
+        for(genre of input.genre) {
+            input[genre] = true;
+        }
+        
+        console.log(input);
+        return res.render('movie/edit', {
+            error: errmsg,
+            movie: input,
+        })
+    }
 
     if(!movie) return res.status(400).render('utils/error', {message: 'The provided movieID does not exist'});
 
     res.render('movie/edit', {status: 'Movie is editted'});
 });
+
+/**
+ * Delete route
+ */
+router.get('/delete', (req,res) => {
+    res.render('movie/delete');
+});
+
+router.delete('/delete', async (req,res) => {
+    const movie = await Movie.findOneAndDelete({id: req.body.id});
+
+    if(!movie) return res.render('movie/delete', {message: 'Movie not found'});
+
+    res.render('movie/delete', {message: `Movie ${req.body.id} is deleted`});
+    
+})
 
 module.exports = router;

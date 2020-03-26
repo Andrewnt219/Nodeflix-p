@@ -70,7 +70,8 @@ const movieSchema = new mongoose.Schema({
     },
     release_date: {
         type: Date,
-        get(v) {
+        // Somehow not working
+        get: function(v) {
             return moment(v).format(moment.HTML5_FMT.DATE);
         }
     },
