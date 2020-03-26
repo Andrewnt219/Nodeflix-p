@@ -2,21 +2,32 @@ const mongoose = require('mongoose');
 const moment = require('moment');
 
 const movieSchema = new mongoose.Schema({
+    category: {
+        type: String,
+        default: 'Others'
+    },
     popularity: {
         type: Number,
-        default: 0.0
+        default: Math.round(Math.random() * (10000 - 100)) + 1
     },
     vote_count: {
         type: Number,
-        default: 0.0
+        default: function() {
+            return Math.round(Math.random() * (this.popularity/3 - 0)) + 1;
+        }
     },
     video: {
         type: Boolean,
-        default:false
+        default: false
     },
     poster_path: {
         type: String,
-        default: '/img/404.png'
+        validate: {
+            validator: function(v) {
+                return v.match(/.*(jpg|jpeg|png|bmp)/)
+            },
+            message: 'Invalid image\'s extension. Allowed types are jpg, jpeg, png, and bmp'
+        }
     },
     id: {
         type: Number,
@@ -29,17 +40,21 @@ const movieSchema = new mongoose.Schema({
     },
     backdrop_path: {
         type: String,
-        default: '/img/404.png'
+        validate: {
+            validator: function(v) {
+                return v.match(/.*(jpg|jpeg|png|bmp)/)
+            },
+            message: 'Invalid image\'s extension. Allowed types are jpg, jpeg, png, and bmp'
+        }
     },
     original_language: {
-        type: String,
-        default: 'en'
+        type: String
     },
     original_title: String,
     genre: {
         type: Array,
         validate: {
-            validator: function(value) {
+            validator: function (value) {
                 return value && value.length > 0
             },
             message: 'There should be at least 1 genre'
@@ -51,25 +66,46 @@ const movieSchema = new mongoose.Schema({
     },
     vote_average: {
         type: Number,
-        default: 0.0
+        default: (Math.random() * (10 - 1 + 1) + 1).toFixed(2)
     },
     release_date: {
         type: Date,
-        default: moment().format(moment.HTML5_FMT.DATE)
+        get(v) {
+            return moment(v).format(moment.HTML5_FMT.DATE);
+        }
     },
     overview: String,
     price: {
-        type:Number,
-        default: function() { 
-            const newPrice = 12 - (Date.now() - this.release_date.getTime());
-            return  newPrice < 2 ? 2 : newPrice;        
+        type: Number,
+        default: function () {
+            const newPrice = 15 - moment().diff(this.release_date, 'd');
+            return newPrice < 3 ? 3 : newPrice;
         }
     },
     stock: {
-        type: Number,
-        default: 15,
+        type: Number
     },
+    best_seller: {
+        type: Boolean,
+        default: false
+    }
 })
+
+movieSchema.statics.id = 0;
+movieSchema.statics.idGenerator = function() {
+    return this.id += 3;
+}
+
+movieSchema.pre('save', function () {
+    if (moment(this.release_date) < moment().subtract(2, 'w'))
+        this.category = 'now_playing';
+    else if (moment(this.release_date) > moment())
+        this.category = 'upcoming';
+
+    if (this.popularity > 4500 && this.vote_average > 7)
+        this.best_seller = true;
+})
+
 
 const Movie = mongoose.model('movie', movieSchema);
 

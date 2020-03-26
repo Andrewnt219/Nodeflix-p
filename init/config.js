@@ -7,8 +7,6 @@ require('express-async-errors');
 
 module.exports = function (app) {
     app.use(fileUpload({
-        limits: { fileSize: 50 * 1024 * 1024 },
-        safeFileNames: true, 
         preserveExtension: true
       }));
     app.use(express.json());
