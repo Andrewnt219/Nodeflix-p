@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const movieSchema = new mongoose.Schema({
     popularity: {
@@ -35,7 +36,15 @@ const movieSchema = new mongoose.Schema({
         default: 'en'
     },
     original_title: String,
-    genre: [String],
+    genre: {
+        type: Array,
+        validate: {
+            validator: function(value) {
+                return value && value.length > 0
+            },
+            message: 'There should be at least 1 genre'
+        }
+    },
     title: {
         type: String,
         required: true
@@ -46,7 +55,7 @@ const movieSchema = new mongoose.Schema({
     },
     release_date: {
         type: Date,
-        default: Date.now()
+        default: moment().format(moment.HTML5_FMT.DATE)
     },
     overview: String,
     price: {
@@ -62,7 +71,7 @@ const movieSchema = new mongoose.Schema({
     },
 })
 
-const Movie = mogngoose.model('movie', movieSchema);
+const Movie = mongoose.model('movie', movieSchema);
 
 module.exports.Movie = Movie;
 module.exports.movieSchema = movieSchema;

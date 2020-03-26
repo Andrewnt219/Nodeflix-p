@@ -1,6 +1,6 @@
 const wiston = require('winston');
 
 module.exports = function(err,req,res,next) {
-    wiston.error(err);
-    res.status(500).send('Route exception: ' + err);
+    console.log('error.js--' + err);
+    res.status(500).render('utils/error', {title: 'Sorry'});
 }

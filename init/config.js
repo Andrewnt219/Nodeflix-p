@@ -1,9 +1,16 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const cookieParser = require('cookie-parser');
+const fileUpload = require('express-fileupload');
 require('dotenv').config({ path: './config/.env' });
+require('express-async-errors');
 
 module.exports = function (app) {
+    app.use(fileUpload({
+        limits: { fileSize: 50 * 1024 * 1024 },
+        safeFileNames: true, 
+        preserveExtension: true
+      }));
     app.use(express.json());
     app.use(express.urlencoded({extended:true}));
     app.use(express.static('public'));

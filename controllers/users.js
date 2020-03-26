@@ -4,6 +4,7 @@ const author = require('../middleware/author');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const express = require('express');
 const router = express.Router();
@@ -27,26 +28,36 @@ router.post('/register', async (req,res) => {
         user.password = hash;
 
         user.jwt = await user.generateToken();
-        await user.save();
+        user.save()
+            .then(async (user) => {
+                const msg = {
+                    to: `${user.email}`,
+                    from: 'tpnguyen12@myseneca.ca',
+                    subject: 'Welcome to Nodeflix!',
+                    html: `
+                        <strong>Username:</strong> ${user.name}
+                        <br>
+                        <p>Next step ... </p>   
+                    `
+                  };
+                  
+                await sgMail.send(msg)
+            
+                res.cookie('token', user.jwt)
+                    .redirect('/users/me');
+            })
+            .catch(err => {
+                const {name, email, phone} = req.body;
+                if(err.code = 11000)
+                    return res.status(400).render('user/register', {
+                        error: 'Email has been used',
+                        name: name,
+                        phone: phone
+                    });
+                else
+                    return res.status(400).render('user/register', {error: err.message});
+            });
     })
-
-    
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    const msg = {
-        to: `${user.email}`,
-        from: 'tpnguyen12@myseneca.ca',
-        subject: 'Welcome to Nodeflix!',
-        html: `
-            <strong>Username:</strong> ${user.name}
-            <br>
-            <p>Next step ... </p>   
-        `
-      };
-      
-    await sgMail.send(msg)
-
-    res.cookie('token', user.jwt)
-        .redirect('/users/me');
 })
 
 router.post('/login', async (req,res) => {

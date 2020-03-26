@@ -31,7 +31,7 @@ async function populateMovies(movies) {
     })
 
     movies.forEach(mov => {
-        mov.ref = `/movies/${mov.id}`;
+        mov.ref = `/movies/search?id=${mov.id}`;
         mov.backdrop_path? mov.backdrop_path = 'http://image.tmdb.org/t/p/original' + mov.backdrop_path : mov.backdrop_path = '/img/404.png';
         mov.poster_path? mov.poster_path = 'http://image.tmdb.org/t/p/original' + mov.poster_path : mov.poster_path = '/img/404.png';
         mov.vote_average = mov.vote_average.toFixed(1);
