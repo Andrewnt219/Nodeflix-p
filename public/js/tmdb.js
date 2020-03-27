@@ -35,6 +35,7 @@ async function populateMovies(movies) {
         mov.backdrop_path? mov.backdrop_path = 'http://image.tmdb.org/t/p/original' + mov.backdrop_path : mov.backdrop_path = '/img/404.png';
         mov.poster_path? mov.poster_path = 'http://image.tmdb.org/t/p/original' + mov.poster_path : mov.poster_path = '/img/404.png';
         mov.vote_average = mov.vote_average.toFixed(1);
+        mov.popularity = Number(String(mov.popularity).replace('.',''));
     });
     return movies;
 }
@@ -46,6 +47,8 @@ async function populateMovie(movie) {
         movie.genre.push(genre.name);
     }
     movie.genre = movie.genre.join(', ');
+
+    movie.popularity = Number(String(movie.popularity).replace('.',''));
 
     movie.backdrop_path? movie.backdrop_path = 'http://image.tmdb.org/t/p/original' + movie.backdrop_path : movie.backdrop_path = '/img/404.png';
     movie.poster_path? movie.poster_path = 'http://image.tmdb.org/t/p/original' + movie.poster_path : movie.poster_path = '/img/404.png';
@@ -60,7 +63,6 @@ async function populateMovie(movie) {
 async function movies(api) {
     const respond = await fetch(`https://api.themoviedb.org/3/movie/${api}?api_key=${process.env.API_KEY}&language=en-US&page=1&region=CA`);
     const { results } = await respond.json();
-
     return populateMovies(results);
 }
 

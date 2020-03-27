@@ -3,34 +3,36 @@ const router = express.Router();
 const { sentenceCase } = require('change-case');
 
 const { movies, discoverGenre, movie, searchMovie } = require('../public/js/tmdb');
+const { Movie } = require('../models/movie');
 
 
 router.get('/', async (req, res) => {
-    if(!req.query.sortBy) 
+    if (!req.query.sortBy)
         req.query.sortBy = 'now_playing';
-    if(!req.cookies.popup)
+
+    if (!req.cookies.popup)
         res.cookie('popup', '1');
     const show = req.cookies.popup != '1'
 
     res.render('movie/movies', {
-        movies: await movies(req.query.sortBy),
+        movies: await Movie.find({ category: req.query.sortBy }).lean(),
         title: sentenceCase(req.query.sortBy),
         popup: show
     });
 })
 
-router.post('/', async (req,res) => {
+router.post('/', async (req, res) => {
     res.render('movie/movies', {
-        movies:await searchMovie(req.body.movie),
+        movies: await Movie.find({title: new RegExp(req.body.movie, 'i')}).lean(),
         title: req.body.movie
     })
 })
 
 router.get('/:genreName', async (req, res) => {
-    const genre = decodeURIComponent(req.params.genreName);
+    const findGenre = decodeURIComponent(req.params.genreName);
     res.render('movie/movies', {
-        movies: await discoverGenre(genre),
-        title: genre,
+        movies: await Movie.find({ genre: findGenre }).lean(),
+        title: findGenre,
     })
 })
 

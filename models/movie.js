@@ -8,12 +8,12 @@ const movieSchema = new mongoose.Schema({
     },
     popularity: {
         type: Number,
-        default: Math.round(Math.random() * (10000 - 100)) + 1
+        default: Math.round(Math.random() * (50000 - 1000)) + 1
     },
     vote_count: {
         type: Number,
-        default: function() {
-            return Math.round(Math.random() * (this.popularity/3 - 0)) + 1;
+        default: function () {
+            return Math.round(Math.random() * (this.popularity / 3 - 0)) + 1;
         }
     },
     video: {
@@ -23,7 +23,7 @@ const movieSchema = new mongoose.Schema({
     poster_path: {
         type: String,
         validate: {
-            validator: function(v) {
+            validator: function (v) {
                 return v.match(/.*(jpg|jpeg|png|bmp)/)
             },
             message: 'Invalid image\'s extension. Allowed types are jpg, jpeg, png, and bmp'
@@ -41,7 +41,7 @@ const movieSchema = new mongoose.Schema({
     backdrop_path: {
         type: String,
         validate: {
-            validator: function(v) {
+            validator: function (v) {
                 return v.match(/.*(jpg|jpeg|png|bmp)/)
             },
             message: 'Invalid image\'s extension. Allowed types are jpg, jpeg, png, and bmp'
@@ -71,7 +71,7 @@ const movieSchema = new mongoose.Schema({
     release_date: {
         type: Date,
         // Somehow not working
-        get: function(v) {
+        get: function (v) {
             return moment(v).format(moment.HTML5_FMT.DATE);
         }
     },
@@ -93,17 +93,21 @@ const movieSchema = new mongoose.Schema({
 })
 
 movieSchema.statics.id = 0;
-movieSchema.statics.idGenerator = function() {
+movieSchema.statics.idGenerator = function () {
     return this.id += 3;
 }
 
 movieSchema.pre('save', function () {
-    if (moment(this.release_date) < moment().subtract(2, 'w'))
-        this.category = 'now_playing';
-    else if (moment(this.release_date) > moment())
+    if (moment(this.release_date).isAfter(moment()))
         this.category = 'upcoming';
+    else if (moment(this.release_date) > moment().subtract(2, 'w'))
+        this.category = 'now_playing';
+    else if (this.vote_average > 7.5)
+        this.category = 'top_rated';
+    else if (this.popularity > 20000)
+        this.category = 'popular';
 
-    if (this.popularity > 4500 && this.vote_average > 7)
+    if (this.popularity > 20000 && this.vote_average > 7.5)
         this.best_seller = true;
 })
 

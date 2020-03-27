@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { movie } = require('../public/js/tmdb');
+const { movies, discoverGenre, movie, searchMovie } = require('../public/js/tmdb');
 const { Movie } = require('../models/movie');
 const moment = require('moment');
 
@@ -15,6 +15,54 @@ router.get('/search', async (req, res) => {
     })
 });
 
+/**
+ * Populate database
+ */
+router.get('/pull', async (req,res) => {
+    const now_playing = await movies('now_playing');
+    const popular = await movies('popular');
+    const top_rated = await movies('top_rated');
+    const upcoming = await movies('upcoming');
+    const action = await discoverGenre('Action');
+    const adventure = await discoverGenre('Adventure');
+    const romance = await discoverGenre('Romance');
+    const comedy = await discoverGenre('Comedy');
+    const sci_fi = await discoverGenre('Science Fiction');
+    let collection = [...now_playing, ...popular, ...upcoming, ...top_rated, ...action, ...adventure, ...romance, ...comedy, ...sci_fi];
+
+    const seen = new Set();
+    collection = collection.filter(movie => {
+        const duplicate = seen.has(movie.id);
+        seen.add(movie.id);
+        return !duplicate;
+    });
+
+    collection.forEach(async movie => {
+        movie.genres = movie.genres.split(', ');
+        const pulledMovie = new Movie({
+            popularity: movie.popularity,
+            vote_count: movie.vote_count,
+            video: movie.video,
+            poster_path: movie.poster_path,
+            id: movie.id,
+            adult: movie.adult,
+            backdrop_path: movie.backdrop_path,
+            original_language: movie.original_language,
+            genre: movie.genres,
+            title: movie.title,
+            vote_average: movie.vote_average,
+            release_date: movie.release_date,
+            overview: movie.overview
+        })
+
+        try {
+            await pulledMovie.save();
+        } catch (error) {
+            console.log('Pulling error--' + error);
+        }
+    })
+    res.redirect('/');
+})
 
 /**
  * Add route
