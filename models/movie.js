@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
 
+
 const movieSchema = new mongoose.Schema({
     category: {
         type: String,
@@ -66,14 +67,10 @@ const movieSchema = new mongoose.Schema({
     },
     vote_average: {
         type: Number,
-        default: (Math.random() * (10 - 1 + 1) + 1).toFixed(2)
+        default: (Math.random() * (10 - 1 + 1) + 1).toFixed(1)
     },
     release_date: {
-        type: Date,
-        // Somehow not working
-        get: function (v) {
-            return moment(v).format(moment.HTML5_FMT.DATE);
-        }
+        type: Date
     },
     overview: String,
     price: {
@@ -84,15 +81,16 @@ const movieSchema = new mongoose.Schema({
         }
     },
     stock: {
-        type: Number
+        type: Number,
+        default: Math.round(Math.random() * (15-10+1)) + 10
     },
     best_seller: {
         type: Boolean,
         default: false
     }
-})
+}, {toObject: {getters: true}, toJSON: {getters: true}})
 
-movieSchema.statics.id = 0;
+movieSchema.statics.id = 211111;
 movieSchema.statics.idGenerator = function () {
     return this.id += 3;
 }

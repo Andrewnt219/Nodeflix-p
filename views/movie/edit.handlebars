@@ -2,9 +2,7 @@
 {{#if error}}
 <p>{{error}}</p>
 {{/if}}
-<form action="/movies/edit" method="POST" class="add" encType="multipart/form-data">
-    <input type="hidden" name="_method" value="PUT">
-
+<form action="/movies/edit?_method=PUT" method="POST" class="add" encType="multipart/form-data">
     <input type="hidden" name="_id" value="{{movie._id}}">
 
     <label for="original_title">Original title</label>
@@ -25,18 +23,6 @@
 
     <label for="backdrop_img">Backdrop path</label>
     <input type="file" name="backdrop_img" id="backdrop_img">
-
-    <label for="adult_false">False</label>
-    <input type="radio" name="adult" id="adult_false" value="false">
-
-    <label for="adult_true">True</label>
-    <input type="radio" name="adult" id="adult_true" value="true">
-
-    <label for="video_false">False</label>
-    <input type="radio" name="video" id="video_false" value="false">
-
-    <label for="video_true">True</label>
-    <input type="radio" name="video" id="video_true" value="true">
 
     <label for="genre_action">Action</label>
     <input type="checkbox" name="genre_action" id="genre_action" {{checked movie 'Action'}} value="Action">

@@ -1,0 +1,33 @@
+{{#if message}}<p>{{message}}</p>{{/if}}
+<form action="">
+    <input list="titles" id="title" name="title" >
+    <datalist id="titles">
+        {{#each movies}}
+            <option value="{{this.title}}"></option>
+        {{/each}}
+    </datalist>
+</form>
+<table class="dashboard">
+    <thead>
+        <th></th>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Stock</th>
+    </thead>
+
+    <tbody>
+        {{#each movies}}
+        <tr>
+            <td><a href="search?id={{this.id}}"><img width="100" height="100" src="{{this.poster_path}}" alt="{{this.id}}"></a></td>
+            <td>{{this.id}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.stock}}</td>
+            <td><a href="edit/{{this.id}}">Edit</a></td>
+            <td><a href="delete/{{this.id}}?_method=DELETE">Delete</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+
+</table>

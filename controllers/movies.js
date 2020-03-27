@@ -3,11 +3,41 @@ const router = express.Router();
 const { movies, discoverGenre, movie, searchMovie } = require('../public/js/tmdb');
 const { Movie } = require('../models/movie');
 const moment = require('moment');
+const fs = require('fs');
+
+const imgPath = '/img/';
+function formatMovie(movie) {
+    movie.ref = `/movies/search?id=${movie.id}`;
+    movie.release_date = moment(movie.release_date).format(moment.HTML5_FMT.DATE);
+    movie.genre = movie.genre.join(', ');
+    if (!movie.poster_path.includes('http'))
+        movie.poster_path = imgPath + movie.poster_path;
+    if (!movie.backdrop_path.includes('http'))
+        movie.backdrop_path = imgPath + movie.backdrop_path;
+
+    return movie;
+}
+
+router.get('/', async (req, res) => {
+    const movies = await Movie.find()
+        .select('id title price stock poster_path')
+        .sort('title')
+        .lean();
+    movies.forEach(movie => {
+        if (!movie.poster_path.includes('http'))
+            movie.poster_path = imgPath + movie.poster_path;
+    });
+
+    res.render('movie/dashboard', {
+        movies: movies,
+        title: 'Dashboard'
+    })
+})
 
 router.get('/search', async (req, res) => {
-    const mov = await movie(req.query.id);
+    const mov = formatMovie(await Movie.findOne({ id: req.query.id }).lean());
 
-    if (mov === 1) return res.status(404).render('movie/movie', { title: '404: Movie not found' });
+    if (!mov) return res.status(404).render('movie/movie', { title: '404: Movie not found' });
 
     res.render('movie/movie', {
         movie: mov,
@@ -18,7 +48,7 @@ router.get('/search', async (req, res) => {
 /**
  * Populate database
  */
-router.get('/pull', async (req,res) => {
+router.get('/pull', async (req, res) => {
     const now_playing = await movies('now_playing');
     const popular = await movies('popular');
     const top_rated = await movies('top_rated');
@@ -42,10 +72,8 @@ router.get('/pull', async (req,res) => {
         const pulledMovie = new Movie({
             popularity: movie.popularity,
             vote_count: movie.vote_count,
-            video: movie.video,
             poster_path: movie.poster_path,
             id: movie.id,
-            adult: movie.adult,
             backdrop_path: movie.backdrop_path,
             original_language: movie.original_language,
             genre: movie.genres,
@@ -68,8 +96,6 @@ router.get('/pull', async (req,res) => {
  * Add route
  */
 router.get('/add', (req, res) => {
-    const movie = {};
-    movie['Action'] = true;
     res.render('movie/add');
 })
 
@@ -80,9 +106,7 @@ router.post('/add', async (req, res, next) => {
         title,
         overview,
         stock,
-        release_date,
-        adult,
-        video
+        release_date
     } = req.body;
     let { poster_img, backdrop_img } = req.files ? req.files : {};
 
@@ -92,8 +116,6 @@ router.post('/add', async (req, res, next) => {
         original_language: original_language || 'en',
         title: title,
         overview: overview,
-        adult: adult || false,
-        video: video || false,
         stock: stock || 15,
         release_date: release_date || Date.now()
     });
@@ -106,29 +128,29 @@ router.post('/add', async (req, res, next) => {
     try {
         movie = await movie.save();
 
-        if(poster_img) {
-            poster_img.name ='poster_' + movie._id + poster_img.name;
+        if (poster_img) {
+            poster_img.name = 'poster_' + movie._id + poster_img.name;
             await poster_img.mv(`public/img/${poster_img.name}`);
         }
-        if(backdrop_img) {
+        if (backdrop_img) {
             backdrop_img.name = 'backdrop_' + movie._id + backdrop_img.name;
             await backdrop_img.mv(`public/img/${backdrop_img.name}`);
         }
 
-       await Movie.findOneAndUpdate({ _id: movie._id }, {
+        await Movie.findOneAndUpdate({ _id: movie._id }, {
             $set: {
-                poster_path: poster_img ? poster_img.name : '404.png',
-                backdrop_path: backdrop_img ? backdrop_img.name : '404.png',
+                poster_path: (poster_img ? poster_img.name : '404.png'),
+                backdrop_path: (backdrop_img ? backdrop_img.name : '404.png'),
             }
         })
 
     } catch (error) {
         let errmsg = error.message;
 
-        let input = {...movie._doc};
+        let input = { ...movie._doc };
         input.release_date = moment(release_date).format(moment.HTML5_FMT.DATE);
 
-        for(genre of input.genre) {
+        for (genre of input.genre) {
             input[genre] = true;
         }
 
@@ -144,20 +166,20 @@ router.post('/add', async (req, res, next) => {
 /**
  * edit route
  */
-router.get('/edit/:movieId', async (req,res) => {
-    const input = await Movie.findOne({id: req.params.movieId}).lean();
+router.get('/edit/:movieId', async (req, res) => {
+    const input = await Movie.findOne({ id: req.params.movieId }).lean();
 
-    if(!input) return res.render('utils/error');
-    
+    if (!input) return res.render('utils/error');
+
     input.release_date = moment(input.release_date).format(moment.HTML5_FMT.DATE);
-    for(genre of input.genre) {
+    for (genre of input.genre) {
         input[genre] = true;
     }
 
-    res.render('movie/edit', {movie: input});
+    res.render('movie/edit', { movie: input });
 });
 
-router.put('/edit', async (req, res) => {
+router.put('/edit/', async (req, res) => {
     const {
         _id,
         original_title,
@@ -166,77 +188,68 @@ router.put('/edit', async (req, res) => {
         overview,
         stock,
         release_date,
-        adult,
-        video
     } = req.body;
     let { poster_img, backdrop_img } = req.files ? req.files : {};
     let genres = [];
 
-    for(field in req.body) {
-        if(field.match(/genre.*/))
+    for (field in req.body) {
+        if (field.match(/genre.*/))
             genres.push(req.body[field]);
     }
-    
+
     try {
-        if(poster_img) {
-            poster_img.name ='poster_' + _id + poster_img.name;
+        if (poster_img) {
+            poster_img.name = 'poster_' + _id + poster_img.name;
             await poster_img.mv(`public/img/${poster_img.name}`);
         }
-        if(backdrop_img) {
+        if (backdrop_img) {
             backdrop_img.name = 'backdrop_' + _id + backdrop_img.name;
             await backdrop_img.mv(`public/img/${backdrop_img.name}`);
         }
-    
+
         await Movie.findOneAndUpdate({ _id: _id }, {
             original_title: original_title,
             original_language: original_language,
             title: title,
             overview: overview,
             stock: stock || 15,
-            release_date: release_date || Date.now(),
-            adult: adult || false,
-            video: video || false,
+            release_date: release_date,
             genre: genres,
             poster_path: poster_img ? poster_img.name : '404.png',
             backdrop_path: backdrop_img ? backdrop_img.name : '404.png'
-        }, {runValidators: true });
+        }, { runValidators: true });
     } catch (error) {
         let errmsg = error.message;
 
-        let input = {...req.body};
+        let input = { ...req.body };
         input.genre = [...genres];
         input.release_date = moment(release_date).format(moment.HTML5_FMT.DATE);
-        
-        for(genre of input.genre) {
+
+        for (genre of input.genre) {
             input[genre] = true;
         }
-        
-        console.log(input);
+
         return res.render('movie/edit', {
             error: errmsg,
             movie: input,
         })
     }
 
-    if(!movie) return res.status(400).render('utils/error', {message: 'The provided movieID does not exist'});
+    if (!movie) return res.status(400).render('utils/error', { message: 'The provided movieID does not exist' });
 
-    res.render('movie/edit', {status: 'Movie is editted'});
+    res.redirect('/movies/');
 });
 
 /**
  * Delete route
  */
-router.get('/delete', (req,res) => {
-    res.render('movie/delete');
-});
+router.delete('/delete/:movieId', async (req, res) => {
+    const movie = await Movie.findOneAndDelete({ id: req.params.movieId });
 
-router.delete('/delete', async (req,res) => {
-    const movie = await Movie.findOneAndDelete({id: req.body.id});
+    if (!movie) return res.render('movie/delete', { message: 'Movie not found' });
 
-    if(!movie) return res.render('movie/delete', {message: 'Movie not found'});
+    res.redirect('/movies/');
 
-    res.render('movie/delete', {message: `Movie ${req.body.id} is deleted`});
-    
 })
 
 module.exports = router;

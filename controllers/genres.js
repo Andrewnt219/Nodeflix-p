@@ -1,10 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const { sentenceCase } = require('change-case');
+const moment = require('moment');
 
-const { movies, discoverGenre, movie, searchMovie } = require('../public/js/tmdb');
 const { Movie } = require('../models/movie');
 
+
+const imgPath = '/img/';
+function formatMovies(movies) {
+    movies.forEach(m => {
+        m.ref = `/movies/search?id=${m.id}`;
+        m.release_date = moment(m.release_date).format(moment.HTML5_FMT.DATE);
+        m.genre = m.genre.join(', ');
+        if (!m.poster_path.includes('http'))
+            m.poster_path = imgPath + m.poster_path;
+        if (!m.backdrop_path.includes('http'))
+            m.backdrop_path = imgPath + m.backdrop_path;
+    })
+    return movies;
+}
 
 router.get('/', async (req, res) => {
     if (!req.query.sortBy)
@@ -15,7 +29,7 @@ router.get('/', async (req, res) => {
     const show = req.cookies.popup != '1'
 
     res.render('movie/movies', {
-        movies: await Movie.find({ category: req.query.sortBy }).lean(),
+        movies: formatMovies(await Movie.find({ category: req.query.sortBy }).sort('title').lean()),
         title: sentenceCase(req.query.sortBy),
         popup: show
     });
@@ -23,7 +37,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     res.render('movie/movies', {
-        movies: await Movie.find({title: new RegExp(req.body.movie, 'i')}).lean(),
+        movies: formatMovies(await Movie.find({ title: new RegExp(req.body.movie, 'i') }).sort('title').lean()),
         title: req.body.movie
     })
 })
@@ -31,7 +45,7 @@ router.post('/', async (req, res) => {
 router.get('/:genreName', async (req, res) => {
     const findGenre = decodeURIComponent(req.params.genreName);
     res.render('movie/movies', {
-        movies: await Movie.find({ genre: findGenre }).lean(),
+        movies: formatMovies(await Movie.find({ genre: findGenre }).sort('title').lean()),
         title: findGenre,
     })
 })
