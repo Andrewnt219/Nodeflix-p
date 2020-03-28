@@ -1,7 +1,26 @@
-{{#if email}}
+{{#if user.email}}
 <article class="profile">
-    <p class="profile__email"> <span class="profile__field">Email&nbsp;</span> {{email}}</p>
-    <p class="profile__phone"><span class="profile__field">Phone&nbsp;</span> {{phone}}</p>
-    <p class="profile__lastLogin"><span class="profile__field">Last login&nbsp;</span> {{lastLogin}}</p>
+    <p class="profile__email"> <span class="profile__field">Email&nbsp;</span> {{user.email}}</p>
+    <p class="profile__phone"><span class="profile__field">Phone&nbsp;</span> {{user.phone}}</p>
+    <p class="profile__lastLogin"><span class="profile__field">Last login&nbsp;</span> {{user.lastLogin}}</p>
+    <table>
+        <thead>
+            <th>Title</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </thead>
+
+        <tbody>
+            {{#each user.cart}}
+            <tr>
+                <td>{{this.title}}</td>
+                <td>{{this.quantity}}</td>
+                <td>{{this.price}}</td>
+                <td><a href="cart?_method=DELETE&_id={{this._id}}">Remove 1</a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
 </article>
 {{/if}}

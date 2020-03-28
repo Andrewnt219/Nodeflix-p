@@ -24,8 +24,8 @@
             <td>{{this.title}}</td>
             <td>{{this.price}}</td>
             <td>{{this.stock}}</td>
-            <td><a href="edit/{{this.id}}">Edit</a></td>
-            <td><a href="delete/{{this.id}}?_method=DELETE">Delete</a></td>
+            <td><a href="/movies/edit/{{this.id}}">Edit</a></td>
+            <td><a href="/movies/delete/{{this.id}}?_method=DELETE">Delete</a></td>
         </tr>
         {{/each}}
     </tbody>

@@ -2,6 +2,23 @@ const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
 const jwt = require('jsonwebtoken');
 
+const movieSchema = new mongoose.Schema({
+    id: {
+        type: String,
+        required: true
+    },
+    title: {
+        type: String
+    },
+    price: {
+        type: Number
+    },
+    quantity: {
+        type: Number,
+        default:0
+    }
+});
+
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -29,7 +46,9 @@ const userSchema = new mongoose.Schema({
     lastLogin: {
         type: Date,
         default: Date.now()
-    }
+    },
+    cart: [movieSchema],
+    wishlist: [movieSchema]
 })
 
 userSchema.methods.generateToken = function () {

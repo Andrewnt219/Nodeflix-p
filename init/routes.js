@@ -1,5 +1,5 @@
 const home = require('../controllers/home');
-const genres = require('../controllers/genres');
+const collection = require('../controllers/collection');
 const movies = require('../controllers/movies');
 const users = require('../controllers/users');
 const error = require('../middleware/error');
@@ -9,7 +9,7 @@ module.exports = function(app) {
     app.use(method);
     
     app.use('/', home);
-    app.use('/genres/', genres);
+    app.use('/collection/', collection);
     app.use('/movies/', movies);
     app.use('/users/', users);
 
