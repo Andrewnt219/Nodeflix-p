@@ -7,7 +7,12 @@
     <p class="oneMovie__price"><span class="oneMovie__field">Price&nbsp;</span> ${{movie.price}}</p>
     <p class="oneMovie__rent"><span class="oneMovie__field">Stock&nbsp;</span> {{movie.stock}}</p>
     <p class="oneMovie__desc"><span class="oneMovie__field">Overview&nbsp;</span> {{movie.overview}}</p>
+    {{#if isAdmin}}
+    <a class="oneMovie__btn-buy" href="/movies/edit/{{movie.id}}">Edit Movie</a>
+    <a class="oneMovie__btn-favorite" href="/movies/delete/{{movie.id}}?_method=DELETE">Delete Movie</a>
+    {{else}}
     <a class="oneMovie__btn-buy" href="/users/cart?_method=PUT&id={{movie.id}}">Add to cart</a>
     <a class="oneMovie__btn-favorite" href="/users/wishlist?_method=PUT&id={{movie.id}}">Wishlist</a>
+    {{/if}}
 </article>
 {{/if}}

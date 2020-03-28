@@ -4,6 +4,8 @@ const { movies, discoverGenre, movie, searchMovie } = require('../public/js/tmdb
 const { Movie } = require('../models/movie');
 const moment = require('moment');
 
+const authen = require('../middleware/authen');
+
 const imgPath = '/img/';
 function formatMovie(movie) {
     movie.ref = `/movies/search?id=${movie.id}`;
@@ -17,6 +19,28 @@ function formatMovie(movie) {
     return movie;
 }
 
+router.get('/search', async (req, res) => {
+    let mov = {};
+    if(req.query.id)
+        mov = formatMovie(await Movie.findOne({ id: req.query.id }).lean());
+    else if(req.query.title) {
+        tokens = req.query.title.split(', ');
+        mov = formatMovie(await Movie.findOne({ id: tokens[0] }).lean())
+    }
+        
+
+    if (!mov) return res.status(404).render('movie/movie', { title: '404: Movie not found' });
+
+    res.render('movie/movie', {
+        movie: mov,
+        title: mov.title
+    })
+});
+
+router.use(authen);
+/**
+ * Dashboard
+ */
 router.get('/', async (req, res) => {
     const movies = await Movie.find()
         .select('id title price stock poster_path')
@@ -32,18 +56,6 @@ router.get('/', async (req, res) => {
         title: 'Dashboard'
     })
 })
-
-router.get('/search', async (req, res) => {
-    const mov = formatMovie(await Movie.findOne({ id: req.query.id }).lean());
-
-    if (!mov) return res.status(404).render('movie/movie', { title: '404: Movie not found' });
-
-    res.render('movie/movie', {
-        movie: mov,
-        title: mov.title
-    })
-});
-
 /**
  * Populate database
  */
@@ -92,7 +104,7 @@ router.get('/pull', async (req, res) => {
 })
 
 /**
- * Add route
+ * Add movie
  */
 router.get('/add', (req, res) => {
     res.render('movie/add');
@@ -159,11 +171,11 @@ router.post('/add', async (req, res, next) => {
         })
     }
 
-    res.render('movie/add', { status: 'Movie is added' });
+    res.render('utils/error', { message: 'Movie is added' });
 });
 
 /**
- * edit route
+ * edit movie
  */
 router.get('/edit/:movieId', async (req, res) => {
     const input = await Movie.findOne({ id: req.params.movieId }).lean();
@@ -206,7 +218,7 @@ router.put('/edit/', async (req, res) => {
             await backdrop_img.mv(`public/img/${backdrop_img.name}`);
         }
 
-        await Movie.findOneAndUpdate({ _id: _id }, {
+        const movie = await Movie.findOneAndUpdate({ _id: _id }, {
             original_title: original_title,
             original_language: original_language,
             title: title,
@@ -216,7 +228,8 @@ router.put('/edit/', async (req, res) => {
             genre: genres,
             poster_path: poster_img ? poster_img.name : '404.png',
             backdrop_path: backdrop_img ? backdrop_img.name : '404.png'
-        }, { runValidators: true });
+        }, { runValidators: true, new: true });
+        res.redirect(`/movies/search?id=${movie.id}`);
     } catch (error) {
         let errmsg = error.message;
 
@@ -233,21 +246,17 @@ router.put('/edit/', async (req, res) => {
             movie: input,
         })
     }
-
-    if (!movie) return res.status(400).render('utils/error', { message: 'The provided movieID does not exist' });
-
-    res.redirect('/movies/');
 });
 
 /**
- * Delete route
+ * Delete movie
  */
 router.delete('/delete/:movieId', async (req, res) => {
     const movie = await Movie.findOneAndDelete({ id: req.params.movieId });
 
     if (!movie) return res.render('utils/error', { message: 'Movie not found' });
 
-    res.redirect('/movies/');
+    res.render('utils/error', {title: `Movie ${movie.id} is deleted`, message: 'Farewell'});
 
 })
 

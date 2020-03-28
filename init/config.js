@@ -20,7 +20,7 @@ module.exports = function (app) {
     app.use(express.json());
     app.use(express.urlencoded({extended:true}));
     app.use(express.static('public'));
-    app.use(cookieParser());
+    app.use(cookieParser(process.env.secretCookie));
 
     app.listen(process.env.PORT, () => console.log('Ready for renting'));
     app.engine('handlebars', hbs.engine);

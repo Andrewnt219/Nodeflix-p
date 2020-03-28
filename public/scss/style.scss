@@ -525,6 +525,10 @@ $login-width: 40rem;
     background-color: inherit;
 }
 
+.disable {
+    pointer-events: none;
+}
+
 @media screen and (max-width: 850px) {
     .nav {
         &__genre {

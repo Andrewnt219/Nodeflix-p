@@ -1,3 +1,12 @@
+
+(function () {
+    const adminBtn = document.querySelector('.btn-register__text');
+    if (adminBtn.textContent === 'Admin')
+        adminBtn.parentNode.style = 'pointer-events: none';
+    else
+    adminBtn.parentNode.style = '';
+})();
+
 (function () {
     const scores = document.querySelectorAll('.movie__score');
     scores.forEach(score => {

@@ -1,11 +1,12 @@
 {{#if message}}<p>{{message}}</p>{{/if}}
-<form action="">
+<form action="/movies/search">
     <input list="titles" id="title" name="title" >
     <datalist id="titles">
         {{#each movies}}
-            <option value="{{this.title}}"></option>
+            <option value="{{this.id}}, {{this.title}}"></option>
         {{/each}}
     </datalist>
+    <input type="submit" hidden>
 </form>
 <table class="dashboard">
     <thead>

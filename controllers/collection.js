@@ -28,8 +28,14 @@ router.get('/', async (req, res) => {
         res.cookie('popup', '1');
     const show = req.cookies.popup != '1'
 
+    let movies = [];
+    if(req.query.sortBy === 'best_seller') 
+        movies = formatMovies(await Movie.find({ best_seller: true}).sort('title').lean());
+    else
+        movies = formatMovies(await Movie.find({ category: req.query.sortBy }).sort('title').lean());
+
     res.render('movie/movies', {
-        movies: formatMovies(await Movie.find({ category: req.query.sortBy }).sort('title').lean()),
+        movies: movies,
         title: sentenceCase(req.query.sortBy),
         popup: show
     });

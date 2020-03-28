@@ -6,7 +6,6 @@ const movieSchema = new mongoose.Schema({
     id: {
         type: String,
         required: true,
-        unique: true
     },
     title: {
         type: String
@@ -62,11 +61,15 @@ const userSchema = new mongoose.Schema({
         },
         title: String,
         price: Number
-    }]
+    }],
+    isAdmin: {
+        type: Boolean,
+        default: false
+    }
 })
 
 userSchema.methods.generateToken = function () {
-    return jwt.sign({email: this.email}, process.env.jwtPrivateKey, {
+    return jwt.sign({email: this.email, isAdmin: this.isAdmin}, process.env.jwtPrivateKey, {
         algorithm: 'HS256'
     });
 }
@@ -110,4 +113,5 @@ module.exports.userValidate = function(user) {
 }
 
 module.exports.User =  mongoose.model('user', userSchema);
+module.exports.movieSchema = movieSchema;
 

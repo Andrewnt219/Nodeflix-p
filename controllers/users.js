@@ -6,7 +6,6 @@ const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-const mongoose = require('mongoose');
 
 const express = require('express');
 const router = express.Router();
@@ -34,7 +33,7 @@ router.post('/register', async (req, res) => {
             .then(async (user) => {
                 const msg = {
                     to: `${user.email}`,
-                    from: 'tpnguyen12@myseneca.ca',
+                    from: 'tpnguyen12@nodeflix.ca',
                     subject: 'Welcome to Nodeflix!',
                     html: `
                         <strong>Username:</strong> ${user.name}
@@ -45,7 +44,7 @@ router.post('/register', async (req, res) => {
 
                 await sgMail.send(msg)
 
-                res.cookie('token', user.jwt)
+                res.cookie('token', user.jwt, { signed: true })
                     .redirect('/users/me');
             })
             .catch(err => {
@@ -72,34 +71,49 @@ router.post('/login', async (req, res) => {
     user.lastLogin = Date.now();
     await user.save();
 
-    res.cookie('token', user.jwt)
+    res.cookie('token', user.jwt, { signed: true })
+        .cookie('status', user.isAdmin ? 'admin' : 'user' )
         .redirect('/users/me');
 
 })
 
 router.get('/me', author, async (req, res) => {
     const user = await User.findOne({ email: req.user.email }).select('-password').lean();
-    res.render('user/user', {
-        title: `Welcome back, ${user.name}`,
-        user: user
-    });
+
+    if (user.isAdmin) {
+        return res.redirect('/movies/');
+    }
+    else {
+        res.render('user/user', {
+            title: `Welcome back, ${user.name}`,
+            user: user
+        });
+    }
+
 })
 
 router.get('/login', (req, res) => {
-    if (req.cookies.token) return res.redirect('me');
+    if (req.signedCookies.token) return res.redirect('me');
     res.render('user/login', { title: 'Login' });
 })
 
+router.get('/logout', (req, res) => {
+
+    res.cookie('token', '', { expires: new Date('Thu, 01 Jan 1970 00:00:00 GMT') })
+        .redirect('login');
+})
+
 router.get('/register', (req, res) => {
+    if (req.signedCookies.token) return res.redirect('me');
     res.render('user/register', { title: 'Sign up' });
 })
 
 /**
  * Cart
  */
-router.get('/cart', author, async (req,res) => {
-    const user = await User.findOne({email: req.user.email}).lean();
-    res.render('user/cart', {user:user});
+router.get('/cart', author, async (req, res) => {
+    const user = await User.findOne({ email: req.user.email }).lean();
+    res.render('user/cart', { user: user });
 })
 
 router.put('/cart', author, async (req, res) => {
@@ -130,7 +144,7 @@ router.put('/cart', author, async (req, res) => {
 
     await movie.save();
     await user.save();
-    res.redirect(`/movies/search?id=${req.query.id}`);
+    res.redirect(req.headers.referer);
     // const session = mongoose.startSession();
     // (await session).startTransaction();
     // try {
@@ -171,6 +185,7 @@ router.delete('/cart', author, async (req, res) => {
     res.redirect(req.headers.referer);
 })
 
+
 /**
  * Wishlist
  */
@@ -196,7 +211,7 @@ router.put('/wishlist', author, async (req, res) => {
 
     await movie.save();
     await user.save();
-    res.redirect(`/movies/search?id=${req.query.id}`);
+    res.redirect(req.headers.referer);
 })
 
 router.delete('/wishlist', author, async (req, res) => {
@@ -208,7 +223,7 @@ router.delete('/wishlist', author, async (req, res) => {
 
     await user.save();
 
-    res.redirect('/users/me');
+    res.redirect('dashboard');
 })
 
 module.exports = router;

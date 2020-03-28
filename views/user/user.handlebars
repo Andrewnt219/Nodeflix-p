@@ -1,8 +1,10 @@
 {{#if user.email}}
 <article class="profile">
+    <a href="logout">Log out</a>
     <p class="profile__email"> <span class="profile__field">Email&nbsp;</span> {{user.email}}</p>
     <p class="profile__phone"><span class="profile__field">Phone&nbsp;</span> {{user.phone}}</p>
     <p class="profile__lastLogin"><span class="profile__field">Last login&nbsp;</span> {{user.lastLogin}}</p>
+
     <table class="dashboard cart">
         <thead>
             <th>Title</th>
@@ -39,6 +41,5 @@
             {{/each}}
         </tbody>
     </table>
-
 </article>
 {{/if}}
