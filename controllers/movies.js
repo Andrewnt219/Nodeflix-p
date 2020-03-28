@@ -40,7 +40,7 @@ router.get('/search', async (req, res) => {
 
     res.render('movie/movie', {
         movie: mov,
-        title: mov.original_title
+        title: mov.title
     })
 });
 

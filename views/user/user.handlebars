@@ -3,7 +3,7 @@
     <p class="profile__email"> <span class="profile__field">Email&nbsp;</span> {{user.email}}</p>
     <p class="profile__phone"><span class="profile__field">Phone&nbsp;</span> {{user.phone}}</p>
     <p class="profile__lastLogin"><span class="profile__field">Last login&nbsp;</span> {{user.lastLogin}}</p>
-    <table>
+    <table class="dashboard cart">
         <thead>
             <th>Title</th>
             <th>Quantity</th>
@@ -17,6 +17,24 @@
                 <td>{{this.quantity}}</td>
                 <td>{{this.price}}</td>
                 <td><a href="cart?_method=DELETE&_id={{this._id}}">Remove 1</a></td>
+                <td><a href="cart?_method=DELETE&_id={{this._id}}&quantity=all">Remove all</a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <table class="dashboard wishlist">
+        <thead>
+            <th>Title</th>
+            <th>Price</th>
+        </thead>
+
+        <tbody>
+            {{#each user.wishlist}}
+            <tr>
+                <td>{{this.title}}</td>
+                <td>{{this.price}}</td>
+                <td><a href="wishlist?_method=DELETE&_id={{this._id}}">Remove from wishlist</a></td>
             </tr>
             {{/each}}
         </tbody>

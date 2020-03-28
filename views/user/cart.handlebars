@@ -1,0 +1,25 @@
+<table class="dashboard cart">
+        <thead>
+            <th>Title</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </thead>
+
+        <tbody>
+            {{#each user.cart}}
+            <tr>
+                <td>{{this.title}}</td>
+                <td>{{this.quantity}}</td>
+                <td>{{this.price}}</td>
+                <td><a href="cart?_method=DELETE&_id={{this._id}}">Remove 1</a></td>
+                <td><a href="cart?_method=DELETE&_id={{this._id}}&quantity=all">Remove all</a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Total</td>
+                <td>{{user.total}}</td>
+            </tr>
+        </tfoot>
+    </table>
