@@ -3,6 +3,7 @@ const router = express.Router();
 const { movies, discoverGenre, movie, searchMovie } = require('../public/js/tmdb');
 const { Movie } = require('../models/movie');
 const moment = require('moment');
+const fs = require('fs');
 
 const imgPath = '/img/';
 function formatMovie(movie) {
@@ -40,7 +41,7 @@ router.get('/search', async (req, res) => {
 
     res.render('movie/movie', {
         movie: mov,
-        title: mov.title
+        title: mov.original_title
     })
 });
 
@@ -245,7 +246,7 @@ router.put('/edit/', async (req, res) => {
 router.delete('/delete/:movieId', async (req, res) => {
     const movie = await Movie.findOneAndDelete({ id: req.params.movieId });
 
-    if (!movie) return res.render('utils/error', { message: 'Movie not found' });
+    if (!movie) return res.render('movie/delete', { message: 'Movie not found' });
 
     res.redirect('/movies/');
 

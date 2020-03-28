@@ -2,24 +2,6 @@ const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
 const jwt = require('jsonwebtoken');
 
-const movieSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    title: {
-        type: String
-    },
-    price: {
-        type: Number
-    },
-    quantity: {
-        type: Number,
-        default:0
-    }
-});
-
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -47,22 +29,7 @@ const userSchema = new mongoose.Schema({
     lastLogin: {
         type: Date,
         default: Date.now()
-    },
-    cart: [movieSchema],
-    /* This total should belong to the cart but I don't want to fix all the code */
-    total: {
-        type: Number,
-        default: 0
-    },
-    wishlist: [{
-        id: {
-            type: String,
-            required: true,
-            unique: true
-        },
-        title: String,
-        price: Number
-    }]
+    }
 })
 
 userSchema.methods.generateToken = function () {
@@ -70,10 +37,6 @@ userSchema.methods.generateToken = function () {
         algorithm: 'HS256'
     });
 }
-
-userSchema.pre('save', function() {
-    this.total = this.cart.reduce((accum, movie) => accum + movie.price*movie.quantity, 0);
-})
 
 module.exports.userValidate = function(user) {
     const phone = /(\d{3}[-]*){2}\d{4}$/;
