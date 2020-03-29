@@ -41,6 +41,23 @@
 
     <h1 class="title">{{title}}</h1>
     <nav class="nav">
+        {{#if isAdmin}}
+        <div class="user">
+            <img src="/img/admin.png" alt="" class="user__img">
+            <div class="user__text">
+                <h1 >{{name}}</h1>
+                <p >Administrator</p>
+            </div>
+        </div>
+        {{else if loggedIn}}
+        <div class="user">
+            <img src="/img/user.png" alt="" class="user__img">
+            <div class="user__text">
+                <h1 >{{name}}</h1>
+                <p >Premium Member</p>
+            </div>
+        </div>
+        {{/if}}
         <a href="/collection?sortBy=best_seller" class="nav__genre">
             <i class="fas fa-bolt nav__icon"></i>
             <h1 class="nav__text">Best Sellers</h1>

@@ -28,7 +28,6 @@ router.post('/register', async (req, res) => {
         if (err) throw Error(err);
         user.password = hash;
 
-        user.jwt = await user.generateToken();
         user.save()
             .then(async (user) => {
                 const msg = {
@@ -44,7 +43,9 @@ router.post('/register', async (req, res) => {
 
                 await sgMail.send(msg)
 
-                res.cookie('token', user.jwt, { signed: true })
+                token = await user.generateToken();
+                
+                res.cookie('token', token, { signed: true })
                     .redirect('/users/me');
             })
             .catch(err => {
@@ -71,8 +72,11 @@ router.post('/login', async (req, res) => {
     user.lastLogin = Date.now();
     await user.save();
 
-    res.cookie('token', user.jwt, { signed: true })
-        .cookie('status', user.isAdmin ? 'admin' : 'user' )
+    token = await user.generateToken();
+
+    res.cookie('token', token, { signed: true })
+        .cookie('status', user.isAdmin ? 'admin' : 'user')
+        .cookie('name', user.name)
         .redirect('/users/me');
 
 })
@@ -100,7 +104,8 @@ router.get('/login', (req, res) => {
 router.get('/logout', (req, res) => {
 
     res.cookie('token', '', { expires: new Date('Thu, 01 Jan 1970 00:00:00 GMT') })
-        .cookie('status', '',{ expires: new Date('Thu, 01 Jan 1970 00:00:00 GMT') } )
+        .cookie('status', '', { expires: new Date('Thu, 01 Jan 1970 00:00:00 GMT') })
+        .cookie('name', '', { expires: new Date('Thu, 01 Jan 1970 00:00:00 GMT') })
         .redirect('login');
 })
 
