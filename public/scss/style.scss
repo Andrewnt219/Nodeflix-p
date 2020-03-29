@@ -657,7 +657,7 @@ $login-width: 40rem;
   &__total {
     font-size: 2rem;
     margin: 0 auto 2rem auto;
-    width: max-content
+    width: max-content;
   }
   &__field {
     background-color: $red;
@@ -681,8 +681,74 @@ $login-width: 40rem;
   }
 }
 
+.admin {
+  grid-area: main;
+
+  .controls {
+    margin: 3rem auto;
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    * {
+      @extend %dashboard__button;
+      width: 20%;
+      margin: 0;
+      border-radius: 5rem;
+    }
+  }
+
+  .lookup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem;
+    font-size: 2rem;
+    
+    label {
+      color: $yellow;
+      margin-bottom: 1rem;
+    }
+
+    input {
+      padding: 1rem;
+      border-radius: 5rem;
+      width: 20%;
+      color:$yellow;
+      text-align: center;
+    }
+  }
+
+  .dashboard {
+    @extend %dashboard;
+
+    .product {
+      grid-template-areas:
+        "title    title"
+        "id       id"
+        "img      img"
+        "quantity price"
+        "add      remove";
+
+      &__id {
+        grid-area: id;
+
+        &::before {
+          content: "#"
+        }
+      }
+
+      &__quantity {
+        &::after {
+          content: " in stock"
+        }
+      }
+    }
+  }
+}
+
 .message {
-  grid-area:main;
+  grid-area: main;
   width: 60%;
   margin: 0 auto;
   font-size: 2rem;

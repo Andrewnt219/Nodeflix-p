@@ -2,53 +2,53 @@
   font-size: 10px;
   font-family: "Roboto", sans-serif; }
 
-.user .dashboard, .user .wishlist, .cart .dashboard {
+.user .dashboard, .user .wishlist, .cart .dashboard, .admin .dashboard {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20.7rem, 1fr));
   row-gap: 5rem; }
-  .user .dashboard .product, .user .wishlist .product, .cart .dashboard .product {
+  .user .dashboard .product, .user .wishlist .product, .cart .dashboard .product, .admin .dashboard .product {
     display: grid;
     row-gap: 1rem;
     width: 18rem;
     margin: 0 auto;
     grid-template-areas: "title      title" "img        img" "img        img" "quantity   price" "add        remove"; }
-    .user .dashboard .product *, .user .wishlist .product *, .cart .dashboard .product * {
+    .user .dashboard .product *, .user .wishlist .product *, .cart .dashboard .product *, .admin .dashboard .product * {
       text-align: center;
       font-size: 1.5rem; }
-    .user .dashboard .product__img, .user .wishlist .product__img, .cart .dashboard .product__img {
+    .user .dashboard .product__img, .user .wishlist .product__img, .cart .dashboard .product__img, .admin .dashboard .product__img {
       grid-area: img;
       justify-self: center;
       width: 18rem;
       height: 18rem;
       border-radius: 5px; }
-    .user .dashboard .product__title, .user .wishlist .product__title, .cart .dashboard .product__title {
+    .user .dashboard .product__title, .user .wishlist .product__title, .cart .dashboard .product__title, .admin .dashboard .product__title {
       grid-area: title;
       font-weight: bold;
       font-size: 2rem;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap; }
-    .user .dashboard .product__price, .user .wishlist .product__price, .cart .dashboard .product__price {
+    .user .dashboard .product__price, .user .wishlist .product__price, .cart .dashboard .product__price, .admin .dashboard .product__price {
       grid-area: price; }
-      .user .dashboard .product__price::after, .user .wishlist .product__price::after, .cart .dashboard .product__price::after {
+      .user .dashboard .product__price::after, .user .wishlist .product__price::after, .cart .dashboard .product__price::after, .admin .dashboard .product__price::after {
         content: " each"; }
-      .user .dashboard .product__price::before, .user .wishlist .product__price::before, .cart .dashboard .product__price::before {
+      .user .dashboard .product__price::before, .user .wishlist .product__price::before, .cart .dashboard .product__price::before, .admin .dashboard .product__price::before {
         content: "$"; }
-    .user .dashboard .product__quantity, .user .wishlist .product__quantity, .cart .dashboard .product__quantity {
+    .user .dashboard .product__quantity, .user .wishlist .product__quantity, .cart .dashboard .product__quantity, .admin .dashboard .product__quantity {
       grid-area: quantity; }
-      .user .dashboard .product__quantity::after, .user .wishlist .product__quantity::after, .cart .dashboard .product__quantity::after {
+      .user .dashboard .product__quantity::after, .user .wishlist .product__quantity::after, .cart .dashboard .product__quantity::after, .admin .dashboard .product__quantity::after {
         content: " item(s)"; }
-    .user .dashboard .product__button, .user .wishlist .product__button, .cart .dashboard .product__button {
+    .user .dashboard .product__button, .user .wishlist .product__button, .cart .dashboard .product__button, .admin .dashboard .product__button {
       display: block;
       background-color: #f0293a;
       width: 6rem;
       padding: 1rem;
       margin: 1rem auto 0 auto; }
-      .user .dashboard .product__button:hover, .user .wishlist .product__button:hover, .cart .dashboard .product__button:hover {
+      .user .dashboard .product__button:hover, .user .wishlist .product__button:hover, .cart .dashboard .product__button:hover, .admin .dashboard .product__button:hover {
         background-color: #f24150; }
-      .user .dashboard .product__button:first-child, .user .wishlist .product__button:first-child, .cart .dashboard .product__button:first-child {
+      .user .dashboard .product__button:first-child, .user .wishlist .product__button:first-child, .cart .dashboard .product__button:first-child, .admin .dashboard .product__button:first-child {
         grid-area: add; }
-      .user .dashboard .product__button:last-child, .user .wishlist .product__button:last-child, .cart .dashboard .product__button:last-child {
+      .user .dashboard .product__button:last-child, .user .wishlist .product__button:last-child, .cart .dashboard .product__button:last-child, .admin .dashboard .product__button:last-child {
         grid-area: remove; }
 
 * {
@@ -379,7 +379,7 @@ body {
     .banner__btn-close:hover {
       background-color: #d70f20; }
 
-.user__button, .cart__button {
+.user__button, .cart__button, .admin .controls * {
   margin-left: auto;
   display: block;
   width: max-content;
@@ -387,7 +387,7 @@ body {
   padding: 1rem;
   transition: 0.5s ease;
   font-size: 1.5rem; }
-  .user__button:hover, .cart__button:hover {
+  .user__button:hover, .cart__button:hover, .admin .controls :hover {
     background-color: #f0293a;
     font-style: italic; }
 
@@ -444,6 +444,42 @@ body {
       font-style: normal;
       transform: scale(1.25);
       background-color: #f5b53c; }
+
+.admin {
+  grid-area: main; }
+  .admin .controls {
+    margin: 3rem auto;
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center; }
+    .admin .controls * {
+      width: 20%;
+      margin: 0;
+      border-radius: 5rem; }
+  .admin .lookup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem;
+    font-size: 2rem; }
+    .admin .lookup label {
+      color: #f2a20c;
+      margin-bottom: 1rem; }
+    .admin .lookup input {
+      padding: 1rem;
+      border-radius: 5rem;
+      width: 20%;
+      color: #f2a20c;
+      text-align: center; }
+  .admin .dashboard .product {
+    grid-template-areas: "title    title" "id       id" "img      img" "quantity price" "add      remove"; }
+    .admin .dashboard .product__id {
+      grid-area: id; }
+      .admin .dashboard .product__id::before {
+        content: "#"; }
+    .admin .dashboard .product__quantity::after {
+      content: " in stock"; }
 
 .message {
   grid-area: main;
