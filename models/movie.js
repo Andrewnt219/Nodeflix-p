@@ -76,6 +76,9 @@ const movieSchema = new mongoose.Schema({
     price: {
         type: Number,
         default: function () {
+            if(moment(this.release_date).isAfter(moment())) {
+                return 0;
+            }
             const newPrice = 15 - moment().diff(this.release_date, 'd');
             return newPrice < 3 ? 3 : newPrice;
         }

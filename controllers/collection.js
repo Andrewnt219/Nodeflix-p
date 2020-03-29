@@ -16,6 +16,8 @@ function formatMovies(movies) {
             m.poster_path = imgPath + m.poster_path;
         if (!m.backdrop_path.includes('http'))
             m.backdrop_path = imgPath + m.backdrop_path;
+        if(m.price == 0)
+            m.price = 'N/A';
     })
     return movies;
 }

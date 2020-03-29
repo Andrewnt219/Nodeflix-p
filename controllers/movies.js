@@ -8,26 +8,30 @@ const authen = require('../middleware/authen');
 
 const imgPath = '/img/';
 function formatMovie(movie) {
-    movie.ref = `/movies/search?id=${movie.id}`;
-    movie.release_date = moment(movie.release_date).format(moment.HTML5_FMT.DATE);
-    movie.genre = movie.genre.join(', ');
-    if (!movie.poster_path.includes('http'))
-        movie.poster_path = imgPath + movie.poster_path;
-    if (!movie.backdrop_path.includes('http'))
-        movie.backdrop_path = imgPath + movie.backdrop_path;
+    if (movie) {
+        movie.ref = `/movies/search?id=${movie.id}`;
+        movie.release_date = moment(movie.release_date).format(moment.HTML5_FMT.DATE);
+        movie.genre = movie.genre.join(', ');
+        if (!movie.poster_path.includes('http'))
+            movie.poster_path = imgPath + movie.poster_path;
+        if (!movie.backdrop_path.includes('http'))
+            movie.backdrop_path = imgPath + movie.backdrop_path;
+        if(movie.price == 0)
+            movie.price = 'N/A';
+    }
 
     return movie;
 }
 
 router.get('/search', async (req, res) => {
     let mov = {};
-    if(req.query.id)
+    if (req.query.id)
         mov = formatMovie(await Movie.findOne({ id: req.query.id }).lean());
-    else if(req.query.title) {
+    else if (req.query.title) {
         tokens = req.query.title.split(', ');
         mov = formatMovie(await Movie.findOne({ id: tokens[0] }).lean())
     }
-        
+
 
     if (!mov) return res.status(404).render('movie/movie', { title: '404: Movie not found' });
 
@@ -100,7 +104,7 @@ router.get('/pull', async (req, res) => {
             console.log('Pulling error--' + error);
         }
     })
-    res.redirect('/');
+    res.redirect('/movies');
 })
 
 /**
@@ -165,6 +169,7 @@ router.post('/add', async (req, res, next) => {
             input[genre] = true;
         }
 
+        console.log(input);
         return res.render('movie/add', {
             error: errmsg,
             movie: input,
@@ -256,7 +261,7 @@ router.delete('/delete/:movieId', async (req, res) => {
 
     if (!movie) return res.render('utils/error', { message: 'Movie not found' });
 
-    res.render('utils/error', {title: `Movie ${movie.id} is deleted`, message: 'Farewell'});
+    res.render('utils/error', { title: `Movie ${movie.id} is deleted`, message: 'Farewell' });
 
 })
 

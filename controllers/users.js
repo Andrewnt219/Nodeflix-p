@@ -100,6 +100,7 @@ router.get('/login', (req, res) => {
 router.get('/logout', (req, res) => {
 
     res.cookie('token', '', { expires: new Date('Thu, 01 Jan 1970 00:00:00 GMT') })
+        .cookie('status', '',{ expires: new Date('Thu, 01 Jan 1970 00:00:00 GMT') } )
         .redirect('login');
 })
 
