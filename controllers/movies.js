@@ -176,7 +176,7 @@ router.post('/add', async (req, res, next) => {
         })
     }
 
-    res.render('utils/error', { message: 'Movie is added' });
+    res.redirect('/movies');
 });
 
 /**
