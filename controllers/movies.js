@@ -167,6 +167,7 @@ router.post('/add', async (req, res, next) => {
             input[genre] = true;
         }
 
+        console.log(input);
         return res.render('movie/add', {
             error: errmsg,
             movie: input,
