@@ -1,45 +1,52 @@
 {{#if user.email}}
-<article class="profile">
-    <a href="logout">Log out</a>
-    <p class="profile__email"> <span class="profile__field">Email&nbsp;</span> {{user.email}}</p>
-    <p class="profile__phone"><span class="profile__field">Phone&nbsp;</span> {{user.phone}}</p>
-    <p class="profile__lastLogin"><span class="profile__field">Last login&nbsp;</span> {{user.lastLogin}}</p>
+<section class="user">
+    <article class="profile">
+        <div class="profile__img">
+            <img src="/img/user.png" alt="" >
+        </div>
 
-    <table class="dashboard cart">
-        <thead>
-            <th>Title</th>
-            <th>Quantity</th>
-            <th>Price</th>
-        </thead>
+        <div class="profile__info">
+            <p class="profile__email"> <span class="profile__field">Email&nbsp;</span> {{user.email}}</p>
+            <p class="profile__phone"><span class="profile__field">Phone&nbsp;</span> {{user.phone}}</p>
+            <p class="profile__lastLogin"><span class="profile__field">Last login&nbsp;</span> {{user.lastLogin}}</p>
+        </div>
+    </article>
 
-        <tbody>
-            {{#each user.cart}}
-            <tr>
-                <td>{{this.title}}</td>
-                <td>{{this.quantity}}</td>
-                <td>{{this.price}}</td>
-                <td><a href="cart?_method=DELETE&_id={{this._id}}">Remove 1</a></td>
-                <td><a href="cart?_method=DELETE&_id={{this._id}}&quantity=all">Remove all</a></td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+    <a class="user__button" href="logout">Log out</a>
 
-    <table class="dashboard wishlist">
-        <thead>
-            <th>Title</th>
-            <th>Price</th>
-        </thead>
+    <h1 class="user__legend">Cart</h1>
+    <article class="dashboard">
+        {{#each user.cart}}
+        <div class="product">
+            <a href="/movies/search?id={{this.id}}" class="product__title">{{this.title}}</a>
+            <p class="product__quantity">{{this.quantity}}</p>
+            <p class="product__price">{{this.price}}</p>
 
-        <tbody>
-            {{#each user.wishlist}}
-            <tr>
-                <td>{{this.title}}</td>
-                <td>{{this.price}}</td>
-                <td><a href="wishlist?_method=DELETE&_id={{this._id}}">Remove from wishlist</a></td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
-</article>
+            <a class="product__button" href="cart?_method=PUT&id={{this.id}}">Add</a>
+            <a class="product__button" href="cart?_method=DELETE&_id={{this._id}}">Remove</a>
+
+
+            <img src="{{this.poster_path}}" alt="" class="product__img">
+        </div>
+        {{/each}}
+
+    </article>
+
+    <hr>
+    <h1 class="user__legend">Wishlist</h1>
+    <article class="dashboard">
+        {{#each user.wishlist}}
+        <div class="product">
+            <img src="{{this.poster_path}}" alt="" class="product__img">
+
+            <a href="/movies/search?id={{this.id}}" class="product__title">{{this.title}}</a>
+            <p class="product__price">{{this.price}}</p>
+
+            <a class="product__button" href="wishlist?_method=DELETE&_id={{this._id}}">Remove from wishlist</a>
+        </div>
+
+        {{/each}}
+    </article>
+
+</section>
 {{/if}}

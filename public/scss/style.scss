@@ -1,661 +1,796 @@
 :root {
-    font-size: 10px;
-    font-family: 'Roboto', sans-serif;
+  font-size: 10px;
+  font-family: "Roboto", sans-serif;
 }
 
 $blue: rgba(26, 83, 92, 1);
 $aqua: rgba(78, 205, 196, 1);
 $white: rgba(247, 255, 247, 1);
 $red: #f0293a;
-$yellow: #F2A20C;
-$black: #222B31;
+$yellow: #f2a20c;
+$black: #222b31;
 
 $poster-w: 30rem;
-$poster-h: $poster-w*1.15;
+$poster-h: $poster-w * 1.15;
 $icon-w: 3rem;
 $icon-h: $icon-w;
 
 @mixin btn($color: $red, $border-color: $white) {
-    width: min-content;
-    box-sizing: border-box;
-    padding: 1rem 2rem;
-    background-color: $color;
-    border: 1px solid $border-color;
-    border-radius: 5px;
-    transition: background-color 300ms ease;
-    text-align: center;
+  width: min-content;
+  box-sizing: border-box;
+  padding: 1rem 2rem;
+  background-color: $color;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+  transition: background-color 300ms ease;
+  text-align: center;
 
-    &:hover {
-        background-color: darken($color, 10%);
-    }
+  &:hover {
+    background-color: darken($color, 10%);
+  }
 }
 
 * {
-    padding: 0;
-    margin: 0;
-    text-decoration: none;
-    color: $white;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  color: $white;
 
-    &:visited {
-        color: inherit;
-    }
+  &:visited {
+    color: inherit;
+  }
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    background-color: $black;
+  width: 100%;
+  height: 100%;
+  background-color: $black;
 }
 
 body {
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr 1fr;
-    grid-template-rows: max(7rem) max(10rem) auto min(5rem);
-    grid-template-areas:
-        "logo       search  register    login"
-        "nav        title   title       title"
-        "nav        main    main        main"
-        "footer     footer  footer      footer";
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 1fr;
+  grid-template-rows: max(7rem) max(10rem) auto min(5rem);
+  grid-template-areas:
+    "logo       search  register    login"
+    "nav        title   title       title"
+    "nav        main    main        main"
+    "footer     footer  footer      footer";
 }
 
 .logo {
-    grid-area: logo;
-    padding: 1.5rem 0;
-    background-color: $red;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  grid-area: logo;
+  padding: 1.5rem 0;
+  background-color: $red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    &:hover {
-        background-color: darken($red, 5%);
-    }
+  &:hover {
+    background-color: darken($red, 5%);
+  }
 
-    &__icon {
-        display: none;
-    }
+  &__icon {
+    display: none;
+  }
 
-    &__text {
-        font-size: $icon-h;
-    }
+  &__text {
+    font-size: $icon-h;
+  }
 }
 
 .btn-login {
-    @extend .logo;
-    grid-area: login;
+  @extend .logo;
+  grid-area: login;
 
-    &__icon {
-        @extend .logo__icon;
-    }
+  &__icon {
+    @extend .logo__icon;
+  }
 
-    &__text {
-        @extend .logo__text;
-    }
+  &__text {
+    @extend .logo__text;
+  }
 }
 
 .btn-register {
-    @extend .logo;
-    grid-area: register;
+  @extend .logo;
+  grid-area: register;
 
-    &__icon {
-        @extend .logo__icon;
-    }
+  &__icon {
+    @extend .logo__icon;
+  }
 
-    &__text {
-        @extend .logo__text;
-    }
+  &__text {
+    @extend .logo__text;
+  }
 }
 
 .search {
-    grid-area: search;
-    display: flex;
+  grid-area: search;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: lighten($red, 10%);
+  box-sizing: border-box;
+  padding: 1rem;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+
+  &__input {
+    align-self: center;
+    background-color: inherit;
+    font-size: $icon-h * 0.7;
     width: 100%;
-    height: 100%;
-    background-color: lighten($red, 10%);
-    box-sizing: border-box;
-    padding: 1rem;
-
-    &:hover {
-        filter: brightness(1.1);
-    }
-
-    &__input {
-        align-self: center;
-        background-color: inherit;
-        font-size: $icon-h*0.7;
-        width: 100%;
-        border: none;
-        color: white;
-        outline: none;
-    }
+    border: none;
+    color: white;
+    outline: none;
+  }
 }
 
 .title {
-    grid-area: title;
-    font-size: 3rem;
-    text-align: center;
-    margin: 2rem auto;
-    display: flex;
-    align-items: center;
+  grid-area: title;
+  font-size: 3rem;
+  text-align: center;
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
 }
 
 .nav {
-    grid-area: nav;
-    height: 100%;
-    background-color: darken($black, 10%);
+  grid-area: nav;
+  height: 100%;
+  background-color: darken($black, 10%);
 
-    .user {
-        background-color: $yellow;
-        padding: 1rem 0;
-        display: grid;
-        justify-content: center;
-        align-items: center;
-        grid-template-areas: 
-        "img    text";
-        column-gap: 2rem;
+  .mini-user {
+    background-color: $yellow;
+    padding: 1rem 0;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-areas: "img    text";
+    column-gap: 2rem;
 
-        &__img {
-            grid-area: img;
-            height: $icon-h*1.5;
-            width: $icon-w*1.5;
-        }
-
-        &__text{
-            grid-area: text;
-        }
+    &__img {
+      grid-area: img;
+      height: $icon-h * 1.5;
+      width: $icon-w * 1.5;
     }
 
-    &__genre {
-        padding: 1.5rem 0 1.5rem 20%;
-        display: flex;
-        transition: all 200ms ease;
+    &__text {
+      grid-area: text;
+    }
+  }
 
-        &:nth-child(1) {
-            margin-top: 1.5rem;
-        }
+  &__genre {
+    padding: 1.5rem 0 1.5rem 20%;
+    display: flex;
+    transition: all 200ms ease;
 
-        &:hover {
-            background-color: lighten($black, 10%);
-            box-shadow: $black 0 0.5rem 0.5rem;
-
-            * {
-                color: $red;
-            }
-        }
+    &:nth-child(1) {
+      margin-top: 1.5rem;
     }
 
-    &__icon {
-        display: none;
+    &:hover {
+      background-color: lighten($black, 10%);
+      box-shadow: $black 0 0.5rem 0.5rem;
+
+      * {
+        color: $red;
+      }
     }
+  }
+
+  &__icon {
+    display: none;
+  }
 }
 
 .movies {
-    grid-area: main;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax($poster-w, 1fr));
-    width: 90%;
-    margin: 0 auto;
+  grid-area: main;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($poster-w, 1fr));
+  width: 90%;
+  margin: 0 auto;
 
-    .movie {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        $movie-font: 1.5rem;
-        align-items: center;
-
-        &__score {
-            align-self: center;
-            transform: translateY($movie-font);
-            background-color: $yellow;
-            padding: 0.5rem 2rem;
-            border-radius: $movie-font;
-            font-size: $movie-font;
-            z-index: 1;
-        }
-
-        &__img {
-            width: $poster-w;
-            height: $poster-h;
-
-            &:hover {
-                filter: brightness(1.1);
-            }
-        }
-
-        &__title {
-            font-size: 1.5*$movie-font;
-            font-weight: bold;
-            margin: $movie-font 0;
-            width: $poster-w;
-        }
-
-        &__release,
-        &__genres {
-            width: $poster-w;
-            margin: 0 auto;
-            align-self: start;
-            font-weight: bold;
-            font-size: $movie-font;
-            color: $aqua;
-        }
-
-        &__release {
-            margin-top: 0.5*$movie-font;
-        }
-    }
-}
-
-.oneMovie {
-    grid-area: main;
-    display: grid;
-    font-size: 2rem;
-    column-gap: 5rem;
-    row-gap: 2rem;
-    width: 90%;
-    margin: 0 auto;
-    grid-template-areas:
-        "img        score"
-        "img        genre"
-        "img        desc"
-        "img        desc"
-        "img        release"
-        "img        price"
-        "img        rent"
-        "...        btn-buy"
-        "...        btn-favorite";
+  .movie {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    $movie-font: 1.5rem;
     align-items: center;
 
     &__score {
-        grid-area: score;
-    }
-
-    &__genre {
-        grid-area: genre;
-    }
-
-    &__release {
-        grid-area: release;
-    }
-
-    &__price {
-        grid-area: price;
-    }
-
-    &__rent {
-        grid-area: rent;
-    }
-
-    &__desc {
-        grid-area: desc;
-    }
-
-    &__btn-buy {
-        grid-area: btn-buy;
-        justify-self: end;
-        @include btn();
-        width: 15rem;
-    }
-
-    &__btn-favorite {
-        grid-area: btn-favorite;
-        @extend .oneMovie__btn-buy;
+      align-self: center;
+      transform: translateY($movie-font);
+      background-color: $yellow;
+      padding: 0.5rem 2rem;
+      border-radius: $movie-font;
+      font-size: $movie-font;
+      z-index: 1;
     }
 
     &__img {
-        grid-area: img;
-        width: $poster-w;
-        max-height: auto;
+      width: $poster-w;
+      height: $poster-h;
+
+      &:hover {
+        filter: brightness(1.1);
+      }
     }
 
-    &__field {
-        background-color: $red;
+    &__title {
+      font-size: 1.5 * $movie-font;
+      font-weight: bold;
+      margin: $movie-font 0;
+      width: $poster-w;
     }
+
+    &__release,
+    &__genres {
+      width: $poster-w;
+      margin: 0 auto;
+      align-self: start;
+      font-weight: bold;
+      font-size: $movie-font;
+      color: $aqua;
+    }
+
+    &__release {
+      margin-top: 0.5 * $movie-font;
+    }
+  }
+}
+
+.oneMovie {
+  grid-area: main;
+  display: grid;
+  font-size: 2rem;
+  column-gap: 5rem;
+  row-gap: 2rem;
+  width: 90%;
+  margin: 0 auto;
+  grid-template-areas:
+    "img        score"
+    "img        genre"
+    "img        desc"
+    "img        desc"
+    "img        release"
+    "img        price"
+    "img        rent"
+    "...        btn-buy"
+    "...        btn-favorite";
+  align-items: center;
+
+  &__score {
+    grid-area: score;
+  }
+
+  &__genre {
+    grid-area: genre;
+  }
+
+  &__release {
+    grid-area: release;
+  }
+
+  &__price {
+    grid-area: price;
+  }
+
+  &__rent {
+    grid-area: rent;
+  }
+
+  &__desc {
+    grid-area: desc;
+  }
+
+  &__btn-buy {
+    grid-area: btn-buy;
+    justify-self: end;
+    @include btn();
+    width: 15rem;
+  }
+
+  &__btn-favorite {
+    grid-area: btn-favorite;
+    @extend .oneMovie__btn-buy;
+  }
+
+  &__img {
+    grid-area: img;
+    width: $poster-w;
+    max-height: auto;
+  }
+
+  &__field {
+    background-color: $red;
+  }
 }
 
 .register {
-    grid-area: main;
+  grid-area: main;
+  display: grid;
+  width: 90%;
+  font-size: 1.5rem;
+  margin: 0 auto;
+  grid-template-columns: 1.5fr 1fr;
+  column-gap: 5rem;
+  grid-template-areas:
+    "form   intro"
+    "form   author"
+    "form   perk";
+
+  & > * {
+    padding: 2rem;
+  }
+
+  .form {
+    grid-area: form;
     display: grid;
-    width: 90%;
-    font-size: 1.5rem;
-    margin: 0 auto;
-    grid-template-columns: 1.5fr 1fr;
-    column-gap: 5rem;
-    grid-template-areas:
-        "form   intro"
-        "form   author"
-        "form   perk";
+    grid-template-columns: 1fr 3fr;
+    column-gap: 1rem;
+    row-gap: 2rem;
+    border: $yellow 0.1rem solid;
+    border-radius: 1rem;
+    align-items: center;
 
-    &>* {
-        padding: 2rem;
+    & > * {
+      color: $yellow;
     }
 
-    .form {
-        grid-area: form;
-        display: grid;
-        grid-template-columns: 1fr 3fr;
-        column-gap: 1rem;
-        row-gap: 2rem;
-        border: $yellow 0.1rem solid;
-        border-radius: 1rem;
-        align-items: center;
-
-        &>* {
-            color: $yellow;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        input {
-            border: inherit;
-            border-color: $white;
-            border-radius: inherit;
-            padding: 1rem;
-            transition: all 300ms ease;
-
-            &:focus {
-                outline: none;
-                transform: scale(1.05);
-            }
-        }
-
-        button {
-            @include btn($black, $yellow);
-            background-color: inherit;
-            width: 100%;
-            color: $yellow;
-            grid-column: 2/3;
-
-            &:focus,
-            &:hover {
-                background-color: $yellow;
-                color: $white;
-                border-color: $white;
-            }
-        }
-
+    label {
+      font-weight: bold;
     }
 
-    .intro {
-        grid-area: intro;
+    input {
+      border: inherit;
+      border-color: $white;
+      border-radius: inherit;
+      padding: 1rem;
+      transition: all 300ms ease;
+
+      &:focus {
+        outline: none;
+        transform: scale(1.05);
+      }
+    }
+
+    button {
+      @include btn($black, $yellow);
+      background-color: inherit;
+      width: 100%;
+      color: $yellow;
+      grid-column: 2/3;
+
+      &:focus,
+      &:hover {
         background-color: $yellow;
-
-        &__text {
-            @extend .perk__text;
-            background-color: $red;
-        }
+        color: $white;
+        border-color: $white;
+      }
     }
+  }
 
-    .perk {
-        @extend .intro;
-        grid-area: perk;
+  .intro {
+    grid-area: intro;
+    background-color: $yellow;
 
-        &__text {
-            margin-top: 1rem;
-        }
+    &__text {
+      @extend .perk__text;
+      background-color: $red;
     }
+  }
 
-    .author {
-        @extend .intro;
-        grid-area: author;
+  .perk {
+    @extend .intro;
+    grid-area: perk;
 
-        &__text {
-            @extend .perk__text;
-        }
+    &__text {
+      margin-top: 1rem;
     }
+  }
+
+  .author {
+    @extend .intro;
+    grid-area: author;
+
+    &__text {
+      @extend .perk__text;
+    }
+  }
 }
 
 $login-width: 40rem;
 .login {
-    grid-area: main;
-    width:  $login-width;
-    display: flex;
-    flex-direction: column;
+  grid-area: main;
+  width: $login-width;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  border: $yellow 0.1rem solid;
+  border-radius: 1rem;
+  padding: 2rem;
+  height: 30rem;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 1.5rem;
+
+  & > * {
+    color: $yellow;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  input {
+    border: inherit;
+    border-color: $white;
+    border-radius: inherit;
+    padding: 1rem;
+    width: $login-width * 0.9;
+    box-sizing: border-box;
+    transition: all 300ms ease;
+
+    &:focus {
+      outline: none;
+      transform: scale(1.05);
+    }
+  }
+
+  button {
+    @include btn($black, $yellow);
+    background-color: inherit;
+    width: $login-width * 0.9;
     margin: 0 auto;
-    border: $yellow 0.1rem solid;
-    border-radius: 1rem;
-    padding: 2rem;
-    height: 30rem;
-    justify-content: space-evenly;
-    align-items: center;
-    font-size: 1.5rem;
+    color: $yellow;
+    box-sizing: border-box;
+    grid-column: 2/3;
 
-    &>* {
-        color: $yellow;
+    &:focus,
+    &:hover {
+      background-color: $yellow;
+      color: $white;
+      border-color: $white;
     }
-
-    label {
-        font-weight: bold;
-    }
-
-    input {
-        border: inherit;
-        border-color: $white;
-        border-radius: inherit;
-        padding: 1rem;
-        width: $login-width*0.9;
-        box-sizing: border-box;
-        transition: all 300ms ease;
-
-        &:focus {
-            outline: none;
-            transform: scale(1.05);
-        }
-    }
-
-    button {
-        @include btn($black, $yellow);
-        background-color: inherit;
-        width: $login-width*0.9;
-        margin: 0 auto;
-        color: $yellow;
-        box-sizing: border-box;
-        grid-column: 2/3;
-
-        &:focus,
-        &:hover {
-            background-color: $yellow;
-            color: $white;
-            border-color: $white;
-        }
-    }
-}
-
-.profile {
-    grid-area: main;
-    font-size: 2rem;
-    display: grid;
-    row-gap: 3rem;
-    width: 90%;
-    margin: 0 auto;
-
-    &__field {
-        background-color: $red;
-    }
+  }
 }
 
 .banner {
-    position: absolute;
-    top:0;
-    left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+
+  &__content {
+    background: center no-repeat
+      url(https://mediafiles.cineplex.com/Attachments/NewItems/CPXRotator_595x3261917_20200310213209_0.png);
+    z-index: 11;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 10;
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: center;
-    align-items: center;
+    height: 50%;
+  }
 
-    &__content {
-        background:center no-repeat url(https://mediafiles.cineplex.com/Attachments/NewItems/CPXRotator_595x3261917_20200310213209_0.png);
-        z-index: 11;
-        width: 100%;
-        height: 50%;
-    }
-
-    &__btn-close {
-        @include btn();
-        width: 30%;
-    }
+  &__btn-close {
+    @include btn();
+    width: 30%;
+  }
 }
 
-.add {
-    input {
-        color: black;
+.user {
+  grid-area: main;
+  $product-w: $icon-w * 6;
+  width: 90%;
+  margin: 0 auto;
+
+  &__button {
+      margin-left: auto;
+      display: block;
+      width: max-content;
+      background-color: $yellow;
+      padding: 1rem;
+      transition: .5s ease;
+      font-size: 1.5rem;
+
+      &:hover{
+          background-color: $red;
+          font-style: italic;
+      }
+  }
+
+  &__legend {
+      margin: 3rem auto;
+      font-weight: bold;
+      font-size: 2rem;
+      text-align: center;
+      color: $yellow;
+  }
+
+  .profile {
+    &__img {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      background-color: $yellow;
+      width: 100%;
+      height: 35vh;
+      img {
+        width: $product-w;
+        height: $product-w;
+      }
     }
+
+    &__info {
+        font-size: 1.5rem;
+        *{
+            margin: 1rem 0;
+        }
+    }
+    &__field {
+        background-color: $red;
+        font-weight: bold;
+    }
+  }
+  .dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax($product-w * 1.15, 1fr));
+    row-gap: 5rem;
+
+    .product {
+      display: grid;
+      row-gap: 1rem;
+      width: $product-w;
+      margin: 0 auto;
+      grid-template-areas:
+        "title      title"
+        "img        img"
+        "img        img"
+        "quantity   price"
+        "add        remove";
+
+      * {
+        text-align: center;
+        font-size: 1.5rem;
+      }
+
+      &__img {
+        grid-area: img;
+        justify-self: center;
+        width: $product-w;
+        height: $product-w;
+        border-radius: 5px;
+      }
+
+      &__title {
+        grid-area: title;
+        font-weight: bold;
+        font-size: 2rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      &__price {
+        grid-area: price;
+
+        &::after {
+          content: " each";
+        }
+
+        &::before {
+          content: "$";
+        }
+      }
+
+      &__quantity {
+        grid-area: quantity;
+
+        &::after {
+          content: " item(s)";
+        }
+      }
+
+      &__button {
+        display: block;
+        background-color: $red;
+        width: $icon-w * 2;
+        padding: 1rem;
+        margin: 1rem auto 0 auto;
+
+        &:hover {
+          background-color: lighten($red, 5%);
+        }
+
+        &:first-child {
+          grid-area: add;
+        }
+
+        &:last-child {
+          grid-area: remove;
+        }
+      }
+    }
+  }
+
+  .dashboard:last-child {
+    .product {
+      grid-template-areas:
+        "title"
+        "img"
+        "price"
+        "remove";
+
+        &__button {
+            width: max-content;
+        }
+    }
+  }
 }
 
 .footer {
-    grid-area: footer;
+  grid-area: footer;
+  display: grid;
+
+  &__media {
+    align-self: center;
     display: grid;
+    font-size: $icon-h;
+    grid-template-columns: repeat(auto-fit, minmax($icon-w, 1fr));
 
-    &__media {
-        align-self: center;    
-        display: grid;
-        font-size: $icon-h;
-        grid-template-columns: repeat(auto-fit, minmax($icon-w, 1fr));
-
-        &>a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    & > a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+  }
 }
 
+hr {
+    margin: 3rem;
+    border-top: .5rem solid white;
+}
 ::placeholder {
-    color: inherit;
+  color: inherit;
 }
 
 ::-webkit-scrollbar {
-    width: 1rem;
+  width: 1rem;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: $yellow;
+  background-color: $yellow;
 
-    &:hover {
-        filter: brightness(1.2);
-    }
+  &:hover {
+    filter: brightness(1.2);
+  }
 }
 
 ::-webkit-scrollbar-track {
-    background-color: inherit;
+  background-color: inherit;
 }
 
 .disable {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 @media screen and (max-width: 850px) {
-    .nav {
-        &__genre {
-            display: flex;
-            justify-content: center;
-            padding: 2rem 0;
-        }
-
-        &__icon {
-            display: block;
-            font-size: $icon-w/2;
-        }
-
-        &__text {
-            display: none;  
-        }
+  .nav {
+    &__genre {
+      display: flex;
+      justify-content: center;
+      padding: 2rem 0;
     }
 
-    .logo {
-        &__icon {
-            display: block;
-            width: $icon-w;
-            height: $icon-h;
-            font-size: 3rem;
-        }
-
-        &__text {
-            display: none;
-        }
+    &__icon {
+      display: block;
+      font-size: $icon-w/2;
     }
 
-    .oneMovie {
-        grid-template-areas: 
-        "img    img"
-        "score  release"
-        "desc   desc"
-        "genre  genre"
-        "price  rent"
-        "btn-buy btn-favorite";
+    &__text {
+      display: none;
+    }
+  }
 
-        &__img {
-            width: 100%;
-            max-height: auto;
-        }
-
-        &__btn-buy {
-            width: 100%;
-        }
+  .logo {
+    &__icon {
+      display: block;
+      width: $icon-w;
+      height: $icon-h;
+      font-size: 3rem;
     }
 
-    .register {
-        grid-template-columns: auto;
-        grid-template-areas: 
-        "form"
-        "intro"
-        "perk"
-        "author";
-
-        form {
-            margin-bottom: 2rem;
-        }
+    &__text {
+      display: none;
     }
+  }
+
+  .oneMovie {
+    grid-template-areas:
+      "img    img"
+      "score  release"
+      "desc   desc"
+      "genre  genre"
+      "price  rent"
+      "btn-buy btn-favorite";
+
+    &__img {
+      width: 100%;
+      max-height: auto;
+    }
+
+    &__btn-buy {
+      width: 100%;
+    }
+  }
+
+  .register {
+    grid-template-columns: auto;
+    grid-template-areas:
+      "form"
+      "intro"
+      "perk"
+      "author";
+
+    form {
+      margin-bottom: 2rem;
+    }
+  }
 }
 
 @media screen and (max-width: 600px) {
-    .login {
-        $login-width: 28rem;
-        width: $login-width;
+  .login {
+    $login-width: 28rem;
+    width: $login-width;
 
-        input, button {
-            width: $login-width*0.9;
-        }
+    input,
+    button {
+      width: $login-width * 0.9;
     }
+  }
 }
 
 @media screen and (max-width: 400px) {
-    .logo {
-        &__icon {
-            font-size: $icon-w*0.7;
-            width: $icon-w*0.7;
-            height: $icon-h*0.7;
-        }
+  .logo {
+    &__icon {
+      font-size: $icon-w * 0.7;
+      width: $icon-w * 0.7;
+      height: $icon-h * 0.7;
     }
+  }
 
+  .oneMovie {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "desc"
+      "img"
+      "score"
+      "release"
+      "genre"
+      "price"
+      "rent"
+      "btn-buy"
+      "btn-favorite";
+  }
 
-    .oneMovie {
-        grid-template-columns: 1fr;
-        grid-template-areas: 
-        "desc"
-        "img"
-        "score"
-        "release"
-        "genre"
-        "price"
-        "rent"
-        "btn-buy"
-        "btn-favorite";
+  .login {
+    $login-width: 20rem;
+    width: $login-width;
 
+    input,
+    button {
+      width: $login-width * 0.9;
     }
-
-    .login {
-        $login-width: 20rem;
-        width: $login-width;
-
-        input, button {
-            width: $login-width*0.9;
-        }
-    }
+  }
 }

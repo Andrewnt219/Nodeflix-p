@@ -1,6 +1,6 @@
 :root {
   font-size: 10px;
-  font-family: 'Roboto', sans-serif; }
+  font-family: "Roboto", sans-serif; }
 
 * {
   padding: 0;
@@ -14,7 +14,7 @@ html,
 body {
   width: 100%;
   height: 100%;
-  background-color: #222B31; }
+  background-color: #222b31; }
 
 body {
   overflow: hidden;
@@ -74,19 +74,19 @@ body {
   grid-area: nav;
   height: 100%;
   background-color: #0d1113; }
-  .nav .user {
-    background-color: #F2A20C;
+  .nav .mini-user {
+    background-color: #f2a20c;
     padding: 1rem 0;
     display: grid;
     justify-content: center;
     align-items: center;
     grid-template-areas: "img    text";
     column-gap: 2rem; }
-    .nav .user__img {
+    .nav .mini-user__img {
       grid-area: img;
       height: 4.5rem;
       width: 4.5rem; }
-    .nav .user__text {
+    .nav .mini-user__text {
       grid-area: text; }
   .nav__genre {
     padding: 1.5rem 0 1.5rem 20%;
@@ -96,7 +96,7 @@ body {
       margin-top: 1.5rem; }
     .nav__genre:hover {
       background-color: #37454f;
-      box-shadow: #222B31 0 0.5rem 0.5rem; }
+      box-shadow: #222b31 0 0.5rem 0.5rem; }
       .nav__genre:hover * {
         color: #f0293a; }
   .nav__icon {
@@ -116,7 +116,7 @@ body {
     .movies .movie__score {
       align-self: center;
       transform: translateY(1.5rem);
-      background-color: #F2A20C;
+      background-color: #f2a20c;
       padding: 0.5rem 2rem;
       border-radius: 1.5rem;
       font-size: 1.5rem;
@@ -203,11 +203,11 @@ body {
     grid-template-columns: 1fr 3fr;
     column-gap: 1rem;
     row-gap: 2rem;
-    border: #F2A20C 0.1rem solid;
+    border: #f2a20c 0.1rem solid;
     border-radius: 1rem;
     align-items: center; }
     .register .form > * {
-      color: #F2A20C; }
+      color: #f2a20c; }
     .register .form label {
       font-weight: bold; }
     .register .form input {
@@ -223,24 +223,24 @@ body {
       width: min-content;
       box-sizing: border-box;
       padding: 1rem 2rem;
-      background-color: #222B31;
-      border: 1px solid #F2A20C;
+      background-color: #222b31;
+      border: 1px solid #f2a20c;
       border-radius: 5px;
       transition: background-color 300ms ease;
       text-align: center;
       background-color: inherit;
       width: 100%;
-      color: #F2A20C;
+      color: #f2a20c;
       grid-column: 2/3; }
       .register .form button:hover {
         background-color: #0d1113; }
       .register .form button:focus, .register .form button:hover {
-        background-color: #F2A20C;
+        background-color: #f2a20c;
         color: #f7fff7;
         border-color: #f7fff7; }
   .register .intro, .register .perk, .register .author {
     grid-area: intro;
-    background-color: #F2A20C; }
+    background-color: #f2a20c; }
     .register .intro__text {
       background-color: #f0293a; }
   .register .perk {
@@ -256,7 +256,7 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  border: #F2A20C 0.1rem solid;
+  border: #f2a20c 0.1rem solid;
   border-radius: 1rem;
   padding: 2rem;
   height: 30rem;
@@ -264,7 +264,7 @@ body {
   align-items: center;
   font-size: 1.5rem; }
   .login > * {
-    color: #F2A20C; }
+    color: #f2a20c; }
   .login label {
     font-weight: bold; }
   .login input {
@@ -282,33 +282,23 @@ body {
     width: min-content;
     box-sizing: border-box;
     padding: 1rem 2rem;
-    background-color: #222B31;
-    border: 1px solid #F2A20C;
+    background-color: #222b31;
+    border: 1px solid #f2a20c;
     border-radius: 5px;
     transition: background-color 300ms ease;
     text-align: center;
     background-color: inherit;
     width: 36rem;
     margin: 0 auto;
-    color: #F2A20C;
+    color: #f2a20c;
     box-sizing: border-box;
     grid-column: 2/3; }
     .login button:hover {
       background-color: #0d1113; }
     .login button:focus, .login button:hover {
-      background-color: #F2A20C;
+      background-color: #f2a20c;
       color: #f7fff7;
       border-color: #f7fff7; }
-
-.profile {
-  grid-area: main;
-  font-size: 2rem;
-  display: grid;
-  row-gap: 3rem;
-  width: 90%;
-  margin: 0 auto; }
-  .profile__field {
-    background-color: #f0293a; }
 
 .banner {
   position: absolute;
@@ -340,8 +330,97 @@ body {
     .banner__btn-close:hover {
       background-color: #d70f20; }
 
-.add input {
-  color: black; }
+.user {
+  grid-area: main;
+  width: 90%;
+  margin: 0 auto; }
+  .user__button {
+    margin-left: auto;
+    display: block;
+    width: max-content;
+    background-color: #f2a20c;
+    padding: 1rem;
+    transition: .5s ease;
+    font-size: 1.5rem; }
+    .user__button:hover {
+      background-color: #f0293a;
+      font-style: italic; }
+  .user__legend {
+    margin: 3rem auto;
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+    color: #f2a20c; }
+  .user .profile__img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    background-color: #f2a20c;
+    width: 100%;
+    height: 35vh; }
+    .user .profile__img img {
+      width: 18rem;
+      height: 18rem; }
+  .user .profile__info {
+    font-size: 1.5rem; }
+    .user .profile__info * {
+      margin: 1rem 0; }
+  .user .profile__field {
+    background-color: #f0293a;
+    font-weight: bold; }
+  .user .dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20.7rem, 1fr));
+    row-gap: 5rem; }
+    .user .dashboard .product {
+      display: grid;
+      row-gap: 1rem;
+      width: 18rem;
+      margin: 0 auto;
+      grid-template-areas: "title      title" "img        img" "img        img" "quantity   price" "add        remove"; }
+      .user .dashboard .product * {
+        text-align: center;
+        font-size: 1.5rem; }
+      .user .dashboard .product__img {
+        grid-area: img;
+        justify-self: center;
+        width: 18rem;
+        height: 18rem;
+        border-radius: 5px; }
+      .user .dashboard .product__title {
+        grid-area: title;
+        font-weight: bold;
+        font-size: 2rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+      .user .dashboard .product__price {
+        grid-area: price; }
+        .user .dashboard .product__price::after {
+          content: " each"; }
+        .user .dashboard .product__price::before {
+          content: "$"; }
+      .user .dashboard .product__quantity {
+        grid-area: quantity; }
+        .user .dashboard .product__quantity::after {
+          content: " item(s)"; }
+      .user .dashboard .product__button {
+        display: block;
+        background-color: #f0293a;
+        width: 6rem;
+        padding: 1rem;
+        margin: 1rem auto 0 auto; }
+        .user .dashboard .product__button:hover {
+          background-color: #f24150; }
+        .user .dashboard .product__button:first-child {
+          grid-area: add; }
+        .user .dashboard .product__button:last-child {
+          grid-area: remove; }
+  .user .dashboard:last-child .product {
+    grid-template-areas: "title" "img" "price" "remove"; }
+    .user .dashboard:last-child .product__button {
+      width: max-content; }
 
 .footer {
   grid-area: footer;
@@ -356,6 +435,10 @@ body {
       align-items: center;
       justify-content: center; }
 
+hr {
+  margin: 3rem;
+  border-top: .5rem solid white; }
+
 ::placeholder {
   color: inherit; }
 
@@ -363,7 +446,7 @@ body {
   width: 1rem; }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #F2A20C; }
+  background-color: #f2a20c; }
   ::-webkit-scrollbar-thumb:hover {
     filter: brightness(1.2); }
 
@@ -406,7 +489,8 @@ body {
 @media screen and (max-width: 600px) {
   .login {
     width: 28rem; }
-    .login input, .login button {
+    .login input,
+    .login button {
       width: 25.2rem; } }
 
 @media screen and (max-width: 400px) {
@@ -419,5 +503,6 @@ body {
     grid-template-areas: "desc" "img" "score" "release" "genre" "price" "rent" "btn-buy" "btn-favorite"; }
   .login {
     width: 20rem; }
-    .login input, .login button {
+    .login input,
+    .login button {
       width: 18rem; } }

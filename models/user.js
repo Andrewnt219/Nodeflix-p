@@ -16,7 +16,8 @@ const movieSchema = new mongoose.Schema({
     quantity: {
         type: Number,
         default:0
-    }
+    },
+    poster_path: String
 });
 
 const userSchema = new mongoose.Schema({
@@ -56,7 +57,8 @@ const userSchema = new mongoose.Schema({
             unique: true
         },
         title: String,
-        price: Number
+        price: Number,
+        poster_path: String
     }],
     isAdmin: {
         type: Boolean,

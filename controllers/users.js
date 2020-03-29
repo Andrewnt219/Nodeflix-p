@@ -10,6 +10,8 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const express = require('express');
 const router = express.Router();
 
+const imgPath = '/img/';
+
 router.post('/register', async (req, res) => {
     const { error } = userValidate(req.body);
     if (error) {
@@ -90,7 +92,7 @@ router.get('/me', author, async (req, res) => {
     }
     else {
         res.render('user/user', {
-            title: `Welcome back, ${user.name}`,
+            title: `Hi, ${user.name}`,
             user: user
         });
     }
@@ -126,7 +128,7 @@ router.get('/cart', author, async (req, res) => {
 router.put('/cart', author, async (req, res) => {
 
     const movie = await Movie.findOne({ id: req.query.id })
-        .select('id price title stock');
+        .select('id price title stock poster_path');
 
     if (movie.stock === 0) return res.render('utils/error', { message: 'We are sorry! This movie is out of stock' });
     movie.stock--;
@@ -145,7 +147,8 @@ router.put('/cart', author, async (req, res) => {
             id: movie.id,
             price: movie.price,
             quantity: 1,
-            title: movie.title
+            title: movie.title,
+            poster_path: movie.poster_path.includes('http') ? movie.poster_path : imgPath + movie.poster_path
         })
     }
 
@@ -198,7 +201,7 @@ router.delete('/cart', author, async (req, res) => {
  */
 router.put('/wishlist', author, async (req, res) => {
     const movie = await Movie.findOne({ id: req.query.id })
-        .select('id price title');
+        .select('id price title poster_path');
 
     const user = await User.findOne({ email: req.user.email });
 
@@ -212,7 +215,8 @@ router.put('/wishlist', author, async (req, res) => {
         user.wishlist.push({
             id: movie.id,
             price: movie.price,
-            title: movie.title
+            title: movie.title,
+            poster_path: movie.poster_path.includes('http') ? movie.poster_path : imgPath + movie.poster_path
         })
     }
 
@@ -230,7 +234,7 @@ router.delete('/wishlist', author, async (req, res) => {
 
     await user.save();
 
-    res.redirect('dashboard');
+    res.redirect(req.headers.referer);
 })
 
 module.exports = router;

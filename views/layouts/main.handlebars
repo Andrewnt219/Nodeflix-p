@@ -42,17 +42,17 @@
     <h1 class="title">{{title}}</h1>
     <nav class="nav">
         {{#if isAdmin}}
-        <div class="user">
-            <img src="/img/admin.png" alt="" class="user__img">
-            <div class="user__text">
+        <div class="mini-user">
+            <img src="/img/admin.png" alt="" class="mini-user__img">
+            <div class="mini-user__text">
                 <h1 >{{name}}</h1>
                 <p >Administrator</p>
             </div>
         </div>
         {{else if loggedIn}}
-        <div class="user">
-            <img src="/img/user.png" alt="" class="user__img">
-            <div class="user__text">
+        <div class="mini-user">
+            <img src="/img/user.png" alt="" class="mini-user__img">
+            <div class="mini-user__text">
                 <h1 >{{name}}</h1>
                 <p >Premium Member</p>
             </div>
