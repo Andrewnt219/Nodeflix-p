@@ -2,7 +2,7 @@
 <section class="user">
     <article class="profile">
         <div class="profile__img">
-            <img src="/img/user.png" alt="" >
+            <img src="/img/user.png" alt="">
         </div>
 
         <div class="profile__info">
@@ -14,6 +14,7 @@
 
     <a class="user__button" href="logout">Log out</a>
 
+    {{#if user.cart.length}}
     <h1 class="user__legend">Cart</h1>
     <article class="dashboard">
         {{#each user.cart}}
@@ -31,10 +32,13 @@
         {{/each}}
 
     </article>
+    {{/if}}
 
+
+    {{#if user.wishlist.length}}
     <hr>
     <h1 class="user__legend">Wishlist</h1>
-    <article class="dashboard">
+    <article class="wishlist">
         {{#each user.wishlist}}
         <div class="product">
             <img src="{{this.poster_path}}" alt="" class="product__img">
@@ -47,6 +51,7 @@
 
         {{/each}}
     </article>
-
+    {{/if}}
 </section>
+
 {{/if}}

@@ -122,7 +122,13 @@ router.get('/register', (req, res) => {
  */
 router.get('/cart', author, async (req, res) => {
     const user = await User.findOne({ email: req.user.email }).lean();
-    res.render('user/cart', { user: user });
+    user.cart.forEach(movie => {
+        if(!movie.poster_path.includes('http'))
+            movie.poster_path = imgPath + movie.poster_path;
+    } )
+
+    if(user.cart.length === 0) return res.render('user/cart', {title: 'Cart is empty'});
+    res.render('user/cart', { user: user, title: 'Cart' });
 })
 
 router.put('/cart', author, async (req, res) => {

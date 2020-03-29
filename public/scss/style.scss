@@ -14,6 +14,7 @@ $poster-w: 30rem;
 $poster-h: $poster-w * 1.15;
 $icon-w: 3rem;
 $icon-h: $icon-w;
+$product-w: $icon-w * 6;
 
 @mixin btn($color: $red, $border-color: $white) {
   width: min-content;
@@ -27,6 +28,87 @@ $icon-h: $icon-w;
 
   &:hover {
     background-color: darken($color, 10%);
+  }
+}
+
+%dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($product-w * 1.15, 1fr));
+  row-gap: 5rem;
+
+  .product {
+    display: grid;
+    row-gap: 1rem;
+    width: $product-w;
+    margin: 0 auto;
+    grid-template-areas:
+      "title      title"
+      "img        img"
+      "img        img"
+      "quantity   price"
+      "add        remove";
+
+    * {
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    &__img {
+      grid-area: img;
+      justify-self: center;
+      width: $product-w;
+      height: $product-w;
+      border-radius: 5px;
+    }
+
+    &__title {
+      grid-area: title;
+      font-weight: bold;
+      font-size: 2rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &__price {
+      grid-area: price;
+
+      &::after {
+        content: " each";
+      }
+
+      &::before {
+        content: "$";
+      }
+    }
+
+    &__quantity {
+      grid-area: quantity;
+
+      &::after {
+        content: " item(s)";
+      }
+    }
+
+    &__button {
+      display: block;
+      background-color: $red;
+      width: $icon-w * 2;
+      padding: 1rem;
+      margin: 1rem auto 0 auto;
+
+      &:hover {
+        background-color: lighten($red, 5%);
+      }
+
+      &:first-child {
+        grid-area: add;
+      }
+
+      &:last-child {
+        grid-area: remove;
+      }
+    }
   }
 }
 
@@ -57,7 +139,7 @@ body {
     "logo       search  register    login"
     "nav        title   title       title"
     "nav        main    main        main"
-    "footer     footer  footer      footer";
+    "...        footer  footer      footer";
 }
 
 .logo {
@@ -488,33 +570,35 @@ $login-width: 40rem;
   }
 }
 
+%dashboard__button {
+  margin-left: auto;
+  display: block;
+  width: max-content;
+  background-color: $yellow;
+  padding: 1rem;
+  transition: 0.5s ease;
+  font-size: 1.5rem;
+
+  &:hover {
+    background-color: $red;
+    font-style: italic;
+  }
+}
 .user {
   grid-area: main;
-  $product-w: $icon-w * 6;
   width: 90%;
   margin: 0 auto;
 
   &__button {
-      margin-left: auto;
-      display: block;
-      width: max-content;
-      background-color: $yellow;
-      padding: 1rem;
-      transition: .5s ease;
-      font-size: 1.5rem;
-
-      &:hover{
-          background-color: $red;
-          font-style: italic;
-      }
+    @extend %dashboard__button;
   }
 
   &__legend {
-      margin: 3rem auto;
-      font-weight: bold;
-      font-size: 2rem;
-      text-align: center;
-      color: $yellow;
+    margin: 3rem auto;
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+    color: $yellow;
   }
 
   .profile {
@@ -533,98 +617,22 @@ $login-width: 40rem;
     }
 
     &__info {
-        font-size: 1.5rem;
-        *{
-            margin: 1rem 0;
-        }
+      font-size: 1.5rem;
+      * {
+        margin: 1rem 0;
+      }
     }
     &__field {
-        background-color: $red;
-        font-weight: bold;
+      background-color: $red;
+      font-weight: bold;
     }
   }
   .dashboard {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax($product-w * 1.15, 1fr));
-    row-gap: 5rem;
-
-    .product {
-      display: grid;
-      row-gap: 1rem;
-      width: $product-w;
-      margin: 0 auto;
-      grid-template-areas:
-        "title      title"
-        "img        img"
-        "img        img"
-        "quantity   price"
-        "add        remove";
-
-      * {
-        text-align: center;
-        font-size: 1.5rem;
-      }
-
-      &__img {
-        grid-area: img;
-        justify-self: center;
-        width: $product-w;
-        height: $product-w;
-        border-radius: 5px;
-      }
-
-      &__title {
-        grid-area: title;
-        font-weight: bold;
-        font-size: 2rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      &__price {
-        grid-area: price;
-
-        &::after {
-          content: " each";
-        }
-
-        &::before {
-          content: "$";
-        }
-      }
-
-      &__quantity {
-        grid-area: quantity;
-
-        &::after {
-          content: " item(s)";
-        }
-      }
-
-      &__button {
-        display: block;
-        background-color: $red;
-        width: $icon-w * 2;
-        padding: 1rem;
-        margin: 1rem auto 0 auto;
-
-        &:hover {
-          background-color: lighten($red, 5%);
-        }
-
-        &:first-child {
-          grid-area: add;
-        }
-
-        &:last-child {
-          grid-area: remove;
-        }
-      }
-    }
+    @extend %dashboard;
   }
 
-  .dashboard:last-child {
+  .wishlist {
+    @extend %dashboard;
     .product {
       grid-template-areas:
         "title"
@@ -632,16 +640,58 @@ $login-width: 40rem;
         "price"
         "remove";
 
-        &__button {
-            width: max-content;
-        }
+      &__button {
+        width: max-content;
+      }
     }
   }
 }
 
+.cart {
+  grid-area: main;
+
+  .dashboard {
+    @extend %dashboard;
+  }
+
+  &__total {
+    font-size: 2rem;
+    margin: 0 auto 2rem auto;
+    width: max-content
+  }
+  &__field {
+    background-color: $red;
+    font-weight: bold;
+  }
+
+  &__button {
+    @extend %dashboard__button;
+    width: 20%;
+    text-align: center;
+    margin: 5rem auto;
+    border-radius: 5rem;
+    font-weight: bold;
+    transition: 0.5s ease;
+
+    &:hover {
+      font-style: normal;
+      transform: scale(1.25);
+      background-color: lighten($yellow, 10%);
+    }
+  }
+}
+
+.message {
+  grid-area:main;
+  width: 60%;
+  margin: 0 auto;
+  font-size: 2rem;
+  text-align: center;
+}
 .footer {
   grid-area: footer;
   display: grid;
+  padding: 5rem 0;
 
   &__media {
     align-self: center;
@@ -658,8 +708,8 @@ $login-width: 40rem;
 }
 
 hr {
-    margin: 3rem;
-    border-top: .5rem solid white;
+  margin: 3rem;
+  border-top: 0.5rem solid white;
 }
 ::placeholder {
   color: inherit;

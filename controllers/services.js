@@ -12,7 +12,7 @@ router.use(author);
 router.get('/order', async (req, res) => {
     const user = await User.findOne({ email: req.user.email }).select('email id name cart total');
 
-    if (user.cart.length === 0) return res.render('service/order', { title: 'No items are in the shopping cart' })
+    if (user.cart.length === 0) return res.render('utils/error', { title: 'No items are in the shopping cart', message: 'Add items to the shopping cart to place an order' })
     let order = new Order({
         user: {
             id: user.id,
