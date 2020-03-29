@@ -39,10 +39,6 @@ const userSchema = new mongoose.Schema({
         maxlength:12,
         minlength:10
     },
-    jwt: {
-        type: String,
-        default: ''
-    },
     lastLogin: {
         type: Date,
         default: Date.now()
@@ -69,7 +65,7 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.methods.generateToken = function () {
-    return jwt.sign({email: this.email, isAdmin: this.isAdmin}, process.env.jwtPrivateKey, {
+    return jwt.sign({email: this.email, isAdmin: this.isAdmin, name:this.name}, process.env.jwtPrivateKey, {
         algorithm: 'HS256'
     });
 }
