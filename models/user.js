@@ -80,29 +80,24 @@ module.exports.userValidate = function(user) {
         name: Joi.string()
             .required()
             .min(3)
-            .max(255),
+            .max(255)
+            .error(new Error('Name cannot be empty')),
         email: Joi.string().email()
             .required()
-            .max(255),
+            .max(255)
+            .error(new Error('Email cannot be empty')),
         password: Joi.string()
             .required()
-            .alphanum()
             .min(8)
-            .max(64),
+            .max(64)
+            .regex(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+=\-,.<>?\/\[\]{};:'"])(?!.*\s)/)
+            .error(new Error('Please refers to the password\'s policy')),
         confirm_password: Joi.any()
             .valid(Joi.ref('password'))
-            .error(() => {
-                return {
-                    message: 'Confirm password does not match.'
-                }
-            }),
+            .error(new Error('Confirm password does not match')),
         phone: Joi.string()
             .regex(/(\d{3}[-]*){2}\d{4}$/)
-            .error(() => {
-                return {
-                    message: 'Invalid phone entry! Suggested format: 123-456-7890'
-                }
-            })
+            .error(new Error('Invalid phone entry! Suggested format: 123-456-7890'))
     });
 
    return schema.validate(user);

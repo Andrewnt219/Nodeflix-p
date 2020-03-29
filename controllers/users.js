@@ -15,7 +15,7 @@ router.post('/register', async (req, res) => {
     if (error) {
         const { name, email, phone } = req.body;
         return res.status(400).render('user/register', {
-            error: error.details[0].message,
+            error: error,
             name: name,
             email: email,
             phone: phone
@@ -46,13 +46,14 @@ router.post('/register', async (req, res) => {
                 token = await user.generateToken();
                 
                 res.cookie('token', token, { signed: true })
+                    .cookie('name', user.name)
                     .redirect('/users/me');
             })
             .catch(err => {
                 const { name, email, phone } = req.body;
                 if (err.code = 11000)
                     return res.status(400).render('user/register', {
-                        error: 'Email has been used',
+                        error: 'Email is used',
                         name: name,
                         phone: phone
                     });
