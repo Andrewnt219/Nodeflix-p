@@ -214,15 +214,6 @@ router.put('/edit/', async (req, res) => {
     }
 
     try {
-        if (poster_img) {
-            poster_img.name = 'poster_' + _id + poster_img.name;
-            await poster_img.mv(`public/img/${poster_img.name}`);
-        }
-        if (backdrop_img) {
-            backdrop_img.name = 'backdrop_' + _id + backdrop_img.name;
-            await backdrop_img.mv(`public/img/${backdrop_img.name}`);
-        }
-
         const movie = await Movie.findOneAndUpdate({ _id: _id }, {
             original_title: original_title,
             original_language: original_language,
@@ -230,11 +221,18 @@ router.put('/edit/', async (req, res) => {
             overview: overview,
             stock: stock || 15,
             release_date: release_date,
-            genre: genres,
-            poster_path: poster_img ? poster_img.name : '404.png',
-            backdrop_path: backdrop_img ? backdrop_img.name : '404.png'
+            genre: genres
         }, { runValidators: true, new: true });
+
+        if (poster_img) {
+            poster_img.name = 'poster_' + _id + poster_img.name;
+            await poster_img.mv(`public/img/${poster_img.name}`);
+            await Movie.findOneAndUpdate({_id: _id}, {
+                poster_path: poster_img.name
+            }, {new: true});
+        }
         res.redirect(`/movies/search?id=${movie.id}`);
+
     } catch (error) {
         let errmsg = error.message;
 
