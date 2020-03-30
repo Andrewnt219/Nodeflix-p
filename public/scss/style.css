@@ -407,8 +407,9 @@ body {
     align-items: center;
     margin: 0 auto;
     background-color: #f2a20c;
-    padding: 5%;
-    height: 50%; }
+    width: 100%;
+    padding: 5vh;
+    height: 30vh; }
     .user .profile__img img {
       width: 18rem;
       height: 18rem; }
