@@ -136,8 +136,10 @@ router.put('/cart', author, async (req, res) => {
     const movie = await Movie.findOne({ id: req.query.id })
         .select('id price title stock poster_path');
 
-    if (movie.stock === 0) return res.render('utils/error', { message: 'We are sorry! This movie is out of stock' });
+    if (movie.stock === 0) return res.render('utils/error', { title: 'Out of stock', message: 'We are sorry! This movie is out of stock' });
     movie.stock--;
+
+    if(movie.price === 0) return res.render('utils/error', {title: 'Not release', message: 'We are sorry! This movie has not been released yet'});
 
     const user = await User.findOne({ email: req.user.email });
 
