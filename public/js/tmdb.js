@@ -32,8 +32,8 @@ async function populateMovies(movies) {
 
     movies.forEach(mov => {
         mov.ref = `/movies/search?id=${mov.id}`;
-        mov.backdrop_path? mov.backdrop_path = 'http://image.tmdb.org/t/p/original' + mov.backdrop_path : mov.backdrop_path = '/img/404.png';
-        mov.poster_path? mov.poster_path = 'http://image.tmdb.org/t/p/original' + mov.poster_path : mov.poster_path = '/img/404.png';
+        mov.backdrop_path? mov.backdrop_path = 'http://image.tmdb.org/t/p/original' + mov.backdrop_path : mov.backdrop_path = '404.png';
+        mov.poster_path? mov.poster_path = 'http://image.tmdb.org/t/p/original' + mov.poster_path : mov.poster_path = '404.png';
         mov.vote_average = mov.vote_average.toFixed(1);
         mov.popularity = Number(String(mov.popularity).replace('.',''));
     });
@@ -50,8 +50,8 @@ async function populateMovie(movie) {
 
     movie.popularity = Number(String(movie.popularity).replace('.',''));
 
-    movie.backdrop_path? movie.backdrop_path = 'http://image.tmdb.org/t/p/original' + movie.backdrop_path : movie.backdrop_path = '/img/404.png';
-    movie.poster_path? movie.poster_path = 'http://image.tmdb.org/t/p/original' + movie.poster_path : movie.poster_path = '/img/404.png';
+    movie.backdrop_path? movie.backdrop_path = 'http://image.tmdb.org/t/p/original' + movie.backdrop_path : movie.backdrop_path = '404.png';
+    movie.poster_path? movie.poster_path = 'http://image.tmdb.org/t/p/original' + movie.poster_path : movie.poster_path = '404.png';
 
     movie.vote_average = movie.vote_average.toFixed(1);
 
