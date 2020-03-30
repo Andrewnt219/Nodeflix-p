@@ -111,7 +111,7 @@ router.get('/pull', async (req, res) => {
  * Add movie
  */
 router.get('/add', (req, res) => {
-    res.render('movie/add');
+    res.render('movie/add', {title: 'Add'});
 })
 
 router.post('/add', async (req, res, next) => {
@@ -158,6 +158,8 @@ router.post('/add', async (req, res, next) => {
                 backdrop_path: (backdrop_img ? backdrop_img.name : '404.png'),
             }
         })
+        
+        res.redirect(`/movies/search?id=${movie.id}`);
 
     } catch (error) {
         let errmsg = error.message;
@@ -171,12 +173,11 @@ router.post('/add', async (req, res, next) => {
 
         console.log(input);
         return res.render('movie/add', {
+            title: 'Add',
             error: errmsg,
             movie: input,
         })
     }
-
-    res.redirect('/movies');
 });
 
 /**
@@ -192,7 +193,7 @@ router.get('/edit/:movieId', async (req, res) => {
         input[genre] = true;
     }
 
-    res.render('movie/edit', { movie: input });
+    res.render('movie/edit', { movie: input, title: 'Edit' });
 });
 
 router.put('/edit/', async (req, res) => {
@@ -259,7 +260,7 @@ router.delete('/delete/:movieId', async (req, res) => {
 
     if (!movie) return res.render('utils/error', { message: 'Movie not found' });
 
-    res.render('utils/error', { title: `Movie ${movie.id} is deleted`, message: 'Farewell' });
+    res.redirect(req.headers.referer);
 
 })
 

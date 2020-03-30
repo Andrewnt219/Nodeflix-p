@@ -230,8 +230,8 @@ body {
     grid-area: btn-favorite; }
   .oneMovie__img {
     grid-area: img;
-    width: 30rem;
-    max-height: auto; }
+    max-width: 100%;
+    height: auto; }
   .oneMovie__field {
     background-color: #f0293a; }
 
@@ -451,7 +451,8 @@ body {
     margin: 3rem auto;
     display: flex;
     justify-content: space-evenly;
-    text-align: center; }
+    text-align: center;
+    align-items: center; }
     .admin .controls * {
       width: 20%;
       margin: 0;
@@ -469,7 +470,7 @@ body {
     .admin .lookup input {
       padding: 1rem;
       border-radius: 5rem;
-      width: 20%;
+      min-width: 20rem;
       color: #f2a20c;
       text-align: center; }
   .admin .dashboard .product {
@@ -488,6 +489,14 @@ body {
   font-size: 2rem;
   text-align: center; }
 
+.status {
+  background-color: #f0293a;
+  width: 100%;
+  color: white;
+  font-size: 1.5rem;
+  padding: 1rem;
+  grid-column: auto / span 2; }
+
 .footer {
   grid-area: footer;
   display: grid;
@@ -500,7 +509,68 @@ body {
     .footer__media > a {
       display: flex;
       align-items: center;
-      justify-content: center; }
+      justify-content: center;
+      width: max-content;
+      margin: 0 auto;
+      padding: 1rem;
+      border-radius: 5px; }
+      .footer__media > a:nth-child(1):hover {
+        background-color: #6e5494; }
+      .footer__media > a:nth-child(2):hover {
+        background-color: #3b5998; }
+      .footer__media > a:nth-child(3):hover {
+        background-color: #0e76a8; }
+
+.movieForm {
+  grid-area: main;
+  display: grid;
+  width: 90%;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  row-gap: 2rem;
+  column-gap: 1rem;
+  grid-template-columns: 30% auto; }
+  .movieForm * {
+    font-size: 2rem;
+    box-sizing: border-box; }
+  .movieForm label {
+    color: #f2a20c;
+    font-style: italic;
+    font-weight: bold; }
+  .movieForm .inputGenre {
+    display: grid;
+    grid-column: auto / span 2;
+    grid-template-columns: 1fr 2fr 1fr 2fr;
+    row-gap: 2rem;
+    align-items: center; }
+  .movieForm input, .movieForm textarea {
+    color: #f2a20c;
+    padding: 1rem;
+    border-radius: 2rem;
+    transition: .5s ease; }
+    .movieForm input:focus, .movieForm textarea:focus {
+      transform: scale(1.1); }
+    .movieForm input[type="checkbox"], .movieForm textarea[type="checkbox"] {
+      justify-self: center;
+      transform: scale(2) translateX(0.3rem); }
+    .movieForm input[type="submit"], .movieForm textarea[type="submit"] {
+      grid-column: auto / span 2;
+      width: 100%;
+      background-color: #f2a20c;
+      color: white;
+      border: 0;
+      cursor: pointer;
+      transition: .5s ease; }
+      .movieForm input[type="submit"]:hover, .movieForm input[type="submit"]:focus, .movieForm textarea[type="submit"]:hover, .movieForm textarea[type="submit"]:focus {
+        background-color: #f5b53c; }
+    .movieForm input:checked + label, .movieForm textarea:checked + label {
+      background-color: #f2a20c;
+      color: white;
+      width: max-content;
+      font-weight: bold;
+      padding: 0 1rem;
+      border-radius: 2rem; }
 
 hr {
   margin: 3rem;
@@ -524,6 +594,12 @@ hr {
   pointer-events: none; }
 
 @media screen and (max-width: 850px) {
+  .nav .mini-user {
+    padding-left: 3rem; }
+    .nav .mini-user__img {
+      display: block; }
+    .nav .mini-user__text {
+      display: none; }
   .nav__genre {
     display: flex;
     justify-content: center;
@@ -543,22 +619,30 @@ hr {
   .oneMovie {
     grid-template-areas: "img    img" "score  release" "desc   desc" "genre  genre" "price  rent" "btn-buy btn-favorite"; }
     .oneMovie__img {
-      width: 100%;
-      max-height: auto; }
+      max-width: 100%;
+      height: auto; }
     .oneMovie__btn-buy, .oneMovie__btn-favorite {
       width: 100%; }
   .register {
     grid-template-columns: auto;
     grid-template-areas: "form" "intro" "perk" "author"; }
     .register form {
-      margin-bottom: 2rem; } }
+      margin-bottom: 2rem; }
+  .movieForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; }
+    .movieForm * {
+      width: 100%; } }
 
 @media screen and (max-width: 600px) {
   .login {
     width: 28rem; }
     .login input,
     .login button {
-      width: 25.2rem; } }
+      width: 25.2rem; }
+  .movieForm .inputGenre {
+    grid-template-columns: 1fr 2fr; } }
 
 @media screen and (max-width: 400px) {
   .logo__icon, .btn-login__icon, .btn-register__icon {
@@ -572,4 +656,9 @@ hr {
     width: 20rem; }
     .login input,
     .login button {
-      width: 18rem; } }
+      width: 18rem; }
+  .admin .controls {
+    flex-direction: column; }
+    .admin .controls * {
+      width: 15rem;
+      margin: 1rem auto; } }

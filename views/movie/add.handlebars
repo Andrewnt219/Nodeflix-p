@@ -1,13 +1,14 @@
-{{#if status}}<p class="add_status">{{status}}</p>{{/if}}
-{{#if error}}
-<p>{{error}}</p>
-{{/if}}
-<form action="/movies/add" method="POST" class="add" encType="multipart/form-data">
+<form action="/movies/add" method="POST" class="movieForm" encType="multipart/form-data">
+    {{#if status}}<p class="status">{{status}}</p>{{/if}}
+    {{#if error}}
+    <p class="status">{{error}}</p>
+    {{/if}}
     <label for="original_title">Original title</label>
     <input type="text" name="original_title" id="original_title" value="{{movie.original_title}}">
 
     <label for="original_language">Original language</label>
-    <input type="text" name="original_language" id="original_language" maxlength="2" size="2" value="{{movie.original_language}}">
+    <input type="text" name="original_language" id="original_language" maxlength="2" size="2"
+        value="{{movie.original_language}}">
 
     <label for="title">Title</label>
     <input type="text" name="title" id="title" value="{{movie.title}}">
@@ -18,66 +19,73 @@
     <label for="poster_img">Poster path</label>
     <input type="file" name="poster_img" id="poster_img">
 
-    <label for="genre_action">Action</label>
-    <input type="checkbox" name="genre_action" id="genre_action" {{checked movie 'Action'}} value="Action">
+    <div class="inputGenre">
+        <input type="checkbox" name="genre_action" id="genre_action" {{checked movie 'Action'}} value="Action">
+        <label for="genre_action">Action</label>
 
-    <label for="genre_adventure">Adventure</label>
-    <input type="checkbox" name="genre_adventure" id="genre_adventure" {{checked movie 'Adventure'}} value="Adventure">
+        <input type="checkbox" name="genre_adventure" id="genre_adventure" {{checked movie 'Adventure'}}
+            value="Adventure">
+        <label for="genre_adventure">Adventure</label>
 
-    <label for="genre_animation">Animation</label>
-    <input type="checkbox" name="genre_animation" id="genre_animation" {{checked movie 'Animation'}} value="Animation">
+        <input type="checkbox" name="genre_animation" id="genre_animation" {{checked movie 'Animation'}}
+            value="Animation">
+        <label for="genre_animation">Animation</label>
 
-    <label for="genre_comedy">Comedy</label>
-    <input type="checkbox" name="genre_comedy" id="genre_comedy" {{checked movie 'Comedy'}} value="Comedy">
+        <input type="checkbox" name="genre_comedy" id="genre_comedy" {{checked movie 'Comedy'}} value="Comedy">
+        <label for="genre_comedy">Comedy</label>
 
-    <label for="genre_crime">Crime</label>
-    <input type="checkbox" name="genre_crime" id="genre_crime" {{checked movie 'Crime'}} value="Crime">
+        <input type="checkbox" name="genre_crime" id="genre_crime" {{checked movie 'Crime'}} value="Crime">
+        <label for="genre_crime">Crime</label>
 
-    <label for="genre_documentary">Documentary</label>
-    <input type="checkbox" name="genre_documentary" id="genre_documentary" {{checked movie 'Documentary'}} value="Documentary">
+        <input type="checkbox" name="genre_documentary" id="genre_documentary" {{checked movie 'Documentary'}}
+            value="Documentary">
+        <label for="genre_documentary">Documentary</label>
 
-    <label for="genre_drama">Drama</label>
-    <input type="checkbox" name="genre_drama" id="genre_drama" {{checked movie 'Drama'}} value="Drama">
+        <input type="checkbox" name="genre_drama" id="genre_drama" {{checked movie 'Drama'}} value="Drama">
+        <label for="genre_drama">Drama</label>
 
-    <label for="genre_family">Family</label>
-    <input type="checkbox" name="genre_family" id="genre_family" {{checked movie 'Family'}} value="Family">
+        <input type="checkbox" name="genre_family" id="genre_family" {{checked movie 'Family'}} value="Family">
+        <label for="genre_family">Family</label>
 
-    <label for="genre_fantasy">Fantasy</label>
-    <input type="checkbox" name="genre_fantasy" id="genre_fantasy" {{checked movie 'Fantasy'}} value="Fantasy">
+        <input type="checkbox" name="genre_fantasy" id="genre_fantasy" {{checked movie 'Fantasy'}} value="Fantasy">
+        <label for="genre_fantasy">Fantasy</label>
 
-    <label for="genre_history">History</label>
-    <input type="checkbox" name="genre_history" id="genre_history" {{checked movie 'History'}} value="History">
+        <input type="checkbox" name="genre_history" id="genre_history" {{checked movie 'History'}} value="History">
+        <label for="genre_history">History</label>
 
-    <label for="genre_horror">Horror</label>
-    <input type="checkbox" name="genre_horror" id="genre_horror" {{checked movie 'Horror'}} value="Horror">
+        <input type="checkbox" name="genre_horror" id="genre_horror" {{checked movie 'Horror'}} value="Horror">
+        <label for="genre_horror">Horror</label>
 
-    <label for="genre_music">Music</label>
-    <input type="checkbox" name="genre_music" id="genre_music" {{checked movie 'Music'}} value="Music">
+        <input type="checkbox" name="genre_music" id="genre_music" {{checked movie 'Music'}} value="Music">
+        <label for="genre_music">Music</label>
 
-    <label for="genre_mystery">Mystery</label>
-    <input type="checkbox" name="genre_mystery" id="genre_mystery" {{checked movie 'Mystery'}} value="Mystery">
+        <input type="checkbox" name="genre_mystery" id="genre_mystery" {{checked movie 'Mystery'}} value="Mystery">
+        <label for="genre_mystery">Mystery</label>
 
-    <label for="genre_romance">Romance</label>
-    <input type="checkbox" name="genre_romance" id="genre_romance" {{checked movie 'Romance'}} value="Romance">
+        <input type="checkbox" name="genre_romance" id="genre_romance" {{checked movie 'Romance'}} value="Romance">
+        <label for="genre_romance">Romance</label>
 
-    <label for="genre_science_fiction">Science Fiction</label>
-    <input type="checkbox" name="genre_science_fiction" id="genre_science_fiction" {{checked movie 'Science Fiction'}} value="Science Fiction">
+        <input type="checkbox" name="genre_science_fiction" id="genre_science_fiction"
+            {{checked movie 'Science Fiction'}} value="Science Fiction">
+        <label for="genre_science_fiction">Science Fiction</label>
 
-    <label for="genre_tv_movie">TV Movie"</label>
-    <input type="checkbox" name="genre_tv_movie" id="genre_tv_movie" {{checked movie 'TV Movie'}} value="TV Movie">
+        <input type="checkbox" name="genre_tv_movie" id="genre_tv_movie" {{checked movie 'TV Movie'}} value="TV Movie">
+        <label for="genre_tv_movie">TV Movie</label>
 
-    <label for="genre_thriller">Thriller</label>
-    <input type="checkbox" name="genre_thriller" id="genre_thriller" {{checked movie 'Thriller'}} value="Thriller">
+        <input type="checkbox" name="genre_thriller" id="genre_thriller" {{checked movie 'Thriller'}} value="Thriller">
+        <label for="genre_thriller">Thriller</label>
 
-    <label for="genre_war">War</label>
-    <input type="checkbox" name="genre_war" id="genre_war" {{checked movie 'War'}} value="War" >
+        <input type="checkbox" name="genre_war" id="genre_war" {{checked movie 'War'}} value="War">
+        <label for="genre_war">War</label>
 
-    <label for="genre_western">Western</label>
-    <input type="checkbox" name="genre_western" id="genre_western" value="Western" {{checked movie 'Western'}}>
+        <input type="checkbox" name="genre_western" id="genre_western" value="Western" {{checked movie 'Western'}}>
+        <label for="genre_western">Western</label>
+    </div>
 
     <label for="release_date">Release date</label>
     <input type="date" name="release_date" id="release_date" value="{{movie.release_date}}">
 
+    <label for="stock">Stock</label>
     <input type="number" name="stock" id="stock" value="{{movie.stock}}">
     <input type="submit" value="Add movie">
 </form>
