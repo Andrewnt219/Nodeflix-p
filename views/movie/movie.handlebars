@@ -11,7 +11,7 @@
     <a class="oneMovie__btn-buy" href="/movies/edit/{{movie.id}}">Edit</a>
     <a class="oneMovie__btn-favorite" href="/movies/delete/{{movie.id}}?_method=DELETE">Delete</a>
     {{else}}
-    <a class="oneMovie__btn-buy" href="/users/cart?_method=PUT&id={{movie.id}}">Add to cart</a>
+    <a class="oneMovie__btn-buy" href="/users/cart?_method=PUT&id={{movie.id}}">Add</a>
     <a class="oneMovie__btn-favorite" href="/users/wishlist?_method=PUT&id={{movie.id}}">Wishlist</a>
     {{/if}}
 </article>
