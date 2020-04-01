@@ -69,7 +69,7 @@ body {
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr;
-  grid-template-rows: 7rem 10rem auto 5rem;
+  grid-auto-rows: min-content;
   grid-template-areas: "logo       search  register    login" "nav        title   title       title" "nav        main    main        main" "...        footer  footer      footer"; }
 
 .logo, .btn-login, .btn-register {
@@ -143,10 +143,10 @@ body {
     transition: all 200ms ease; }
     .nav__genre:nth-child(1) {
       margin-top: 1.5rem; }
-    .nav__genre:hover {
+    .nav__genre:hover, .nav__genre--active {
       background-color: #37454f;
       box-shadow: #222b31 0 0.5rem 0.5rem; }
-      .nav__genre:hover * {
+      .nav__genre:hover *, .nav__genre--active * {
         color: #f0293a; }
   .nav__icon {
     display: none; }
@@ -171,9 +171,9 @@ body {
       height: 100%;
       z-index: 2;
       display: flex;
-      justify-content: center;
+      justify-content: space-evenly;
       align-items: flex-end;
-      padding-bottom: 20%;
+      padding-bottom: 10%;
       box-sizing: border-box;
       visibility: hidden; }
       .movies .movie .front__button {
@@ -185,9 +185,11 @@ body {
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        box-shadow: 2px 2px 5px black; }
-        .movies .movie .front__button:active {
-          transform: translate(2px, 2px); }
+        box-shadow: 2px 2px 5px black;
+        transition: transform 300ms ease; }
+        .movies .movie .front__button:hover {
+          transform: scale(1.15);
+          filter: brightness(1.15); }
         .movies .movie .front__button i {
           font-size: 3rem; }
     .movies .movie__score {
@@ -208,7 +210,10 @@ body {
       font-size: 2.25rem;
       font-weight: bold;
       margin: 1.5rem 0;
-      width: 30rem; }
+      width: 30rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
     .movies .movie__release, .movies .movie__genres {
       width: 30rem;
       margin: 0 auto;
@@ -227,6 +232,7 @@ body {
   row-gap: 2rem;
   width: 90%;
   margin: 0 auto;
+  grid-auto-rows: min-content;
   grid-template-areas: "img        score" "img        genre" "img        desc" "img        desc" "img        release" "img        price" "img        rent" "...        btn-buy" "...        btn-favorite";
   align-items: center; }
   .oneMovie__score {
@@ -463,7 +469,7 @@ body {
     background-color: #f0293a;
     font-weight: bold; }
   .cart__button {
-    width: 20%;
+    width: 18rem;
     text-align: center;
     margin: 5rem auto;
     border-radius: 5rem;

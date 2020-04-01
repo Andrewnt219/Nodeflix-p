@@ -28,7 +28,8 @@
     const title = document.querySelector('.title');
 
     nav__texts.forEach(text => {
-        if (text.textContent === title.textContent || (text.textContent ==='My profile' && (title.textContent.includes('Welcome back') || title.textContent.includes('401'))))
+        console.log(text.textContent);
+        if (text.textContent === title.textContent)
             text.parentNode.classList.add('nav__genre--active');
         else
             text.parentNode.classList.remove('nav__genre--active');

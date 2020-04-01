@@ -123,7 +123,7 @@ router.get('/register', (req, res) => {
 router.get('/cart', author, async (req, res) => {
     const user = await User.findOne({ email: req.user.email }).lean();
     user.cart.forEach(movie => {
-        if(!movie.poster_path.includes('http'))
+        if(!movie.poster_path.includes('http') && !movie.poster_path.includes(imgPath))
             movie.poster_path = imgPath + movie.poster_path;
     } )
 
@@ -156,7 +156,7 @@ router.put('/cart', author, async (req, res) => {
             price: movie.price,
             quantity: 1,
             title: movie.title,
-            poster_path: movie.poster_path.includes('http') ? movie.poster_path : imgPath + movie.poster_path
+            poster_path: movie.poster_path.includes('http') || movie.poster_path.includes(imgPath) ? movie.poster_path : imgPath + movie.poster_path
         })
     }
 
@@ -224,7 +224,7 @@ router.put('/wishlist', author, async (req, res) => {
             id: movie.id,
             price: movie.price,
             title: movie.title,
-            poster_path: movie.poster_path.includes('http') ? movie.poster_path : imgPath + movie.poster_path
+            poster_path: movie.poster_path.includes('http') || movie.poster_path.includes(imgPath) ? movie.poster_path : imgPath + movie.poster_path
         })
     }
 
