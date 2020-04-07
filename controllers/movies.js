@@ -12,10 +12,10 @@ function formatMovie(movie) {
         movie.ref = `/movies/search?id=${movie.id}`;
         movie.release_date = moment(movie.release_date).format(moment.HTML5_FMT.DATE);
         movie.genre = movie.genre.join(', ');
-        if (!movie.poster_path.includes('http'))
+        if (!movie.poster_path.includes('http') && !movie.poster_path.includes(imgPath))
             movie.poster_path = imgPath + movie.poster_path;
-        if (!movie.backdrop_path.includes('http'))
-            movie.backdrop_path = imgPath + movie.backdrop_path;
+        // if (!movie.backdrop_path.includes('http') && !movie.backdrop_path.includes(imgPath))
+        //     movie.backdrop_path = imgPath + movie.backdrop_path;
         if(movie.price == 0)
             movie.price = 'N/A';
     }
@@ -89,7 +89,7 @@ router.get('/pull', async (req, res) => {
             vote_count: movie.vote_count,
             poster_path: movie.poster_path,
             id: movie.id,
-            backdrop_path: movie.backdrop_path,
+            // backdrop_path: movie.backdrop_path,
             original_language: movie.original_language,
             genre: movie.genres,
             title: movie.title,
@@ -155,7 +155,7 @@ router.post('/add', async (req, res, next) => {
         await Movie.findOneAndUpdate({ _id: movie._id }, {
             $set: {
                 poster_path: (poster_img ? poster_img.name : '404.png'),
-                backdrop_path: (backdrop_img ? backdrop_img.name : '404.png'),
+                // backdrop_path: (backdrop_img ? backdrop_img.name : '404.png'),
             }
         }, {runValidators: true})
         
@@ -257,9 +257,9 @@ router.put('/edit/', async (req, res) => {
 router.delete('/delete/:movieId', async (req, res) => {
     const movie = await Movie.findOneAndDelete({ id: req.params.movieId });
 
-    if (!movie) return res.render('utils/error', { message: 'Movie not found' });
+    if (!movie) return res.render('utils/error', { title: 'Sorry', message: 'Movie not found' });
 
-    res.redirect(req.headers.referer);
+    res.render('utils/error', { message: `${movie.title} #${movie.id}`, title: 'Successfully removed' });
 
 })
 

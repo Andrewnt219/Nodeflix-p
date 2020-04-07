@@ -12,10 +12,10 @@ function formatMovies(movies) {
         m.ref = `/movies/search?id=${m.id}`;
         m.release_date = moment(m.release_date).format(moment.HTML5_FMT.DATE);
         m.genre = m.genre.join(', ');
-        if (!m.poster_path.includes('http'))
+        if (!m.poster_path.includes('http') && !m.poster_path.includes(imgPath))
             m.poster_path = imgPath + m.poster_path;
-        if (!m.backdrop_path.includes('http'))
-            m.backdrop_path = imgPath + m.backdrop_path;
+        // if (!m.backdrop_path.includes('http') && !m.poster_path.includes(imgPath))
+        //     m.backdrop_path = imgPath + m.backdrop_path;
         if(m.price == 0)
             m.price = 'N/A';
     })

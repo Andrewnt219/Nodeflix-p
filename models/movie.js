@@ -76,7 +76,7 @@ const movieSchema = new mongoose.Schema({
     price: {
         type: Number,
         default: function () {
-            if(moment(this.release_date).isAfter(moment())) {
+            if (moment(this.release_date).isAfter(moment())) {
                 return 0;
             }
             const newPrice = 15 - moment().diff(this.release_date, 'd');
@@ -85,13 +85,13 @@ const movieSchema = new mongoose.Schema({
     },
     stock: {
         type: Number,
-        default: Math.round(Math.random() * (15-10+1)) + 10
+        default: Math.round(Math.random() * (15 - 10 + 1)) + 10
     },
     best_seller: {
         type: Boolean,
         default: false
     }
-}, {toObject: {getters: true}, toJSON: {getters: true}})
+}, { toObject: { getters: true }, toJSON: { getters: true } })
 
 movieSchema.statics.id = 211111;
 movieSchema.statics.idGenerator = function () {
@@ -99,14 +99,16 @@ movieSchema.statics.idGenerator = function () {
 }
 
 movieSchema.pre('save', function () {
-    if (moment(this.release_date).isAfter(moment()))
-        this.category = 'upcoming';
-    else if (moment(this.release_date) > moment().subtract(2, 'w'))
-        this.category = 'now_playing';
-    else if (this.vote_average > 7.5)
-        this.category = 'top_rated';
-    else if (this.popularity > 20000)
-        this.category = 'popular';
+    if (this.category === 'Others') {
+        if (moment(this.release_date).isAfter(moment()))
+            this.category = 'upcoming';
+        else if (moment(this.release_date) > moment().subtract(2, 'w'))
+            this.category = 'now_playing';
+        else if (this.vote_average > 7.5)
+            this.category = 'top_rated';
+        else if (this.popularity > 20000)
+            this.category = 'popular';
+    }
 
     if (this.popularity > 20000 && this.vote_average > 7.5)
         this.best_seller = true;
