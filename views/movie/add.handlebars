@@ -17,7 +17,7 @@
     <textarea name="overview" id="overview" cols="30" rows="5">{{movie.overview}}</textarea>
 
     <label for="poster_img">Poster path</label>
-    <input type="file" name="poster_img" id="poster_img">
+    <input type="file" name="poster_img" id="poster_img" accept="image/*">
 
     <div class="inputGenre">
         <input type="checkbox" name="genre_action" id="genre_action" {{checked movie 'Action'}} value="Action">

@@ -47,7 +47,7 @@ router.post('/register', async (req, res) => {
 
                 token = await user.generateToken();
                 
-                res.cookie('token', token, { signed: true })
+                res.cookie('token', token, { signed: true, httpOnly: true })
                     .cookie('name', user.name)
                     .redirect('/users/me');
             })
@@ -77,7 +77,7 @@ router.post('/login', async (req, res) => {
 
     token = await user.generateToken();
 
-    res.cookie('token', token, { signed: true })
+    res.cookie('token', token, { signed: true, httpOnly: true })
         .cookie('status', user.isAdmin ? 'admin' : 'user')
         .cookie('name', user.name)
         .redirect('/users/me');

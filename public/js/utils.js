@@ -28,7 +28,6 @@
     const title = document.querySelector('.title');
 
     nav__texts.forEach(text => {
-        console.log(text.textContent);
         if (text.textContent === title.textContent)
             text.parentNode.classList.add('nav__genre--active');
         else

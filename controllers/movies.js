@@ -157,7 +157,7 @@ router.post('/add', async (req, res, next) => {
                 poster_path: (poster_img ? poster_img.name : '404.png'),
                 backdrop_path: (backdrop_img ? backdrop_img.name : '404.png'),
             }
-        })
+        }, {runValidators: true})
         
         res.redirect(`/movies/search?id=${movie.id}`);
 
@@ -171,7 +171,6 @@ router.post('/add', async (req, res, next) => {
             input[genre] = true;
         }
 
-        console.log(input);
         return res.render('movie/add', {
             title: 'Add',
             error: errmsg,
@@ -230,7 +229,7 @@ router.put('/edit/', async (req, res) => {
             await poster_img.mv(`public/img/${poster_img.name}`);
             await Movie.findOneAndUpdate({_id: _id}, {
                 poster_path: poster_img.name
-            }, {new: true});
+            }, {new: true, runValidators: true});
         }
         res.redirect(`/movies/search?id=${movie.id}`);
 
