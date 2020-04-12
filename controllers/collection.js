@@ -44,9 +44,13 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+    const movies = formatMovies(await Movie.find({ title: new RegExp(req.body.movie, 'i') }).sort('title').lean());
+
+    if (movies.length === 0) return res.render('utils/error', {title: `Search for: ${req.body.movie}`, message: 'No results'});
+    
     res.render('movie/movies', {
-        movies: formatMovies(await Movie.find({ title: new RegExp(req.body.movie, 'i') }).sort('title').lean()),
-        title: req.body.movie
+        movies: movies,
+        title: `Search for: ${req.body.movie}`
     })
 })
 
