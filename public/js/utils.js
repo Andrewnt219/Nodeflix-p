@@ -25,9 +25,10 @@
 
 (function() {
     const nav__texts = document.querySelectorAll('.nav__text');
-    const title = document.querySelector('.title');
+    const title = document.querySelector('h1.title');
 
     nav__texts.forEach(text => {
+;
         if (text.textContent === title.textContent)
             text.parentNode.classList.add('nav__genre--active');
         else
