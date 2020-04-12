@@ -62,7 +62,7 @@
 html,
 body {
   width: 100%;
-  height: 100%;
+  height: max-content;
   background-color: #222b31; }
 
 body {
@@ -70,7 +70,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr;
   grid-auto-rows: min-content;
-  grid-template-areas: "logo       search  register    login" "nav        title   title       title" "nav        main    main        main" "...        footer  footer      footer"; }
+  grid-template-areas: "logo       search  register    login" "nav        title   title       title" "nav        main    main        main" "nav        footer  footer      footer"; }
 
 .logo, .btn-login, .btn-register {
   grid-area: logo;
@@ -78,7 +78,10 @@ body {
   background-color: #f0293a;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10; }
   .logo:hover, .btn-login:hover, .btn-register:hover {
     background-color: #ee1124; }
   .logo__icon, .btn-login__icon, .btn-register__icon {
@@ -99,7 +102,10 @@ body {
   height: 100%;
   background-color: #f35966;
   box-sizing: border-box;
-  padding: 1rem; }
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10; }
   .search:hover {
     filter: brightness(1.1); }
   .search__input {
@@ -125,7 +131,9 @@ body {
 .nav {
   grid-area: nav;
   height: 100%;
-  background-color: #0d1113; }
+  background-color: #0d1113;
+  position: sticky;
+  top: 0; }
   .nav .mini-user {
     background-color: #f2a20c;
     padding: 1rem 0;
@@ -538,7 +546,9 @@ body {
 .footer {
   grid-area: footer;
   display: grid;
-  padding: 5rem 0; }
+  margin-top: 3rem;
+  padding: 1rem 0;
+  background-color: #37454f; }
   .footer__media {
     align-self: center;
     display: grid;
