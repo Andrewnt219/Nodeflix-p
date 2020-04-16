@@ -1046,6 +1046,12 @@ hr {
 }
 
 @media screen and (max-width: 600px) {
+  .movie {
+    &__img {
+      max-width: 90%;
+      height: auto;
+    }
+  }
   .login {
     $login-width: 28rem;
     width: $login-width;

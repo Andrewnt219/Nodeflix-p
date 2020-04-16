@@ -684,6 +684,9 @@ hr {
       width: 100%; } }
 
 @media screen and (max-width: 600px) {
+  .movie__img {
+    max-width: 90%;
+    height: auto; }
   .login {
     width: 28rem; }
     .login input,
