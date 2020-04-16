@@ -212,7 +212,7 @@ body {
       font-size: 1.5rem;
       z-index: 1; }
     .movies .movie__img {
-      max-width: 30rem;
+      max-width: 100%;
       height: 34.5rem;
       position: relative; }
       .movies .movie__img:hover .front {
@@ -683,10 +683,17 @@ hr {
     .movieForm * {
       width: 100%; } }
 
-@media screen and (max-width: 600px) {
-  .movie__img {
+@media screen and (max-width: 800px) {
+  .movies .movie__score {
+    transform: translate(-1.5rem, 1.5rem); }
+  .movies .movie__img {
     max-width: 90% !important;
     height: auto !important; }
+  .movies .movie .front {
+    width: 90%;
+    height: 100%; } }
+
+@media screen and (max-width: 600px) {
   .login {
     width: 28rem; }
     .login input,
@@ -713,3 +720,11 @@ hr {
     .admin .controls * {
       width: 15rem;
       margin: 1rem auto; } }
+
+@media screen and (max-width: 350px) {
+  .movies .movie__img {
+    max-width: 80% !important;
+    height: auto !important; }
+  .movies .movie .front {
+    width: 80%;
+    height: 100%; } }

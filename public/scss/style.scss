@@ -349,7 +349,7 @@ body {
     }
 
     &__img {
-      max-width: $poster-w;
+      max-width: 100%;
       height: $poster-h;
       position: relative;
 
@@ -1045,13 +1045,30 @@ hr {
   }
 }
 
-@media screen and (max-width: 600px) {
-  .movie {
-    &__img {
-      max-width: 90% !important;
-      height: auto !important;
+@media screen and(max-width: 800px) {
+  .movies {
+    .movie {
+      &__score {
+        transform: translate(-1.5rem, 1.5rem);
+      }
+
+      &__img {
+        max-width: 90% !important;
+        height: auto !important;
+      }
+  
+      .front {
+        width: 90%;
+        height: 100%;
+      }
+
+      
     }
   }
+}
+
+@media screen and (max-width: 600px) {
+
 
   .login {
     $login-width: 28rem;
@@ -1111,6 +1128,22 @@ hr {
       * {
         width: 15rem;
         margin: 1rem auto;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .movies {
+    .movie {
+      &__img {
+        max-width: 80% !important;
+        height: auto !important;
+      }
+  
+      .front {
+        width: 80%;
+        height: 100%;
       }
     }
   }
