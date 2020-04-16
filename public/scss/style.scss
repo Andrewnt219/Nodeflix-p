@@ -349,7 +349,7 @@ body {
     }
 
     &__img {
-      width: $poster-w;
+      max-width: $poster-w;
       height: $poster-h;
       position: relative;
 
@@ -1048,10 +1048,11 @@ hr {
 @media screen and (max-width: 600px) {
   .movie {
     &__img {
-      max-width: 90%;
-      height: auto;
+      max-width: 90% !important;
+      height: auto !important;
     }
   }
+
   .login {
     $login-width: 28rem;
     width: $login-width;

@@ -212,7 +212,7 @@ body {
       font-size: 1.5rem;
       z-index: 1; }
     .movies .movie__img {
-      width: 30rem;
+      max-width: 30rem;
       height: 34.5rem;
       position: relative; }
       .movies .movie__img:hover .front {
@@ -685,8 +685,8 @@ hr {
 
 @media screen and (max-width: 600px) {
   .movie__img {
-    max-width: 90%;
-    height: auto; }
+    max-width: 90% !important;
+    height: auto !important; }
   .login {
     width: 28rem; }
     .login input,
