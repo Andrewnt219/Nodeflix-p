@@ -52,7 +52,8 @@ router.post('/register', async (req, res) => {
                     .redirect('/users/me');
             })
             .catch(err => {
-                const { name, email, phone } = req.body;
+                const { name, phone } = req.body;
+                console.log(err);
                 if (err.code = 11000)
                     return res.status(400).render('user/register', {
                         error: 'Email is used',

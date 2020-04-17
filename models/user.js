@@ -53,8 +53,7 @@ const userSchema = new mongoose.Schema({
     wishlist: [{
         id: {
             type: String,
-            required: true,
-            unique: true
+            required: true
         },
         title: String,
         price: Number,
