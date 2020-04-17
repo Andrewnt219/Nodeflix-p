@@ -349,7 +349,7 @@ body {
     }
 
     &__img {
-      max-width: 100%;
+      width: $poster-w;
       height: $poster-h;
       position: relative;
 
@@ -1053,7 +1053,7 @@ hr {
       }
 
       &__img {
-        max-width: 90% !important;
+        width: 90% !important;
         height: auto !important;
       }
   
@@ -1137,7 +1137,7 @@ hr {
   .movies {
     .movie {
       &__img {
-        max-width: 80% !important;
+        width: 80% !important;
         height: auto !important;
       }
   
